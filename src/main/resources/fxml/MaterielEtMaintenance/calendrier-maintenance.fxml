@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+
+<VBox xmlns="http://javafx.com/javafx/11"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.neuron.ardhi.controllers.MaterielEtMaintenance.CalendrierMaintenanceController"
+      spacing="0"
+      style="-fx-background-color: #f0f4e8;"
+      prefWidth="560" prefHeight="620">
+
+    <!-- EN-TETE VERT -->
+    <VBox style="-fx-background-color: linear-gradient(to right, #6B7F3F, #4A5A2B);
+                 -fx-padding: 22 25 18 25; -fx-spacing: 5;">
+        <Label fx:id="lblTitre" text="Planifier Maintenance"
+               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+        <Label fx:id="lblMaterielInfo" text="Materiel"
+               style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.82);"/>
+    </VBox>
+
+    <!-- CORPS SCROLLABLE -->
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+        <VBox spacing="16" style="-fx-padding: 22 22 10 22;">
+
+            <!-- CARTE FORMULAIRE -->
+            <VBox spacing="15"
+                  style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 22;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);">
+
+                <Label text="Informations de la maintenance"
+                       style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #4A5A2B;"/>
+
+                <GridPane hgap="16" vgap="14">
+                    <columnConstraints>
+                        <ColumnConstraints prefWidth="155"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <!-- Date -->
+                    <Label text="Date du rendez-vous :"
+                           GridPane.rowIndex="0" GridPane.columnIndex="0"
+                           style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <DatePicker fx:id="dpDate"
+                                GridPane.rowIndex="0" GridPane.columnIndex="1"
+                                maxWidth="Infinity"/>
+
+                    <!-- Heure -->
+                    <Label text="Heure :"
+                           GridPane.rowIndex="1" GridPane.columnIndex="0"
+                           style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <ComboBox fx:id="cmbHeure"
+                              GridPane.rowIndex="1" GridPane.columnIndex="1"
+                              maxWidth="Infinity"/>
+
+                    <!-- Type de maintenance -->
+                    <Label text="Type de maintenance :"
+                           GridPane.rowIndex="2" GridPane.columnIndex="0"
+                           style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <ComboBox fx:id="cmbTypeMaintenance"
+                              GridPane.rowIndex="2" GridPane.columnIndex="1"
+                              promptText="Sélectionnez le type"
+                              maxWidth="Infinity"/>
+
+                    <!-- Description -->
+                    <Label text="Description des travaux :"
+                           GridPane.rowIndex="3" GridPane.columnIndex="0"
+                           style="-fx-font-weight: bold; -fx-text-fill: #555;"
+                           GridPane.valignment="TOP">
+                        <padding><Insets top="8"/></padding>
+                    </Label>
+                    <TextArea fx:id="txtDescription"
+                              GridPane.rowIndex="3" GridPane.columnIndex="1"
+                              prefHeight="110"
+                              wrapText="true"
+                              promptText="Décrivez les travaux à effectuer..."/>
+                </GridPane>
+            </VBox>
+
+            <!-- CARTE INFO -->
+            <VBox spacing="6"
+                  style="-fx-background-color: #E8F5E9; -fx-background-radius: 10;
+                         -fx-padding: 15 18; -fx-border-color: #A5D6A7;
+                         -fx-border-radius: 10; -fx-border-width: 1;">
+                <Label text="Informations automatiques :"
+                       style="-fx-font-weight: bold; -fx-font-size: 13px; -fx-text-fill: #2E7D32;"/>
+                <Label text="  Duree estimee de l'intervention : 2 heures"
+                       style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                <Label text="  Un email de confirmation avec PDF sera envoye automatiquement"
+                       style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                <Label text="  Un rappel email sera envoye 24h avant le rendez-vous"
+                       style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+                <Label text="  Une notification popup apparaitra 1h avant dans Google Calendar"
+                       style="-fx-text-fill: #555; -fx-font-size: 12px;"/>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+    <!-- BOUTONS -->
+    <VBox spacing="10" style="-fx-padding: 16 22 20 22; -fx-background-color: white;
+                               -fx-border-color: #e2e8f0; -fx-border-width: 1 0 0 0;">
+
+        <!-- Bouton principal -->
+        <Button fx:id="btnPlanifier"
+                text="Planifier sur Google Calendar"
+                onAction="#handlePlanifier"
+                maxWidth="Infinity"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white;
+                       -fx-font-size: 14px; -fx-font-weight: bold;
+                       -fx-padding: 13 25; -fx-background-radius: 9;
+                       -fx-background-insets: 0; -fx-border-width: 0;
+                       -fx-cursor: hand; -fx-focus-color: transparent;">
+            <effect><DropShadow color="rgba(76,175,80,0.35)" radius="8" offsetY="3"/></effect>
+        </Button>
+
+        <!-- Bouton Fermer -->
+        <Button text="Fermer"
+                onAction="#handleAnnuler"
+                maxWidth="Infinity"
+                style="-fx-background-color: #f44336; -fx-text-fill: white;
+                       -fx-font-size: 13px; -fx-font-weight: bold;
+                       -fx-padding: 11 25; -fx-background-radius: 9;
+                       -fx-background-insets: 0; -fx-border-width: 0;
+                       -fx-cursor: hand; -fx-focus-color: transparent;">
+            <effect><DropShadow color="rgba(244,67,54,0.3)" radius="7" offsetY="2"/></effect>
+        </Button>
+    </VBox>
+
+</VBox>

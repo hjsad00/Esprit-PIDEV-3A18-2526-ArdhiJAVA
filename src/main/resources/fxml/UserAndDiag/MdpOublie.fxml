@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(to bottom right, #F5F7F0, #E8EBE0);" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.MdpOublieController">
+    <children>
+        <VBox alignment="CENTER" spacing="22.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="40.0">
+            <effect>
+                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.15)" radius="25" spread="0.1"/>
+            </effect>
+            <padding>
+                <Insets bottom="30.0" left="40.0" right="40.0" top="30.0"/>
+            </padding>
+            <children>
+                <!-- Logo -->
+                <ImageView fitHeight="80.0" fitWidth="80.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/ardhi_logo.png"/>
+                    </image>
+                </ImageView>
+
+                <Label text="Mot de passe oublié ?" style="-fx-text-fill: #6B7F3F;">
+                    <font>
+                        <Font name="System Bold" size="24.0"/>
+                    </font>
+                </Label>
+
+                <Label text="Entrez votre adresse email ci-dessous.&#10;Nous vous enverrons un code de vérification." textAlignment="CENTER" style="-fx-text-fill: #888888;">
+                    <font>
+                        <Font size="13.0"/>
+                    </font>
+                </Label>
+
+                <VBox maxWidth="280.0" spacing="8.0">
+                    <children>
+                        <Label text="Adresse Email" style="-fx-text-fill: #555555;">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="tfEmail" promptText="exemple@ardhi.tn" style="-fx-padding: 12; -fx-background-radius: 8; -fx-border-color: #ddd; -fx-border-radius: 8; -fx-background-color: #FAFAFA;"/>
+                    </children>
+                </VBox>
+
+                <Button mnemonicParsing="false" onAction="#envoyerCode" prefWidth="280.0" style="-fx-background-color: linear-gradient(to right, #6B7F3F, #4A5A2B); -fx-background-radius: 8; -fx-cursor: hand;" text="Envoyer le code" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                    <padding>
+                        <Insets bottom="12.0" top="12.0"/>
+                    </padding>
+                </Button>
+
+                <Button mnemonicParsing="false" onAction="#retour" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Annuler et retourner à la connexion" textFill="#5B99A3" underline="true">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

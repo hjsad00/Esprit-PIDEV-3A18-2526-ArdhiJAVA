@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.ParticipationManagementController"
+           stylesheets="@/Style/evenement-style.css"
+           prefHeight="900" prefWidth="1400"
+           style="-fx-background-color: linear-gradient(to bottom right, #667A3F 0%, #8BC34A 100%);">
+
+    <!-- BACKGROUND LAYER -->
+    <AnchorPane>
+        <Rectangle width="1400" height="900"
+                   style="-fx-fill: linear-gradient(to bottom right, #667A3F 0%, #8BC34A 100%);"
+                   AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                   AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+    </AnchorPane>
+
+    <!-- MAIN CONTENT -->
+    <BorderPane style="-fx-background-color: transparent;">
+
+        <!-- HEADER SECTION -->
+        <top>
+            <VBox spacing="20"
+                  style="-fx-background-color: rgba(255,255,255,0.95);
+                         -fx-padding: 25 40;
+                         -fx-background-radius: 0 0 25 25;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0, 0, 8);">
+
+                <!-- Title with Accent Bar -->
+                <HBox spacing="15" alignment="CENTER_LEFT">
+                    <Rectangle width="5" height="35"
+                               style="-fx-fill: #6B7F3F; -fx-arc-width: 5; -fx-arc-height: 5;"/>
+                    <Label fx:id="pageTitle"
+                           text="Gestion des Participations"
+                           style="-fx-font-size: 28px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #2C3E50;"/>
+                </HBox>
+
+                <!-- KPI Cards Row -->
+                <HBox spacing="25" alignment="CENTER_LEFT">
+
+                    <!-- Total Card -->
+                    <VBox alignment="CENTER" spacing="6"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 15 35;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 4);
+                                 -fx-border-color: rgba(107,127,63,0.2);
+                                 -fx-border-width: 2;
+                                 -fx-border-radius: 15;">
+                        <Label text="📊" style="-fx-font-size: 24px;"/>
+                        <Label text="Total Participations"
+                               style="-fx-text-fill: #666666;
+                                      -fx-font-size: 12px;
+                                      -fx-font-weight: normal;"/>
+                        <Label fx:id="totalLabel"
+                               text="0"
+                               style="-fx-font-size: 28px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #6B7F3F;"/>
+                    </VBox>
+
+                    <!-- Confirmed Card -->
+                    <VBox alignment="CENTER" spacing="6"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 15 35;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 4);
+                                 -fx-border-color: rgba(80,200,120,0.3);
+                                 -fx-border-width: 2;
+                                 -fx-border-radius: 15;">
+                        <Label text="✅" style="-fx-font-size: 24px;"/>
+                        <Label text="Confirmées"
+                               style="-fx-text-fill: #666666;
+                                      -fx-font-size: 12px;
+                                      -fx-font-weight: normal;"/>
+                        <Label fx:id="confirmesLabel"
+                               text="0"
+                               style="-fx-text-fill: #50C878;
+                                      -fx-font-size: 28px;
+                                      -fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <!-- En Attente Card -->
+                    <VBox alignment="CENTER" spacing="6"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 15 35;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 4);
+                                 -fx-border-color: rgba(52,152,219,0.3);
+                                 -fx-border-width: 2;
+                                 -fx-border-radius: 15;">
+                        <Label text="⏳" style="-fx-font-size: 24px;"/>
+                        <Label text="En Attente"
+                               style="-fx-text-fill: #666666;
+                                      -fx-font-size: 12px;
+                                      -fx-font-weight: normal;"/>
+                        <Label fx:id="enAttenteLabel"
+                               text="0"
+                               style="-fx-text-fill: #3498DB;
+                                      -fx-font-size: 28px;
+                                      -fx-font-weight: bold;"/>
+                    </VBox>
+
+                    <!-- Annulées Card -->
+                    <VBox alignment="CENTER" spacing="6"
+                          style="-fx-background-color: white;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 15 35;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 12, 0, 0, 4);
+                                 -fx-border-color: rgba(255,107,107,0.3);
+                                 -fx-border-width: 2;
+                                 -fx-border-radius: 15;">
+                        <Label text="❌" style="-fx-font-size: 24px;"/>
+                        <Label text="Annulées"
+                               style="-fx-text-fill: #666666;
+                                      -fx-font-size: 12px;
+                                      -fx-font-weight: normal;"/>
+                        <Label fx:id="annulesLabel"
+                               text="0"
+                               style="-fx-text-fill: #FF6B6B;
+                                      -fx-font-size: 28px;
+                                      -fx-font-weight: bold;"/>
+                    </VBox>
+
+                </HBox>
+
+                <!-- Search and Filter Bar -->
+                <HBox spacing="15" alignment="CENTER_LEFT">
+
+                    <!-- Search Field -->
+                    <TextField fx:id="searchField"
+                               promptText="🔍 Rechercher par nom, email ou événement..."
+                               style="-fx-background-color: white;
+                                      -fx-background-radius: 20;
+                                      -fx-padding: 10 20;
+                                      -fx-font-size: 13px;
+                                      -fx-border-color: #CCCCCC;
+                                      -fx-border-width: 1.5;
+                                      -fx-border-radius: 20;"
+                               prefWidth="400"/>
+
+                    <!-- Filter ComboBox -->
+                    <ComboBox fx:id="filterStatutCombo"
+                              promptText="Filtrer par statut"
+                              style="-fx-background-color: white;
+                                     -fx-background-radius: 18;
+                                     -fx-padding: 8 15;
+                                     -fx-font-size: 13px;
+                                     -fx-border-color: #CCCCCC;
+                                     -fx-border-width: 1.5;
+                                     -fx-border-radius: 18;"
+                              prefWidth="170"/>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Action Buttons -->
+                    <Button text="🔄 Actualiser"
+                            onAction="#handleRefresh"
+                            style="-fx-background-color: white;
+                                   -fx-border-color: #6B7F3F;
+                                   -fx-border-width: 2;
+                                   -fx-border-radius: 20;
+                                   -fx-background-radius: 20;
+                                   -fx-text-fill: #6B7F3F;
+                                   -fx-padding: 9 22;
+                                   -fx-font-size: 13px;
+                                   -fx-font-weight: bold;
+                                   -fx-cursor: hand;">
+                        <effect>
+                            <DropShadow color="rgba(107,127,63,0.2)" radius="8" offsetY="2"/>
+                        </effect>
+                    </Button>
+                    <Button text="📧 Envoyer Rappels"
+                            onAction="#handleEnvoyerRappels"
+                            style="-fx-background-color: linear-gradient(to right, #3498DB, #5DADE2);
+               -fx-text-fill: white;
+               -fx-background-radius: 20;
+               -fx-padding: 9 25;
+               -fx-font-size: 13px;
+               -fx-font-weight: bold;
+               -fx-cursor: hand;">
+                        <effect>
+                            <DropShadow color="rgba(52,152,219,0.4)" radius="12" offsetY="4"/>
+                        </effect>
+                    </Button>
+
+                    <Button text="🤖 Détecter Inactifs"
+                            onAction="#handleDetectInactifs"
+                            style="-fx-background-color: linear-gradient(to right, #3498DB, #5DADE2);
+               -fx-text-fill: white;
+               -fx-background-radius: 20;
+               -fx-padding: 9 25;
+               -fx-font-size: 13px;
+               -fx-font-weight: bold;
+               -fx-cursor: hand;">
+                        <effect>
+                            <DropShadow color="rgba(52,152,219,0.4)" radius="12" offsetY="4"/>
+                        </effect>
+                    </Button>
+
+
+
+                    <Button text="📄 Générer Attestations"
+                            onAction="#handleGenererAttestations"
+                            style="-fx-background-color: linear-gradient(to right, #6B7F3F, #8BC34A);
+                                   -fx-text-fill: white;
+                                   -fx-background-radius: 20;
+                                   -fx-padding: 9 25;
+                                   -fx-font-size: 13px;
+                                   -fx-font-weight: bold;
+                                   -fx-cursor: hand;">
+                        <effect>
+                            <DropShadow color="rgba(107,127,63,0.4)" radius="12" offsetY="4"/>
+                        </effect>
+                    </Button>
+
+                </HBox>
+            </VBox>
+        </top>
+
+        <!-- TABLE SECTION -->
+        <center>
+            <VBox style="-fx-padding: 25 40 30 40;" spacing="20" VBox.vgrow="ALWAYS">
+
+                <!-- Table Container -->
+                <VBox style="-fx-background-color: white;
+                             -fx-background-radius: 20;
+                             -fx-padding: 25;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 6);"
+                      VBox.vgrow="ALWAYS">
+
+                    <TableView fx:id="participationsTable"
+                               VBox.vgrow="ALWAYS"
+                               style="-fx-background-color: white;
+                                      -fx-background-radius: 15;
+                                      -fx-table-cell-border-color: #E0E0E0;
+                                      -fx-font-size: 13px;">
+
+                        <columns>
+                            <TableColumn fx:id="idColumn"
+                                         text="ID"
+                                         minWidth="50"
+                                         prefWidth="50"
+                                         maxWidth="60"
+                                         style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="nomColumn"
+                                         text="Nom"
+                                         minWidth="100"
+                                         prefWidth="110"
+                                         maxWidth="150"/>
+                            <TableColumn fx:id="prenomColumn"
+                                         text="Prénom"
+                                         minWidth="100"
+                                         prefWidth="110"
+                                         maxWidth="150"/>
+                            <TableColumn fx:id="emailColumn"
+                                         text="Email"
+                                         minWidth="150"
+                                         prefWidth="180"
+                                         maxWidth="250"/>
+                            <TableColumn fx:id="evenementColumn"
+                                         text="Événement"
+                                         minWidth="110"
+                                         prefWidth="120"
+                                         maxWidth="180"/>
+                            <TableColumn fx:id="dateInscriptionColumn"
+                                         text="Date d'inscription"
+                                         minWidth="130"
+                                         prefWidth="140"
+                                         maxWidth="180"
+                                         style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="statutColumn"
+                                         text="Statut"
+                                         minWidth="100"
+                                         prefWidth="110"
+                                         maxWidth="140"
+                                         style="-fx-alignment: CENTER;"/>
+                            <TableColumn fx:id="commentaireColumn"
+                                         text="Commentaire"
+                                         minWidth="100"
+                                         prefWidth="110"
+                                         maxWidth="150"/>
+                            <TableColumn fx:id="actionsColumn"
+                                         text="Actions"
+                                         minWidth="450"
+                                         prefWidth="360"
+                                         maxWidth="370"
+                                         style="-fx-alignment: CENTER;"/>
+                        </columns>
+
+                    </TableView>
+                </VBox>
+
+                <!-- Back Button -->
+                <HBox alignment="CENTER_LEFT">
+                    <Button fx:id="btnRetour"
+                            text="← Retour au tableau de bord"
+                            onAction="#handleRetour"
+                            style="-fx-background-color: rgba(255,255,255,0.95);
+                                   -fx-background-radius: 20;
+                                   -fx-text-fill: #6B7F3F;
+                                   -fx-padding: 10 25;
+                                   -fx-font-size: 13px;
+                                   -fx-font-weight: bold;
+                                   -fx-cursor: hand;
+                                   -fx-border-color: rgba(107,127,63,0.4);
+                                   -fx-border-width: 2;
+                                   -fx-border-radius: 20;">
+                        <effect>
+                            <DropShadow color="rgba(0,0,0,0.1)" radius="8" offsetY="2"/>
+                        </effect>
+                    </Button>
+                </HBox>
+            </VBox>
+        </center>
+
+    </BorderPane>
+</StackPane>

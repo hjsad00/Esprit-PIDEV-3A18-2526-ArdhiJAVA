@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="860.0" prefWidth="1100.0"
+            style="-fx-background-color: #f5f3ee;"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.MaterielEtMaintenance.MaintenanceController">
+
+    <ScrollPane fitToWidth="true" fitToHeight="true"
+                style="-fx-background-color: transparent; -fx-background: transparent;"
+                AnchorPane.topAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.bottomAnchor="0.0">
+
+        <VBox spacing="0">
+
+            <!-- ════════════════════════════════════════════════ -->
+            <!--  HEADER  #203e24 — identique chatbot ARDHI       -->
+            <!-- ════════════════════════════════════════════════ -->
+            <HBox alignment="CENTER_LEFT" spacing="16"
+                  style="-fx-background-color: #566734; -fx-padding: 22 30;">
+                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                    <Label text="🔧  Maintenance des Matériels"
+                           style="-fx-text-fill: white; -fx-font-size: 26px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblBienvenue" text="Suivi de vos maintenances"
+                           style="-fx-text-fill: rgba(255,255,255,0.68); -fx-font-size: 13px;"/>
+                </VBox>
+                <Button text="🤖  Afficher IA" onAction="#handleOuvrirIA"
+                        style="-fx-background-color: #ffffff; -fx-text-fill: #000000;
+                               -fx-font-weight: bold; -fx-font-size: 13px; -fx-cursor: hand;
+                               -fx-background-radius: 22; -fx-padding: 10 24; -fx-border-width: 0;"/>
+                <Button text="← Retour" onAction="#handleRetour"
+                        style="-fx-background-color: transparent; -fx-text-fill: white;
+                               -fx-font-weight: bold; -fx-font-size: 13px; -fx-cursor: hand;
+                               -fx-border-color: rgba(255,255,255,0.48);
+                               -fx-border-radius: 22; -fx-background-radius: 22; -fx-padding: 10 22;"/>
+            </HBox>
+
+            <!-- ════════════════════════════════════════════════ -->
+            <!--  CORPS — fond crème #f5f3ee                      -->
+            <!-- ════════════════════════════════════════════════ -->
+            <VBox spacing="22" style="-fx-padding: 26 30 36 30;">
+
+                <!-- ── 3 CARTES STATISTIQUES ──────────────────── -->
+                <HBox spacing="16">
+                    <VBox alignment="CENTER" spacing="8" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 14;
+                                 -fx-border-color: #C8D9A0; -fx-border-radius: 14;
+                                 -fx-border-width: 1.5; -fx-padding: 24 16;">
+                        <Label text="📅" style="-fx-font-size: 30px;"/>
+                        <Label text="Planifiées" style="-fx-font-size: 12px; -fx-text-fill: #7a8c6a;"/>
+                        <Label fx:id="lblMaintenancesPlanifiees" text="0"
+                               style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #7A9148;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="8" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 14;
+                                 -fx-border-color: #C8D9A0; -fx-border-radius: 14;
+                                 -fx-border-width: 1.5; -fx-padding: 24 16;">
+                        <Label text="⚠️" style="-fx-font-size: 30px;"/>
+                        <Label text="En Retard" style="-fx-font-size: 12px; -fx-text-fill: #7a8c6a;"/>
+                        <Label fx:id="lblMaintenancesEnRetard" text="0"
+                               style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #c0392b;"/>
+                    </VBox>
+                    <VBox alignment="CENTER" spacing="8" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 14;
+                                 -fx-border-color: #C8D9A0; -fx-border-radius: 14;
+                                 -fx-border-width: 1.5; -fx-padding: 24 16;">
+                        <Label text="✅" style="-fx-font-size: 30px;"/>
+                        <Label text="OK / À jour" style="-fx-font-size: 12px; -fx-text-fill: #7a8c6a;"/>
+                        <Label fx:id="lblMaintenancesTerminees" text="0"
+                               style="-fx-font-size: 38px; -fx-font-weight: bold; -fx-text-fill: #6b7f3f;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- ── SECTION TIMELINE ARAMEX ────────────────── -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 14;
+                             -fx-border-color: #C8D9A0; -fx-border-radius: 14; -fx-border-width: 1.5;">
+
+                    <HBox alignment="CENTER_LEFT"
+                          style="-fx-background-color: #3a5a2a; -fx-background-radius: 13 13 0 0;
+                                 -fx-padding: 15 22;">
+                        <Label text="📦  Suivi de vos Maintenances"
+                               style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Label text="●" style="-fx-text-fill: #7ab4f5; -fx-font-size: 12px;"/>
+                            <Label text="Planifié"   style="-fx-font-size: 10px; -fx-text-fill: #C8D9A0;"/>
+                            <Label text="●" style="-fx-text-fill: #f6c86a; -fx-font-size: 12px;"/>
+                            <Label text="En attente" style="-fx-font-size: 10px; -fx-text-fill: #C8D9A0;"/>
+                            <Label text="●" style="-fx-text-fill: #d0a0f0; -fx-font-size: 12px;"/>
+                            <Label text="En cours"   style="-fx-font-size: 10px; -fx-text-fill: #C8D9A0;"/>
+                            <Label text="●" style="-fx-text-fill: #8fd4a8; -fx-font-size: 12px;"/>
+                            <Label text="Terminé"    style="-fx-font-size: 10px; -fx-text-fill: #C8D9A0;"/>
+                            <Label text="●" style="-fx-text-fill: #f08080; -fx-font-size: 12px;"/>
+                            <Label text="En retard"  style="-fx-font-size: 10px; -fx-text-fill: #C8D9A0;"/>
+                        </HBox>
+                    </HBox>
+
+                    <!-- Cards Aramex générées par le controller -->
+                    <VBox fx:id="timelineContainer" spacing="10"
+                          style="-fx-padding: 16 18 18 18; -fx-background-color: #fafaf6;
+                                 -fx-background-radius: 0 0 13 13;"/>
+                </VBox>
+
+                <!-- ── TABLEAU MATÉRIELS URGENTS ──────────────── -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 14;
+                             -fx-border-color: #C8D9A0; -fx-border-radius: 14; -fx-border-width: 1.5;">
+                    <HBox alignment="CENTER_LEFT"
+                          style="-fx-background-color: #922b21; -fx-background-radius: 13 13 0 0;
+                                 -fx-padding: 14 22;">
+                        <Label text="🚨  Matériels nécessitant une maintenance urgente"
+                               style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblNombreUrgents" text=""
+                               style="-fx-background-color: rgba(255,255,255,0.2);
+                                      -fx-background-radius: 20; -fx-text-fill: white;
+                                      -fx-font-size: 11px; -fx-font-weight: bold; -fx-padding: 3 12;"/>
+                    </HBox>
+                    <TableView fx:id="tableMaterielsMaintenanceUrgente"
+                               VBox.vgrow="ALWAYS" minHeight="160" prefHeight="220"
+                               style="-fx-background-color: transparent; -fx-border-width: 0;">
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                        <columns>
+                            <TableColumn fx:id="colNomMateriel"      text="🚜  Matériel"           prefWidth="240" minWidth="160"/>
+                            <TableColumn fx:id="colTypeMateriel"      text="⚙️  Type"               prefWidth="120" minWidth="90"/>
+                            <TableColumn fx:id="colStatutMaintenance" text="🔔  Statut Maintenance" prefWidth="500" minWidth="280"/>
+                        </columns>
+                        <placeholder>
+                            <VBox alignment="CENTER" spacing="8" style="-fx-padding: 24;">
+                                <Label text="✅" style="-fx-font-size: 32px;"/>
+                                <Label text="Aucune maintenance urgente"
+                                       style="-fx-font-size: 13px; -fx-text-fill: #6b7f3f; -fx-font-weight: bold;"/>
+                                <Label text="Tous vos matériels sont à jour !"
+                                       style="-fx-font-size: 11px; -fx-text-fill: #aaa;"/>
+                            </VBox>
+                        </placeholder>
+                    </TableView>
+                </VBox>
+
+                <!-- ── BOUTON UNIQUE ─────────────────────────── -->
+                <Button text="📂   Historique &amp; Rapports  →"
+                        onAction="#handleOuvrirHistoriqueRapports"
+                        maxWidth="Infinity" prefHeight="52"
+                        style="-fx-background-color: #6B7F3F; -fx-text-fill: white;
+                               -fx-font-weight: bold; -fx-font-size: 15px; -fx-cursor: hand;
+                               -fx-background-radius: 26; -fx-border-width: 0; -fx-alignment: CENTER;"/>
+
+                <!-- ── CONSEIL ───────────────────────────────── -->
+                <HBox spacing="14" alignment="CENTER_LEFT"
+                      style="-fx-background-color: #eef3e4; -fx-background-radius: 12;
+                             -fx-border-color: #C8D9A0; -fx-border-radius: 12;
+                             -fx-border-width: 1.5; -fx-padding: 16 20;">
+                    <Label text="💡" style="-fx-font-size: 20px;"/>
+                    <VBox spacing="4" HBox.hgrow="ALWAYS">
+                        <Label text="Conseil de maintenance"
+                               style="-fx-font-weight: bold; -fx-text-fill: #4a6428; -fx-font-size: 13px;"/>
+                        <Label text="Vérifiez vos tracteurs et équipements tous les 12 mois ou après 1000 heures d'utilisation. Pour planifier une maintenance, allez dans « Mes Matériels »."
+                               wrapText="true"
+                               style="-fx-text-fill: #5a7438; -fx-font-size: 12px;"/>
+                    </VBox>
+                </HBox>
+
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>

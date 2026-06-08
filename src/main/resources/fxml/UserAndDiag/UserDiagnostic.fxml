@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane prefHeight="710.0" prefWidth="1060.0" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.UserDiagnosticController">
+    <children>
+        <!-- LAYER 1: BACKGROUND -->
+        <AnchorPane>
+            <children>
+                <AnchorPane styleClass="app-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <!-- Dark Overlay -->
+                <Rectangle height="710.0" width="1060.0" opacity="0.4" fill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+        </AnchorPane>
+
+        <!-- LAYER 2: SCROLLABLE CONTENT -->
+        <ScrollPane styleClass="dashboard-scroll-pane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <content>
+                <VBox spacing="20.0" style="-fx-padding: 80 20 20 20;">
+                    <children>
+                        <!-- Main Content -->
+                        <HBox spacing="25.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <!-- Left: Upload Section (Glassmorphism) -->
+                                <VBox alignment="TOP_CENTER" spacing="20.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);" prefWidth="420.0" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                    </padding>
+                                    <children>
+                                        <Label text="📷 Importer une image" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                        </Label>
+                                        
+                                    <!-- Image/Camera Zone -->
+                                    <StackPane style="-fx-border-color: rgba(0,0,0,0.1); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 12;">
+                                        <padding>
+                                            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                                        </padding>
+                                        <children>
+                                            <!-- Mode 1: Image Preview -->
+                                            <VBox fx:id="paneImagePreview" alignment="CENTER" spacing="10">
+                                                <ImageView fx:id="imgPreview" fitHeight="200.0" fitWidth="320.0" pickOnBounds="true" preserveRatio="true"/>
+                                                <Label fx:id="lblPlaceholder" text="Aucune image sélectionnée" style="-fx-text-fill: #555555;">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                            </VBox>
+
+                                            <!-- Mode 2: Camera View -->
+                                            <StackPane fx:id="paneCamera" visible="false" managed="false" alignment="CENTER">
+                                                <ImageView fx:id="cameraView" fitHeight="240.0" fitWidth="320.0" preserveRatio="true"/>
+                                                <javafx.scene.canvas.Canvas fx:id="arOverlay" width="320.0" height="240.0" mouseTransparent="true"/>
+                                                
+
+                                            </StackPane>
+                                        </children>
+                                    </StackPane>
+                                    
+                                    <!-- Controls -->
+                                    <HBox spacing="10" alignment="CENTER">
+                                        <Button fx:id="btnImport" onAction="#importerImage" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: rgba(91, 153, 163, 0.55); -fx-background-radius: 10; -fx-text-fill: white; -fx-cursor: hand;" text="📂 Importer">
+                                            <font>
+                                                <Font name="System Bold" size="12.0"/>
+                                            </font>
+                                        </Button>
+                                        <Button fx:id="btnCamera" onAction="#toggleCameraMode" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: rgba(230, 126, 34, 0.8); -fx-background-radius: 10; -fx-text-fill: white; -fx-cursor: hand;" text="📷 Caméra">
+                                            <font>
+                                                <Font name="System Bold" size="12.0"/>
+                                            </font>
+                                        </Button>
+                                        <Button fx:id="btnVoiceCmd" onAction="#toggleVoiceCommands" prefHeight="40.0" prefWidth="140.0" style="-fx-background-color: rgba(142, 68, 173, 0.7); -fx-background-radius: 10; -fx-text-fill: white; -fx-cursor: hand;" text="🎤 Mains-libres">
+                                            <font>
+                                                <Font name="System Bold" size="12.0"/>
+                                            </font>
+                                        </Button>
+                                    </HBox>
+
+                                    <!-- Capture Button (Visible only in Camera Mode) -->
+                                    <Button fx:id="btnCapture" visible="false" managed="false" onAction="#handleCapture" prefHeight="45.0" prefWidth="280.0" style="-fx-background-color: #e74c3c; -fx-background-radius: 25; -fx-text-fill: white; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 1);" text="🔘 PRENDRE PHOTO" />
+
+                                    <Separator prefWidth="200.0" style="-fx-opacity: 0.5;"/>
+                                    
+                                    <Button fx:id="btnScanner" disable="true" onAction="#lancerScan" prefHeight="55.0" prefWidth="320.0" style="-fx-background-color: rgba(107, 127, 63, 0.85); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 10; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 2); -fx-text-fill: white; -fx-opacity: 1.0;" text="🔬 LANCER LE DIAGNOSTIC">
+                                        <font>
+                                            <Font name="System Bold" size="15.0"/>
+                                        </font>
+                                    </Button>
+                                    </children>
+                                </VBox>
+
+
+
+                            <!-- Right: Result Section (Glassmorphism) -->
+                                <VBox fx:id="boxResultat" visible="false" alignment="TOP_LEFT" spacing="15.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);" prefWidth="480.0" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                    </padding>
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <children>
+                                                <Label text="📊" style="-fx-font-size: 22;"/>
+                                                <Label text="RÉSULTAT DE L'ANALYSE" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        
+                                        <Label fx:id="lblMaladieTitre" text="Diagnostic en cours..." wrapText="true" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font>
+                                                <Font name="System Bold" size="24.0"/>
+                                            </font>
+                                        </Label>
+                                        
+                                        <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 10; -fx-padding: 12;">
+                                            <children>
+                                                <Label text="Fiabilité :" style="-fx-text-fill: #333333;">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                                <ProgressBar fx:id="barConfiance" prefWidth="180.0" progress="0.0" style="-fx-accent: #6B7F3F; -fx-control-inner-background: rgba(255,255,255,0.5);"/>
+                                                <Label fx:id="lblConfiance" text="0%" style="-fx-text-fill: #f1c40f; -fx-font-weight: bold; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                                    <font>
+                                                        <Font name="System Bold" size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                        
+                                        
+                                        <Separator style="-fx-opacity: 0.5;"/>
+                                        
+                                        <Label fx:id="lblTraitement" alignment="TOP_LEFT" prefHeight="150.0" wrapText="true" style="-fx-text-fill: white; -fx-line-spacing: 3; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font>
+                                                <Font size="13.0"/>
+                                            </font>
+                                        </Label>
+                                        
+                                        <!-- Weather & Regional Context (populated dynamically) -->
+                                        <Label fx:id="lblWeatherContext" visible="false" managed="false" wrapText="true" style="-fx-text-fill: #87CEEB; -fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 8; -fx-padding: 8 12; -fx-line-spacing: 2;">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblRegionalContext" visible="false" managed="false" wrapText="true" style="-fx-text-fill: #f1c40f; -fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 8; -fx-padding: 8 12; -fx-line-spacing: 2;">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                        
+                                        <Button onAction="#openChat" prefHeight="40.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: rgba(91, 153, 163, 0.55); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="💬 Discuter avec l'IA" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="13.0"/>
+                                             </font>
+                                        </Button>
+                                        
+                                        <Button onAction="#askCommunity" prefHeight="40.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: rgba(155, 89, 182, 0.55); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="👥 Demander à la Communauté" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="13.0"/>
+                                             </font>
+                                        </Button>
+
+                                        <Button onAction="#requestExpertReview" prefHeight="40.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: rgba(39, 174, 96, 0.7); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="🧑‍🌾 Demander l'avis d'un Expert" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="13.0"/>
+                                             </font>
+                                        </Button>
+                                        
+                                        <Button fx:id="btnStartTreatment" onAction="#startTreatment" prefHeight="40.0" maxWidth="1.7976931348623157E308" style="-fx-background-color: #e67e22; -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 3, 0, 0, 1);" text="🚑 Commencer le Protocole de Soin" textFill="WHITE">
+                                             <font>
+                                                 <Font name="System Bold" size="13.0"/>
+                                             </font>
+                                        </Button>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- LAYER 3: HEADER (Overlay) -->
+        <AnchorPane pickOnBounds="false" StackPane.alignment="TOP_CENTER">
+             <children>
+                <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 10 20;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="10" offsetY="2"/>
+                    </effect>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#retourDashboard" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-text-fill: white;" text="←">
+                            <font>
+                                <Font size="20.0"/>
+                            </font>
+                        </Button>
+                        <Label text="Diagnostic IA" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                            <font>
+                                <Font name="System Bold" size="20.0"/>
+                            </font>
+                        </Label>
+                        
+                        <!-- Spacer -->
+                        <javafx.scene.layout.Region HBox.hgrow="ALWAYS"/>
+                        
+                        <!-- Subscription Status -->
+                        <Label fx:id="lblStatusAbonnement" text="" style="-fx-text-fill: white; -fx-background-color: rgba(107, 127, 63, 0.8); -fx-background-radius: 8; -fx-padding: 8 15;">
+                            <font>
+                                <Font name="System Bold" size="11.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+             </children>
+        </AnchorPane>
+    </children>
+</StackPane>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<!--
+    Layout : StackPane racine
+    ├── BorderPane  (navbar + grille coupons + footer)
+    └── VBox fx:id="drawerOverlay"  (overlay sombre semi-transparent)
+        └── VBox fx:id="drawerPanel"  (formulaire, slide depuis le bas)
+-->
+<StackPane xmlns="http://javafx.com/javafx/20"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="tn.neuron.ardhi.controllers.marketplace.AdminCouponsController"
+           prefHeight="860.0" prefWidth="1300.0">
+
+    <!-- ═══════════════════ PAGE PRINCIPALE ═══════════════════ -->
+    <BorderPane style="-fx-background-color: #F4F7F6;">
+
+        <!-- ── NAVBAR ── -->
+        <top>
+            <VBox>
+                <HBox alignment="CENTER_LEFT" spacing="0"
+                      style="-fx-background-color: #2b5329; -fx-pref-height: 70; -fx-min-height: 70;">
+                    <padding><Insets left="30" right="30" /></padding>
+
+                    <HBox alignment="CENTER_LEFT" spacing="8">
+                        <ImageView fitHeight="36" fitWidth="36" preserveRatio="true">
+                            <image><Image url="@../../img/ardhi_logo.png" /></image>
+                        </ImageView>
+                        <VBox alignment="CENTER_LEFT" spacing="0">
+                            <Label text="ARDHI"
+                                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white; -fx-letter-spacing: 3px;" />
+                            <Label text="MARKETPLACE AGRICOLE"
+                                   style="-fx-font-size: 8px; -fx-text-fill: #6a8a78; -fx-letter-spacing: 1.5px;" />
+                        </VBox>
+                    </HBox>
+
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label text="🎟️  Gestion des Coupons"
+                           style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #7fffc0;" />
+                    <Region HBox.hgrow="ALWAYS" />
+
+                    <!-- Bouton Ajouter dans la navbar -->
+                    <Button onAction="#ouvrirDrawerAjout"
+                            style="-fx-background-color: #4a7c47; -fx-text-fill: white; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-padding: 9 18; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 8, 0, 0, 2);"
+                            text="✚  Ajouter un coupon">
+                        <HBox.margin><Insets right="12" /></HBox.margin>
+                    </Button>
+
+                    <Button onAction="#retour"
+                            style="-fx-background-color: transparent; -fx-text-fill: #c8d8c8; -fx-font-size: 18px; -fx-background-radius: 10; -fx-cursor: hand; -fx-border-color: #5c835a; -fx-border-radius: 10; -fx-border-width: 1.5;"
+                            text="←" />
+                </HBox>
+
+                <!-- Sub-bar -->
+                <HBox alignment="CENTER_LEFT" spacing="12"
+                      style="-fx-background-color: #2b5329; -fx-pref-height: 42; -fx-min-height: 42;">
+                    <padding><Insets left="30" right="30" /></padding>
+                    <Label text="🌿" style="-fx-font-size: 13px;" />
+                    <Label fx:id="lblSubtitle"
+                           style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #7fffc0;"
+                           text="Cliquez sur un coupon pour le modifier" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="lblTotalCoupons" text="0 coupon(s)"
+                           style="-fx-font-size: 11px; -fx-text-fill: #6b7280; -fx-font-style: italic;" />
+                </HBox>
+            </VBox>
+        </top>
+
+        <!-- ── BODY ── -->
+        <center>
+            <VBox spacing="0" style="-fx-background-color: #F4F7F6;">
+                <padding><Insets top="24" right="28" bottom="24" left="28" /></padding>
+
+                <!-- Filtres -->
+                <VBox spacing="0"
+                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: #e5e7eb; -fx-border-radius: 14; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, rgba(13,31,21,0.06), 12, 0, 0, 3);">
+                    <VBox.margin><Insets bottom="20" /></VBox.margin>
+
+                    <HBox style="-fx-background-color: #f5f8f5; -fx-background-radius: 14 14 0 0; -fx-padding: 12 16;">
+                        <Label text="🔍  Recherche &amp; Filtres"
+                               style="-fx-font-size: 11px; -fx-font-weight: bold; -fx-text-fill: #6b7280;" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button onAction="#resetFiltre"
+                                style="-fx-background-color: transparent; -fx-text-fill: #4a7c47; -fx-font-size: 11px; -fx-font-weight: bold; -fx-cursor: hand; -fx-border-width: 0; -fx-underline: true;"
+                                text="Réinitialiser" />
+                    </HBox>
+
+                    <HBox spacing="12" alignment="CENTER_LEFT" style="-fx-padding: 14 16 14 16;">
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="CODE" style="-fx-font-size: 9px; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                            <TextField fx:id="tfFiltreCode" promptText="Ex: SOLDES2024"
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 12px;" />
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="TYPE" style="-fx-font-size: 9px; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                            <ComboBox fx:id="cbFiltreType" maxWidth="1.7976931348623157E308" promptText="Tous les types"
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 12px;" />
+                        </VBox>
+                        <VBox spacing="4" HBox.hgrow="ALWAYS">
+                            <Label text="STATUT" style="-fx-font-size: 9px; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                            <ComboBox fx:id="cbFiltreStatut" maxWidth="1.7976931348623157E308" promptText="Tous"
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 12px;" />
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- Grille coupons -->
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                            style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;"
+                            VBox.vgrow="ALWAYS">
+                    <content>
+                        <FlowPane fx:id="couponsContainer" hgap="18" vgap="18"
+                                  style="-fx-background-color: transparent; -fx-padding: 4;" />
+                    </content>
+                </ScrollPane>
+            </VBox>
+        </center>
+
+        <!-- ── FOOTER ── -->
+        <bottom>
+            <HBox alignment="CENTER" style="-fx-background-color: #2b5329; -fx-padding: 12 30;">
+                <Label text="© 2025 Ardhi — Marketplace Agricole  |  Tous droits réservés"
+                       style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.35);" />
+            </HBox>
+        </bottom>
+    </BorderPane>
+
+    <!-- ═══════════════════ DRAWER OVERLAY ═══════════════════ -->
+    <VBox fx:id="drawerOverlay"
+          visible="false" managed="false"
+          style="-fx-background-color: rgba(0,0,0,0.45);"
+          onMouseClicked="#fermerDrawerSiOverlay"
+          alignment="BOTTOM_CENTER">
+
+        <!-- ── DRAWER PANEL ── -->
+        <VBox fx:id="drawerPanel"
+              style="-fx-background-color: white; -fx-background-radius: 24 24 0 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.30), 40, 0, 0, -10);"
+              prefHeight="520" maxHeight="540">
+
+            <!-- Handle + titre -->
+            <VBox alignment="CENTER" spacing="6" style="-fx-padding: 14 0 10 0;">
+                <Region prefWidth="48" prefHeight="5"
+                        style="-fx-background-color: #d0dbd2; -fx-background-radius: 10;" />
+
+                <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding: 0 28;">
+                    <Label text="🎟️" style="-fx-font-size: 20px;" />
+                    <Label fx:id="lblTitreFormulaire"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2b5329;"
+                           text="Nouveau Coupon" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button onAction="#fermerDrawer"
+                            style="-fx-background-color: #F4F7F6; -fx-text-fill: #6a8a78; -fx-font-size: 14px; -fx-background-radius: 50; -fx-cursor: hand; -fx-border-width: 0; -fx-pref-width: 32; -fx-pref-height: 32;"
+                            text="✕" />
+                </HBox>
+
+                <Separator style="-fx-background-color: #eef2ef; -fx-padding: 0 28;" />
+            </VBox>
+
+            <!-- Contenu scrollable en 2 colonnes -->
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                        style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;"
+                        VBox.vgrow="ALWAYS">
+                <content>
+                    <HBox spacing="28" style="-fx-padding: 10 28 20 28;">
+
+                        <!-- Colonne gauche -->
+                        <VBox spacing="14" HBox.hgrow="ALWAYS">
+
+                            <!-- Code -->
+                            <VBox spacing="5">
+                                <Label text="CODE  *"
+                                       style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                <TextField fx:id="txtCode" promptText="Ex: SOLDES2024"
+                                           style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px; -fx-padding: 8 12;" />
+                            </VBox>
+
+                            <!-- Type + Valeur -->
+                            <HBox spacing="12">
+                                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                    <Label text="TYPE  *"
+                                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                    <ComboBox fx:id="cbType" maxWidth="1.7976931348623157E308"
+                                              promptText="Sélectionner"
+                                              style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px;" />
+                                </VBox>
+                                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                    <Label text="VALEUR  *"
+                                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                    <TextField fx:id="txtValeur" promptText="0.0"
+                                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px; -fx-padding: 8 12;" />
+                                </VBox>
+                            </HBox>
+
+                            <!-- Dates -->
+                            <HBox spacing="12">
+                                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                    <Label text="DATE DÉBUT  *"
+                                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                    <DatePicker fx:id="dpDebut" maxWidth="1.7976931348623157E308"
+                                                promptText="Sélectionner"
+                                                style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px;" />
+                                </VBox>
+                                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                    <Label text="DATE FIN  *"
+                                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                    <DatePicker fx:id="dpFin" maxWidth="1.7976931348623157E308"
+                                                promptText="Sélectionner"
+                                                style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px;" />
+                                </VBox>
+                            </HBox>
+
+                        </VBox>
+
+                        <!-- Colonne droite -->
+                        <VBox spacing="14" HBox.hgrow="ALWAYS">
+
+                            <!-- Max utils + Limite/user -->
+                            <HBox spacing="12">
+                                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                    <Label text="MAX UTILISATIONS"
+                                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                    <TextField fx:id="txtUtilMax" promptText="100" text="100"
+                                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px; -fx-padding: 8 12;" />
+                                </VBox>
+                                <VBox spacing="5" HBox.hgrow="ALWAYS">
+                                    <Label text="LIMITE / USER"
+                                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                    <TextField fx:id="txtLimitUser" promptText="1" text="1"
+                                               style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px; -fx-padding: 8 12;" />
+                                </VBox>
+                            </HBox>
+
+                            <!-- Montant min -->
+                            <VBox spacing="5">
+                                <Label text="MONTANT MINIMUM (DT)"
+                                       style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                <TextField fx:id="txtMontantMin" promptText="0.0" text="0"
+                                           style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px; -fx-padding: 8 12;" />
+                                <Label text="💡 Montant minimum de commande pour activer ce coupon"
+                                       style="-fx-font-size: 9px; -fx-text-fill: #aab8b0;" />
+                            </VBox>
+
+                            <!-- Actif -->
+                            <CheckBox fx:id="chkActif" text="Actif immédiatement" selected="true"
+                                      style="-fx-text-fill: #2c3e50; -fx-font-size: 13px;" />
+
+                            <!-- Boutons action -->
+                            <VBox spacing="8" style="-fx-padding: 8 0 0 0;">
+                                <Button fx:id="btnAjouter" maxWidth="1.7976931348623157E308" onAction="#ajouterCoupon"
+                                        style="-fx-background-color: #4a7c47; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 12; -fx-cursor: hand; -fx-padding: 11 0; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 3);"
+                                        text="✚   Ajouter le coupon" />
+
+                                <HBox spacing="8">
+                                    <Button fx:id="btnModifier" maxWidth="1.7976931348623157E308" onAction="#ajouterCoupon"
+                                            visible="false"
+                                            style="-fx-background-color: #1a5faa; -fx-text-fill: white; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 12; -fx-cursor: hand; -fx-padding: 10 0;"
+                                            text="✎  Modifier" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="btnSupprimer" maxWidth="1.7976931348623157E280" onAction="#supprimerCoupon"
+                                            visible="false"
+                                            style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-size: 12px; -fx-font-weight: bold; -fx-background-radius: 12; -fx-cursor: hand; -fx-padding: 10 0;"
+                                            text="🗑  Supprimer" HBox.hgrow="ALWAYS" />
+                                </HBox>
+
+                                <Button maxWidth="1.7976931348623157E308" onAction="#viderFormulaire"
+                                        style="-fx-background-color: #F4F7F6; -fx-text-fill: #6a8a78; -fx-font-size: 11px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-border-color: #e5e7eb; -fx-border-radius: 10; -fx-border-width: 1; -fx-padding: 8 0;"
+                                        text="Vider le formulaire" />
+                            </VBox>
+
+                        </VBox>
+                    </HBox>
+                </content>
+            </ScrollPane>
+
+        </VBox>
+    </VBox>
+
+</StackPane>

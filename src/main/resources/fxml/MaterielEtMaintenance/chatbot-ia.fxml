@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.neuron.ardhi.controllers.MaterielEtMaintenance.ChatbotIAController"
+      spacing="0"
+      style="-fx-background-color: #ffffff;">
+
+    <!-- ══════════════════════════════════════════════════════════
+         EN-TÊTE — vert vif inspiré logo ARDHI
+    ══════════════════════════════════════════════════════════ -->
+    <HBox alignment="CENTER_LEFT" spacing="16"
+          style="-fx-background-color: linear-gradient(to right, #566734 0%, #566734 55%, #8a9e64 100%);
+                 -fx-padding: 16 24 16 20;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);">
+
+        <!-- Avatar logo -->
+        <StackPane minWidth="50" minHeight="50" maxWidth="50" maxHeight="50">
+            <Circle radius="25"
+                    style="-fx-fill: rgba(255,255,255,0.15);
+                           -fx-stroke: rgba(255,255,255,0.35);
+                           -fx-stroke-width: 2;"/>
+            <Label text="🌿" style="-fx-font-size: 22px;"/>
+        </StackPane>
+
+        <VBox spacing="3" HBox.hgrow="ALWAYS">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="ARDHI Assistant IA"
+                       style="-fx-font-size: 20px; -fx-font-weight: bold;
+                              -fx-text-fill: white; -fx-font-family: 'Segoe UI';"/>
+                <HBox spacing="5" alignment="CENTER"
+                      style="-fx-background-color: rgba(255,255,255,0.2);
+                             -fx-background-radius: 10; -fx-padding: 3 9;">
+                    <Circle radius="4"
+                            style="-fx-fill: #a5d6a7;
+                                   -fx-effect: dropshadow(gaussian,#a5d6a7,5,0.7,0,0);"/>
+                    <Label text="EN LIGNE"
+                           style="-fx-font-size: 9px; -fx-font-weight: bold;
+                                  -fx-text-fill: #e8f5e9; -fx-font-family: 'Segoe UI';"/>
+                </HBox>
+            </HBox>
+            <Label text="Expert en diagnostic &amp; maintenance du matériel agricole"
+                   style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.78);
+                          -fx-font-family: 'Segoe UI';"/>
+        </VBox>
+
+        <Button fx:id="btnNouvelleConv" text="↺  Nouveau" onAction="#handleNouvelleConversation"
+                style="-fx-background-color: rgba(255,255,255,0.18);
+                       -fx-text-fill: white; -fx-font-size: 11px; -fx-font-weight: bold;
+                       -fx-background-radius: 20; -fx-padding: 8 16;
+                       -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 20;
+                       -fx-border-width: 1.5; -fx-cursor: hand; -fx-background-insets: 0;
+                       -fx-focus-color: transparent; -fx-faint-focus-color: transparent;
+                       -fx-font-family: 'Segoe UI';"/>
+
+        <Button text="✕  Fermer" onAction="#handleFermer"
+                style="-fx-background-color: rgba(255,255,255,0.12);
+                       -fx-text-fill: rgba(255,255,255,0.88); -fx-font-size: 11px;
+                       -fx-background-radius: 20; -fx-padding: 8 14;
+                       -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 20;
+                       -fx-border-width: 1; -fx-cursor: hand; -fx-background-insets: 0;
+                       -fx-focus-color: transparent; -fx-faint-focus-color: transparent;
+                       -fx-font-family: 'Segoe UI';"/>
+    </HBox>
+
+    <!-- ══════════════════════════════════════════════════════════
+         CORPS PRINCIPAL
+    ══════════════════════════════════════════════════════════ -->
+    <HBox spacing="0" VBox.vgrow="ALWAYS">
+
+        <!-- ══ SIDEBAR GAUCHE — blanc avec accents verts ══ -->
+        <VBox spacing="0" prefWidth="225" minWidth="205"
+              style="-fx-background-color: #ffffff;
+                     -fx-border-color: #c8e6c9;
+                     -fx-border-width: 0 1 0 0;">
+
+            <VBox spacing="2" style="-fx-padding: 16 10 10 10;">
+
+                <Label text="QUESTIONS RAPIDES"
+                       style="-fx-font-size: 9px; -fx-font-weight: bold;
+                              -fx-text-fill: #66bb6a; -fx-letter-spacing: 1px;
+                              -fx-padding: 0 0 6 6; -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="🔊  Bruit anormal" onAction="#handleQuestionBruit"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="🔑  Problème démarrage" onAction="#handleQuestionDemarrage"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="🌡️  Surchauffe moteur" onAction="#handleQuestionSurchauffe"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="💧  Fuite huile/liquide" onAction="#handleQuestionFuite"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="📳  Vibrations" onAction="#handleQuestionVibration"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="⚡  Perte de puissance" onAction="#handleQuestionPuissance"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="🌱  Planning saisonnier" onAction="#handleQuestionSaison"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="🔧  Entretien préventif" onAction="#handleQuestionEntretien"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+
+                <Button text="🚜  Quel matériel entretenir" onAction="#handleQuestionMateriel"
+                        maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: #2e7d32;
+                               -fx-font-size: 12px; -fx-padding: 9 12; -fx-background-radius: 8;
+                               -fx-border-color: transparent; -fx-cursor: hand;
+                               -fx-background-insets: 0; -fx-alignment: CENTER_LEFT;
+                               -fx-font-family: 'Segoe UI';"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <Separator style="-fx-opacity: 0.5;"/>
+
+            <!-- Niveaux de gravité -->
+            <VBox spacing="6" style="-fx-padding: 14 12 10 12; -fx-background-color: #ffffff;">
+
+                <Label text="NIVEAUX D'ALERTE"
+                       style="-fx-font-size: 9px; -fx-font-weight: bold;
+                              -fx-text-fill: #66bb6a; -fx-letter-spacing: 1px;
+                              -fx-padding: 0 0 4 0; -fx-font-family: 'Segoe UI';"/>
+
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Circle radius="5" style="-fx-fill: #e53935;
+                                   -fx-effect: dropshadow(gaussian,#e5393566,5,0.5,0,0);"/>
+                    <Label text="CRITIQUE — Arrêt immédiat"
+                           style="-fx-font-size: 10px; -fx-text-fill: #c62828; -fx-font-family: 'Segoe UI';"/>
+                </HBox>
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Circle radius="5" style="-fx-fill: #fb8c00;
+                                   -fx-effect: dropshadow(gaussian,#fb8c0066,5,0.5,0,0);"/>
+                    <Label text="ÉLEVÉ — Dans la semaine"
+                           style="-fx-font-size: 10px; -fx-text-fill: #e65100; -fx-font-family: 'Segoe UI';"/>
+                </HBox>
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Circle radius="5" style="-fx-fill: #fdd835;
+                                   -fx-effect: dropshadow(gaussian,#fdd83566,5,0.5,0,0);"/>
+                    <Label text="MOYEN — À surveiller"
+                           style="-fx-font-size: 10px; -fx-text-fill: #f57f17; -fx-font-family: 'Segoe UI';"/>
+                </HBox>
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Circle radius="5" style="-fx-fill: #43a047;
+                                   -fx-effect: dropshadow(gaussian,#43a04766,5,0.5,0,0);"/>
+                    <Label text="NORMAL — Suivi régulier"
+                           style="-fx-font-size: 10px; -fx-text-fill: #2e7d32; -fx-font-family: 'Segoe UI';"/>
+                </HBox>
+            </VBox>
+
+            <!-- Compteur -->
+            <HBox alignment="CENTER_LEFT" spacing="6"
+                  style="-fx-padding: 8 12 6 12;
+                         -fx-border-color: #e8f5e9; -fx-border-width: 1 0 0 0;
+                         -fx-background-color: #ffffff;">
+                <Label text="💬" style="-fx-font-size: 11px;"/>
+                <Label fx:id="lblMsgCount" text="0 échange"
+                       style="-fx-font-size: 10px; -fx-text-fill: #81c784; -fx-font-family: 'Segoe UI';"/>
+            </HBox>
+
+            <Label text="ARDHI IA v2.0"
+                   style="-fx-font-size: 9px; -fx-text-fill: #b0bec5;
+                          -fx-padding: 4 12 10 12; -fx-background-color: #ffffff;
+                          -fx-font-family: 'Segoe UI';"/>
+        </VBox>
+
+        <!-- ══ ZONE CONVERSATION ══ -->
+        <VBox spacing="0" HBox.hgrow="ALWAYS"
+              style="-fx-background-color: #ffffff;">
+
+            <ScrollPane fx:id="scrollChatbot" fitToWidth="true" VBox.vgrow="ALWAYS"
+                        style="-fx-background-color: #ffffff; -fx-background: #ffffff;
+                               -fx-border-width: 0;">
+                <VBox fx:id="vboxConversation" spacing="14"
+                      style="-fx-padding: 24 22 16 22; -fx-background-color: #ffffff;"/>
+            </ScrollPane>
+
+            <!-- Zone de saisie -->
+            <VBox spacing="0"
+                  style="-fx-background-color: #ffffff;
+                         -fx-border-color: #c8e6c9; -fx-border-width: 1 0 0 0;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 10, 0, 0, -3);">
+
+                <!-- Suggestions contextuelles -->
+                <HBox fx:id="hboxSuggestions" spacing="6" alignment="CENTER_LEFT"
+                      style="-fx-padding: 8 18 4 18;"/>
+
+                <HBox spacing="12" alignment="CENTER"
+                      style="-fx-padding: 12 18 12 18;">
+
+                    <TextField fx:id="txtChatInput"
+                               promptText="Décrivez le problème de votre matériel agricole..."
+                               HBox.hgrow="ALWAYS"
+                               style="-fx-background-color: #ffffff;
+                                      -fx-border-color: #a5d6a7; -fx-border-radius: 24;
+                                      -fx-background-radius: 24; -fx-padding: 12 18;
+                                      -fx-font-size: 13px; -fx-text-fill: #1b5e20;
+                                      -fx-prompt-text-fill: #a5c9a0;
+                                      -fx-focus-color: #388e3c;
+                                      -fx-faint-focus-color: transparent;
+                                      -fx-font-family: 'Segoe UI';">
+                        <font><Font size="13"/></font>
+                    </TextField>
+
+                    <Button fx:id="btnEnvoyer" text="Envoyer  ➤" onAction="#handleEnvoyer"
+                            style="-fx-background-color: linear-gradient(to bottom, #43a047, #2e7d32);
+                                   -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px;
+                                   -fx-padding: 12 22; -fx-background-radius: 24;
+                                   -fx-background-insets: 0; -fx-border-width: 0; -fx-cursor: hand;
+                                   -fx-font-family: 'Segoe UI';
+                                   -fx-effect: dropshadow(gaussian, rgba(46,125,50,0.45), 10, 0, 0, 4);"/>
+                </HBox>
+
+                <Label text="💡  Entrée pour envoyer  •  Diagnostic fourni à titre indicatif — consultez un technicien pour les pannes graves"
+                       style="-fx-font-size: 9px; -fx-text-fill: #b0bec5;
+                              -fx-padding: 0 18 10 18; -fx-font-family: 'Segoe UI';"
+                       alignment="CENTER" maxWidth="Infinity"/>
+            </VBox>
+        </VBox>
+
+    </HBox>
+</VBox>

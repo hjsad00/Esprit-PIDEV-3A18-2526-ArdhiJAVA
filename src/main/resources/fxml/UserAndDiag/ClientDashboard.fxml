@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="650.0" prefWidth="1060.0"
+    stylesheets="@../../Style/UserAndDiagStyles.css"
+    xmlns="http://javafx.com/javafx/20"
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.ClientDashboardController">
+    <children>
+
+        <!-- ═══════════════════════════════════════════════
+             LAYER 1: BACKGROUND
+        ════════════════════════════════════════════════ -->
+        <AnchorPane>
+            <children>
+                <ImageView fitHeight="650.0" fitWidth="1060.0" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <image>
+                        <Image url="@../../img/DiagComm_bg.png" />
+                    </image>
+                </ImageView>
+                <!-- Dark Overlay for readibility -->
+                <javafx.scene.shape.Rectangle height="650.0" width="1060.0" opacity="0.4" fill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+        </AnchorPane>
+
+        <!-- ═══════════════════════════════════════════════
+             LAYER 2: MAIN INTERFACE
+        ════════════════════════════════════════════════ -->
+        <AnchorPane>
+            <children>
+
+                <!-- ─── SCROLLABLE CONTENT ─── -->
+                <ScrollPane
+                    fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER"
+                    style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-color: transparent;"
+                    AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <content>
+                        <VBox alignment="TOP_CENTER" spacing="20.0"
+                            style="-fx-background-color: transparent; -fx-padding: 75 60 50 60;">
+                            <children>
+
+                                <!-- ╔══════════════════════════════════╗
+                                     ║  HERO WELCOME SECTION            ║
+                                     ╚══════════════════════════════════╝ -->
+                                <HBox alignment="CENTER_LEFT" spacing="24.0"
+                                    style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 20; -fx-border-color: rgba(255,255,255,0.08); -fx-border-radius: 20; -fx-border-width: 1; -fx-padding: 22 30;">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.4)" radius="30" offsetY="8"/>
+                                    </effect>
+                                    <children>
+                                        <!-- Avatar Circle -->
+                                        <StackPane minWidth="58" minHeight="58" maxWidth="58" maxHeight="58"
+                                            style="-fx-background-color: linear-gradient(to bottom right, #4a7c59, #2d5a3e); -fx-background-radius: 100; -fx-border-color: rgba(100,180,120,0.4); -fx-border-radius: 100; -fx-border-width: 2;"
+                                            onMouseClicked="#goToProfil">
+                                            <children>
+                                                <Label text="👤" style="-fx-font-size: 22; -fx-cursor: hand;"/>
+                                            </children>
+                                        </StackPane>
+
+                                        <!-- Welcome Text -->
+                                        <VBox alignment="CENTER_LEFT" spacing="3.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <Label fx:id="lblBienvenue" text="Bonjour, Agriculteur"
+                                                    style="-fx-text-fill: #f0f4f1; -fx-font-size: 22; -fx-font-weight: bold; -fx-font-family: 'Georgia';"/>
+                                                <Label text="Gérez votre exploitation intelligemment avec Ardhi"
+                                                    style="-fx-text-fill: rgba(180,210,190,0.7); -fx-font-size: 13;"/>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Gamification Badge -->
+                                        <HBox alignment="CENTER" spacing="12.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 14; -fx-border-color: rgba(100,180,120,0.2); -fx-border-radius: 14; -fx-border-width: 1; -fx-padding: 12 18;">
+                                            <children>
+                                                <VBox alignment="CENTER" spacing="4.0">
+                                                    <children>
+                                                        <Label fx:id="lblLevel" text="Niveau 1"
+                                                            style="-fx-text-fill: #7dc995; -fx-font-size: 11; -fx-font-weight: bold;"/>
+                                                        <javafx.scene.control.ProgressBar fx:id="barLevel"
+                                                            prefWidth="110.0" prefHeight="6.0" progress="0.0"
+                                                            style="-fx-accent: #5eb87a; -fx-control-inner-background: rgba(255,255,255,0.1); -fx-background-radius: 3; -fx-border-radius: 3;"/>
+                                                    </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER">
+                                                    <children>
+                                                        <Label fx:id="lblPoints" text="0 pts"
+                                                            style="-fx-text-fill: #e8c96a; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                                                        <Label text="points"
+                                                            style="-fx-text-fill: rgba(180,180,180,0.5); -fx-font-size: 10;"/>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+
+                                        <!-- Badges -->
+                                        <VBox alignment="CENTER" spacing="5.0">
+                                            <children>
+                                                <Label text="BADGES" style="-fx-text-fill: rgba(180,210,190,0.5); -fx-font-size: 9; -fx-font-weight: bold;"/>
+                                                <javafx.scene.layout.FlowPane fx:id="badgesContainer"
+                                                    hgap="6.0" vgap="6.0" alignment="CENTER" prefWrapLength="200.0"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ╔══════════════════════════════════╗
+                                     ║  TWO-COLUMN INTELLIGENCE ROW     ║
+                                     ╚══════════════════════════════════╝ -->
+                                <HBox spacing="16.0" alignment="TOP_CENTER">
+                                    <children>
+
+                                        <!-- ── WEATHER CARD ── -->
+                                        <VBox spacing="0.0" HBox.hgrow="ALWAYS" minWidth="340.0" prefWidth="380.0"
+                                            style="-fx-background-color: rgba(20,50,80,0.5); -fx-background-radius: 18; -fx-border-color: rgba(80,160,220,0.2); -fx-border-radius: 18; -fx-border-width: 1; -fx-padding: 0;">
+                                            <effect>
+                                                <DropShadow blurType="GAUSSIAN" color="rgba(0,60,120,0.3)" radius="20" offsetY="6"/>
+                                            </effect>
+                                            <children>
+                                                <!-- Weather Header Bar -->
+                                                <HBox style="-fx-background-color: linear-gradient(to bottom right, rgba(41,128,185,0.8), rgba(30,90,150,0.9)); -fx-background-radius: 18 18 0 0; -fx-padding: 14 18;" alignment="CENTER_LEFT" spacing="10">
+                                                    <children>
+                                                        <Label text="MÉTÉO EN DIRECT" wrapText="true" maxWidth="100.0"
+                                                            style="-fx-text-fill: rgba(180,220,255,0.8); -fx-font-size: 9; -fx-font-weight: bold;"/>
+                                                        <javafx.scene.layout.Region HBox.hgrow="ALWAYS"/>
+                                                        <Label fx:id="lblCondition" text="Chargement..."
+                                                            style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 11;" wrapText="true" maxWidth="170.0" textAlignment="RIGHT"/>
+                                                    </children>
+                                                </HBox>
+                                                <!-- Weather Body -->
+                                                <HBox alignment="CENTER_LEFT" spacing="16.0" style="-fx-padding: 16 18;">
+                                                    <children>
+                                                        <VBox alignment="CENTER" spacing="4.0" minWidth="-Infinity">
+                                                            <children>
+                                                                <Label fx:id="lblWeatherIcon" text="🌤️"
+                                                                    style="-fx-font-size: 44; -fx-font-family: 'Segoe UI Emoji';" minWidth="-Infinity"/>
+                                                                <VBox alignment="CENTER" spacing="2.0">
+                                                                    <children>
+                                                                        <Label fx:id="lblTemperature" text="--°"
+                                                                            style="-fx-text-fill: white; -fx-font-size: 36; -fx-font-weight: bold; -fx-font-family: 'Georgia';"/>
+                                                                        <Label fx:id="lblFeelsLike" text="Ressenti --°C"
+                                                                            style="-fx-text-fill: rgba(180,220,255,0.7); -fx-font-size: 11;"/>
+                                                                    </children>
+                                                                </VBox>
+                                                            </children>
+                                                        </VBox>
+                                                        <GridPane hgap="8.0" vgap="4.0" HBox.hgrow="ALWAYS" style="-fx-padding: 0 0 0 8;">
+                                                            <columnConstraints>
+                                                                <javafx.scene.layout.ColumnConstraints hgrow="NEVER" minWidth="20.0"/>
+                                                                <javafx.scene.layout.ColumnConstraints hgrow="ALWAYS"/>
+                                                            </columnConstraints>
+                                                            <children>
+                                                                <Label text="💧" style="-fx-text-fill: rgba(200,230,255,0.85); -fx-font-size: 11; -fx-font-family: 'Segoe UI Emoji';" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                                                                <Label fx:id="lblHumidity" text="Humidité: --%" style="-fx-text-fill: rgba(200,230,255,0.85); -fx-font-size: 11;" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                                                                <Label text="💨" style="-fx-text-fill: rgba(200,230,255,0.85); -fx-font-size: 11; -fx-font-family: 'Segoe UI Emoji';" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                                                                <Label fx:id="lblWind" text="Vent: -- km/h" style="-fx-text-fill: rgba(200,230,255,0.85); -fx-font-size: 11;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                                                                <Label fx:id="lblAdvice" text="Connexion en cours..." wrapText="true" style="-fx-text-fill: #e8d97a; -fx-font-size: 11; -fx-font-style: italic;" maxWidth="200" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2"/>
+                                                            </children>
+                                                        </GridPane>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- ── EPIDEMIC ALERTS CARD ── -->
+                                        <VBox spacing="0.0"
+                                            style="-fx-background-color: rgba(60,15,15,0.5); -fx-background-radius: 18; -fx-border-color: rgba(220,80,60,0.2); -fx-border-radius: 18; -fx-border-width: 1;" minWidth="320.0" prefWidth="380.0">
+                                            <effect>
+                                                <DropShadow blurType="GAUSSIAN" color="rgba(120,20,20,0.3)" radius="20" offsetY="6"/>
+                                            </effect>
+                                            <children>
+                                                <HBox style="-fx-background-color: linear-gradient(to bottom right, rgba(180,40,30,0.85), rgba(140,30,25,0.9)); -fx-background-radius: 18 18 0 0; -fx-padding: 12 16;" alignment="CENTER_LEFT" spacing="8">
+                                                    <children>
+                                                        <Label fx:id="btnToggleRegional" text="▼" onMouseClicked="#toggleRegional"
+                                                            style="-fx-text-fill: rgba(255,200,190,0.8); -fx-font-size: 10; -fx-cursor: hand;"/>
+                                                        <Label text="🚨" style="-fx-font-size: 16;"/>
+                                                        <Label text="ALERTES RÉGIONALES"
+                                                            style="-fx-text-fill: rgba(255,210,200,0.9); -fx-font-size: 9; -fx-font-weight: bold;"/>
+                                                        <javafx.scene.layout.Region HBox.hgrow="ALWAYS"/>
+                                                        <VBox alignment="CENTER_RIGHT" spacing="1">
+                                                            <children>
+                                                                <Label text="rayon km" style="-fx-text-fill: rgba(255,200,190,0.5); -fx-font-size: 8;"/>
+                                                                <javafx.scene.control.Slider fx:id="sliderRadius" min="10" max="100" value="25" blockIncrement="5"
+                                                                    prefWidth="75.0" showTickMarks="false"
+                                                                    style="-fx-accent: #f1a090;"/>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </HBox>
+                                                <VBox fx:id="regionalAlertsContent" visible="false" managed="false" style="-fx-padding: 12 16 14 16;">
+                                                    <children>
+                                                        <VBox fx:id="regionalAlertsContainer" spacing="6.0">
+                                                            <children>
+                                                                <Label text="Chargement des alertes..." style="-fx-text-fill: rgba(255,200,190,0.6); -fx-font-size: 11;"/>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox style="-fx-padding: 10 16;" visible="true" managed="true">
+                                                    <children>
+                                                        <Label text="Cliquez ▼ pour développer les alertes"
+                                                            style="-fx-text-fill: rgba(255,200,190,0.45); -fx-font-size: 10; -fx-font-style: italic;"/>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- ── PREDICTIVE WEATHER CARD ── -->
+                                        <VBox spacing="0.0"
+                                            style="-fx-background-color: rgba(35,15,55,0.5); -fx-background-radius: 18; -fx-border-color: rgba(150,80,200,0.2); -fx-border-radius: 18; -fx-border-width: 1;" minWidth="300.0" prefWidth="360.0">
+                                            <effect>
+                                                <DropShadow blurType="GAUSSIAN" color="rgba(80,20,120,0.3)" radius="20" offsetY="6"/>
+                                            </effect>
+                                            <children>
+                                                <HBox style="-fx-background-color: linear-gradient(to bottom right, rgba(120,50,170,0.85), rgba(90,40,140,0.9)); -fx-background-radius: 18 18 0 0; -fx-padding: 12 16;" alignment="CENTER_LEFT" spacing="8">
+                                                    <children>
+                                                        <Label fx:id="btnTogglePredictive" text="▼" onMouseClicked="#togglePredictive"
+                                                            style="-fx-text-fill: rgba(220,190,255,0.8); -fx-font-size: 10; -fx-cursor: hand;"/>
+                                                        <Label text="🌡️" style="-fx-font-size: 16; -fx-font-family: 'Segoe UI Emoji';"/>
+                                                        <Label text="PRÉVISIONS &amp; RISQUES"
+                                                            style="-fx-text-fill: rgba(220,200,255,0.9); -fx-font-size: 9; -fx-font-weight: bold;" wrapText="true" maxWidth="90.0"/>
+                                                        <javafx.scene.layout.Region HBox.hgrow="ALWAYS"/>
+                                                        <VBox alignment="CENTER_RIGHT" spacing="1">
+                                                            <children>
+                                                                <Label text="durée h" style="-fx-text-fill: rgba(200,170,255,0.5); -fx-font-size: 8;"/>
+                                                                <javafx.scene.control.Slider fx:id="sliderTimeframe" min="24" max="72" value="72"
+                                                                    blockIncrement="12" majorTickUnit="24" minorTickCount="0" snapToTicks="true"
+                                                                    prefWidth="65.0" showTickMarks="false"
+                                                                    style="-fx-accent: #b890f0;"/>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </HBox>
+                                                <VBox fx:id="predictiveWeatherContent" visible="false" managed="false" style="-fx-padding: 12 16 14 16;">
+                                                    <children>
+                                                        <VBox fx:id="predictiveWeatherContainer" spacing="6.0">
+                                                            <children>
+                                                                <Label text="Analyse en cours..." style="-fx-text-fill: rgba(220,190,255,0.6); -fx-font-size: 11;"/>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </VBox>
+                                                <VBox style="-fx-padding: 10 16;" visible="true" managed="true">
+                                                    <children>
+                                                        <Label text="Cliquez ▼ pour voir les risques phytosanitaires" wrapText="true"
+                                                            style="-fx-text-fill: rgba(200,170,255,0.45); -fx-font-size: 10; -fx-font-style: italic;"/>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+
+                                    </children>
+                                </HBox>
+
+                                <!-- ╔══════════════════════════════════╗
+                                     ║  SECTION LABEL                   ║
+                                     ╚══════════════════════════════════╝ -->
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <AnchorPane prefWidth="3.0" prefHeight="18.0"
+                                            style="-fx-background-color: #5db87a; -fx-background-radius: 2;"/>
+                                        <Label text="OUTILS &amp; FONCTIONNALITÉS"
+                                            style="-fx-text-fill: #e8f4ec; -fx-font-size: 10; -fx-font-weight: bold;"/>
+                                        <AnchorPane prefHeight="1.0" HBox.hgrow="ALWAYS"
+                                            style="-fx-background-color: rgba(0,0,0,0.2);"/>
+                                    </children>
+                                </HBox>
+
+                                <!-- ╔══════════════════════════════════╗
+                                     ║  FEATURE CARDS — ROW 1           ║
+                                     ╚══════════════════════════════════╝ -->
+                                <HBox alignment="CENTER" spacing="14.0">
+                                    <children>
+                                        
+                                         <!-- Abonnement -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(212,175,55,0.35); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToAbonnement">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(180,140,0,0.2)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(212,175,55,0.18); -fx-background-radius: 12;">
+                                                    <Label text="💎" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Abonnement"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                                <Label text="Offres Premium &amp; VIP"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Diagnostic IA -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(93,184,122,0.25); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToDiagnostics">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(93,184,122,0.15); -fx-background-radius: 12;">
+                                                    <Label text="🌱" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Diagnostic IA"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                                <Label text="Analyser vos cultures avec l'IA"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Historique -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(91,153,163,0.25); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToHistoriqueDiagnostics">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(91,153,163,0.15); -fx-background-radius: 12;">
+                                                    <Label text="📜" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Historique"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                                <Label text="Diagnostics et traitements passés"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Plans de Traitement -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(41,128,185,0.25); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToTreatments">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(41,128,185,0.15); -fx-background-radius: 12;">
+                                                    <Label text="📋" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Plans de Traitement"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;" wrapText="true" textAlignment="CENTER" maxWidth="150.0"/>
+                                                <Label text="Protocoles de soin actifs"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Carte Maladies -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(231,76,60,0.25); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToMap">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(231,76,60,0.15); -fx-background-radius: 12;">
+                                                    <Label text="🌍" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Carte Maladies"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                                <Label text="Épidémiologie végétale"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+
+                                    </children>
+                                </HBox>
+
+                                <!-- ╔══════════════════════════════════╗
+                                     ║  FEATURE CARDS — ROW 2           ║
+                                     ╚══════════════════════════════════╝ -->
+                                <HBox alignment="CENTER" spacing="14.0">
+                                    <children>
+                                        <!-- Scan Santé -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(46,204,113,0.25); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToHealthScan">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(46,204,113,0.15); -fx-background-radius: 12;">
+                                                    <Label text="🌿" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Scan Santé"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                                <Label text="Prévention de l'exploitation"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+
+                                        <!-- Historique Scans -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(243,156,18,0.25); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToHealthScanHistory">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(243,156,18,0.15); -fx-background-radius: 12;">
+                                                    <Label text="📊" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Historique Scans"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                                <Label text="Scores et rapports passés"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+                                        <!-- Communauté -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(155,89,182,0.25); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToCommunity">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(155,89,182,0.15); -fx-background-radius: 12;">
+                                                    <Label text="👥" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Communauté"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                                <Label text="Entraide entre agriculteurs"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+                                        <!-- Profil Sol 3D -->
+                                        <VBox alignment="CENTER" spacing="10.0" prefWidth="185.0" prefHeight="155.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 16; -fx-border-color: rgba(139,90,43,0.3); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20; -fx-cursor: hand;"
+                                            onMouseClicked="#goToVirtualSoil">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="15" offsetY="4"/></effect>
+                                            <children>
+                                                <StackPane minWidth="44" minHeight="44" maxWidth="44" maxHeight="44"
+                                                    style="-fx-background-color: rgba(139,90,43,0.15); -fx-background-radius: 12;">
+                                                    <Label text="🌐" style="-fx-font-size: 22;"/>
+                                                </StackPane>
+                                                <Label text="Profil de Sol 3D"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                                <Label text="Analyse en profondeur du sol"
+                                                    textAlignment="CENTER" wrapText="true"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 10;" maxWidth="150.0"/>
+                                            </children>
+                                        </VBox>
+                                       
+
+                                    </children>
+                                </HBox>
+
+                                <!-- ╔══════════════════════════════════╗
+                                     ║  LEADERBOARD SECTION             ║
+                                     ╚══════════════════════════════════╝ -->
+                                <HBox alignment="CENTER_LEFT" spacing="12.0">
+                                    <children>
+                                        <AnchorPane prefWidth="3.0" prefHeight="18.0"
+                                            style="-fx-background-color: #e8c96a; -fx-background-radius: 2;"/>
+                                        <Label text="CLASSEMENT COMMUNAUTÉ"
+                                            style="-fx-text-fill: #e8f4ec; -fx-font-size: 10; -fx-font-weight: bold;"/>
+                                        <AnchorPane prefHeight="1.0" HBox.hgrow="ALWAYS"
+                                            style="-fx-background-color: rgba(0,0,0,0.2);"/>
+                                    </children>
+                                </HBox>
+
+                                <VBox alignment="TOP_CENTER" spacing="10.0"
+                                    style="-fx-background-color: rgba(0,0,0,0.4); -fx-background-radius: 18; -fx-border-color: rgba(255,255,255,0.06); -fx-border-radius: 18; -fx-border-width: 1; -fx-padding: 22 26;">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="20" offsetY="6"/>
+                                    </effect>
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                                            <children>
+                                                <Label text="🏆"
+                                                    style="-fx-font-size: 20;"/>
+                                                <Label text="Top Agriculteurs Ardhi"
+                                                    style="-fx-text-fill: #e8f4ec; -fx-font-size: 16; -fx-font-weight: bold; -fx-font-family: 'Georgia';"/>
+                                            </children>
+                                        </HBox>
+                                        <AnchorPane prefHeight="1.0"
+                                            style="-fx-background-color: rgba(0,0,0,0.2);" maxWidth="Infinity">
+                                            <VBox.margin><Insets bottom="4.0" top="4.0"/></VBox.margin>
+                                        </AnchorPane>
+                                        <VBox fx:id="leaderboardContainer" spacing="8.0">
+                                            <children>
+                                                <Label text="Chargement du classement..."
+                                                    style="-fx-text-fill: rgba(200,200,200,0.4); -fx-font-size: 12; -fx-font-style: italic;"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </VBox>
+
+                                <!-- ╔══════════════════════════════════╗
+                                     ║  LOGOUT                          ║
+                                     ╚══════════════════════════════════╝ -->
+                                <HBox alignment="CENTER">
+                                    <VBox.margin><Insets top="10.0" bottom="40.0"/></VBox.margin>
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#logout"
+                                            style="-fx-background-color: rgba(180,40,30,0.15); -fx-background-radius: 30; -fx-border-color: rgba(220,60,50,0.4); -fx-border-radius: 30; -fx-text-fill: rgba(255,160,150,0.85); -fx-font-size: 12; -fx-cursor: hand; -fx-padding: 10 40;"
+                                            text="Se déconnecter">
+                                            <effect>
+                                                <DropShadow blurType="GAUSSIAN" color="rgba(180,30,20,0.2)" radius="10" offsetY="3"/>
+                                            </effect>
+                                        </Button>
+                                    </children>
+                                </HBox>
+
+                            </children>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+                <!-- ─── HEADER ─── -->
+                <HBox alignment="CENTER_LEFT" spacing="20.0"
+                    style="-fx-padding: 5 40; -fx-background-color: rgba(0,0,0,0.2);"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <!-- Logo -->
+                        <ImageView fitHeight="45.0" fitWidth="120.0" onMouseClicked="#goToLandingPage"
+                            preserveRatio="true" style="-fx-cursor: hand;">
+                            <image>
+                                <Image url="@../../img/ardhi_logo.png" />
+                            </image>
+                        </ImageView>
+
+                        <javafx.scene.layout.Region HBox.hgrow="ALWAYS" />
+
+                        <!-- Nav Menu -->
+                        <HBox fx:id="navMenu" alignment="CENTER" spacing="15.0">
+                            <children>
+                                <Button fx:id="btnNavDiagnostics" mnemonicParsing="false"
+                                    style="-fx-background-color: transparent; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 13px; -fx-font-weight: bold;"
+                                    text="Diagnostic IA"/>
+                                <Button fx:id="btnNavMarketplace" mnemonicParsing="false" onAction="#goToMarketplace"
+                                    style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.9); -fx-cursor: hand; -fx-font-size: 13px; -fx-font-weight: bold;"
+                                    text="Marketplace"/>
+                                <Button fx:id="btnNavMaintenance" mnemonicParsing="false" onAction="#goToMaintenance"
+                                    style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.9); -fx-cursor: hand; -fx-font-size: 13px; -fx-font-weight: bold;"
+                                    text="Maintenance"/>
+                                <Button fx:id="btnNavCultures" mnemonicParsing="false" onAction="#goToCultures"
+                                    style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.9); -fx-cursor: hand; -fx-font-size: 13px; -fx-font-weight: bold;"
+                                    text="Cultures"/>
+                                <Button fx:id="btnNavEvents" mnemonicParsing="false" onAction="#goToEvents"
+                                    style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.9); -fx-cursor: hand; -fx-font-size: 13px; -fx-font-weight: bold;"
+                                    text="Évènements"/>
+                                <Button fx:id="btnNavEmployees" mnemonicParsing="false" onAction="#goToEmployees"
+                                    style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.9); -fx-cursor: hand; -fx-font-size: 13px; -fx-font-weight: bold;"
+                                    text="Employés"/>
+                            </children>
+                        </HBox>
+
+                        <javafx.scene.layout.Region HBox.hgrow="ALWAYS" />
+
+                        <!-- Profile Button -->
+                        <StackPane>
+                            <children>
+                                <HBox fx:id="profileContainer" alignment="CENTER" maxHeight="45.0" maxWidth="45.0" minHeight="45.0" minWidth="45.0" onMouseClicked="#goToProfil" style="-fx-cursor: hand; -fx-background-color: rgba(0,0,0,0.5); -fx-background-radius: 100; -fx-border-color: rgba(255,255,255,0.5); -fx-border-radius: 100;">
+                                    <children>
+                                        <Label text="👤" textFill="WHITE" style="-fx-font-size: 24px;" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </StackPane>
+                    </children>
+                </HBox>
+
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

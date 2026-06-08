@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/20"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="tn.neuron.ardhi.controllers.Parcelle_Cultures.AdminAgricultureStatsController"
+           style="-fx-background-color: linear-gradient(to bottom right, #F5F7F0, #E8EBE0);">
+
+    <BorderPane style="-fx-background-color: transparent;">
+
+        <!-- HEADER -->
+        <top>
+            <HBox alignment="CENTER_LEFT" spacing="15.0"
+                  style="-fx-background-color: white; -fx-background-radius: 0 0 20 20; -fx-padding: 15 25;">
+                <effect>
+                    <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                </effect>
+                <Button text="← Retour"
+                        onAction="#retour"
+                        style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-cursor: hand;"
+                        textFill="#6B7F3F">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                    <padding>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
+                    </padding>
+                </Button>
+                <Label text="Statistiques Agricoles Globales"
+                       style="-fx-text-fill: #6B7F3F;">
+                    <font>
+                        <Font name="System Bold" size="22.0"/>
+                    </font>
+                </Label>
+                <Label text="🌐 Plateforme"
+                       style="-fx-text-fill: #6B7F3F; -fx-background-color: #E8F5E9; -fx-background-radius: 5; -fx-padding: 4 10;">
+                    <font>
+                        <Font name="System Bold" size="11.0"/>
+                    </font>
+                </Label>
+                <Label text="Administration"
+                       style="-fx-text-fill: #C4A574; -fx-background-color: #FFF8F0; -fx-background-radius: 5; -fx-padding: 4 10;">
+                    <font>
+                        <Font name="System Bold" size="11.0"/>
+                    </font>
+                </Label>
+            </HBox>
+        </top>
+
+        <!-- CENTER -->
+        <center>
+            <VBox spacing="20.0">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <!-- KPI ROW -->
+                <HBox spacing="15.0">
+                    <children>
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Surface totale plateforme" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;"/>
+                            <Label fx:id="lblSurfaceTotalePlateforme" text="0.00 ha"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Agriculteurs actifs"
+                                   style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;"/>
+                            <Label fx:id="lblNbAgriculteurs" text="0"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Production globale estimée"
+                                   style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;"/>
+                            <Label fx:id="lblProductionGlobale" text="0.00 t"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Rendement moyen global"
+                                   style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;"/>
+                            <Label fx:id="lblRendementMoyenGlobal" text="0.00 t/ha"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- Top cultures chart -->
+                <VBox spacing="10.0" VBox.vgrow="ALWAYS"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Rectangle width="4" height="20"
+                                   style="-fx-fill: #6B7F3F; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                        <Label text="Top 5 des cultures les plus cultivées"
+                               style="-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                    </HBox>
+                    <BarChart fx:id="barTopCultures" VBox.vgrow="ALWAYS"
+                              style="-fx-background-color: transparent;">
+                        <xAxis>
+                            <CategoryAxis side="BOTTOM"/>
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis side="LEFT"/>
+                        </yAxis>
+                    </BarChart>
+                </VBox>
+            </VBox>
+        </center>
+
+    </BorderPane>
+</StackPane>
+

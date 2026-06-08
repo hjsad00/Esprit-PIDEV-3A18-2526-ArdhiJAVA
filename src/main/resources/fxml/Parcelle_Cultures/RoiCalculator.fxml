@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
+
+<ScrollPane fitToWidth="true"
+            style="-fx-background-color: #f8faf7; -fx-background: #f8faf7;"
+            xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.Parcelle_Cultures.RoiCalculatorController">
+    <content>
+        <VBox spacing="20" style="-fx-background-color: transparent; -fx-padding: 24;">
+
+            <!-- ========== EN-TÊTE ========== -->
+            <HBox alignment="CENTER_LEFT" spacing="16"
+                  style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 18 28; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 14;">
+                <effect>
+                    <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="12"/>
+                </effect>
+                <Label text="ROI" style="-fx-font-size: 26; -fx-font-weight: bold; -fx-text-fill: #116530;"/>
+                <VBox spacing="3">
+                    <Label text="Calculateur de Rendement et Revenus - ROI Agricole"
+                           style="-fx-text-fill: #116530; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                    <Label text="Production reelle  |  Impact climatique  |  Rentabilite  |  Simulation prix"
+                           style="-fx-text-fill: #116530; -fx-font-size: 11;"/>
+                </VBox>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Label text="PREMIUM"
+                       style="-fx-background-color: #116530; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 10; -fx-background-radius: 20; -fx-padding: 5 14;"/>
+                <Button onAction="#retour" text="← Retour"
+                        style="-fx-background-color: transparent; -fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 12; -fx-cursor: hand; -fx-underline: true;"/>
+            </HBox>
+
+            <!-- ========== SÉLECTION + COÛTS ========== -->
+            <HBox spacing="16">
+                <!-- Sélection Culture & Parcelle -->
+                <VBox spacing="14" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                    </effect>
+                    <Label text="Culture et Parcelle"
+                           style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                    <Label text="Culture *" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                    <ComboBox fx:id="cbCulture" maxWidth="Infinity" promptText="Sélectionner une culture..."
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-border-color: #C8D5A0; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 2;"/>
+                    <Label text="Parcelle *" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                    <ComboBox fx:id="cbParcelle" maxWidth="Infinity" promptText="Sélectionner une parcelle..."
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-border-color: #C8D5A0; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 2;"/>
+                    <Label text="Prix de Vente Estime (DT / tonne) *"
+                           style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                    <TextField fx:id="tfPrixVente" promptText="Ex: 450.00"
+                               style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-border-color: #C8D5A0; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 8;"/>
+                </VBox>
+
+                <!-- Saisie des Coûts -->
+                <VBox spacing="10" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                    </effect>
+                    <Label text="Coûts d'Exploitation (DT)"
+                           style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+
+                    <HBox spacing="14">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Semences" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <TextField fx:id="tfCoutSemences" promptText="Ex: 800"
+                                       style="-fx-background-color: #F5F7F0; -fx-background-radius: 7; -fx-border-color: #C8D5A0; -fx-border-radius: 7; -fx-border-width: 1; -fx-padding: 7;"/>
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Engrais" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <TextField fx:id="tfCoutEngrais" promptText="Ex: 1200"
+                                       style="-fx-background-color: #F5F7F0; -fx-background-radius: 7; -fx-border-color: #C8D5A0; -fx-border-radius: 7; -fx-border-width: 1; -fx-padding: 7;"/>
+                        </VBox>
+                    </HBox>
+
+                    <HBox spacing="14">
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Main d'OEuvre" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <TextField fx:id="tfCoutMainOeuvre" promptText="Ex: 2000"
+                                       style="-fx-background-color: #F5F7F0; -fx-background-radius: 7; -fx-border-color: #C8D5A0; -fx-border-radius: 7; -fx-border-width: 1; -fx-padding: 7;"/>
+                        </VBox>
+                        <VBox spacing="5" HBox.hgrow="ALWAYS">
+                            <Label text="Irrigation" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <TextField fx:id="tfCoutIrrigation" promptText="Ex: 500"
+                                       style="-fx-background-color: #F5F7F0; -fx-background-radius: 7; -fx-border-color: #C8D5A0; -fx-border-radius: 7; -fx-border-width: 1; -fx-padding: 7;"/>
+                        </VBox>
+                    </HBox>
+
+                    <VBox spacing="5">
+                        <Label text="Autres Charges" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                        <TextField fx:id="tfCoutAutres" promptText="Ex: 300"
+                                   style="-fx-background-color: #F5F7F0; -fx-background-radius: 7; -fx-border-color: #C8D5A0; -fx-border-radius: 7; -fx-border-width: 1; -fx-padding: 7;"/>
+                    </VBox>
+                </VBox>
+            </HBox>
+
+            <!-- Bouton Calculer -->
+            <HBox alignment="CENTER_LEFT" spacing="16">
+                <Button fx:id="btnCalculer" onAction="#calculerRoi"
+                        text="Calculer le ROI Agricole"
+                        style="-fx-background-color: #116530; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13; -fx-background-radius: 10; -fx-cursor: hand; -fx-padding: 12 28;"/>
+                <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"
+                                   visible="false" style="-fx-progress-color: #116530;"/>
+                <Label fx:id="lblEtat" text="" style="-fx-text-fill: #116530; -fx-font-size: 12;"/>
+            </HBox>
+
+            <!-- ========== RÉSULTATS ========== -->
+            <VBox fx:id="vboxResultats" spacing="16" visible="false" managed="false">
+
+                <!-- === FACTEUR CLIMATIQUE === -->
+                <VBox spacing="12"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                    </effect>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Impact Climatique - Aléas 7 Jours"
+                               style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblSourceClimat" text=""
+                               style="-fx-text-fill: #116530; -fx-font-size: 10; -fx-background-color: #f8faf7; -fx-background-radius: 5; -fx-padding: 3 8;"/>
+                    </HBox>
+                    <HBox spacing="12">
+                        <!-- Canicule -->
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #FFF3E0; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Canicule" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblJoursCanicule" text="—"
+                                   style="-fx-text-fill: #E65100; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                            <Label text="T sup. 35 C" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                            <Label text="-1% rendement/j" style="-fx-text-fill: #bcbcbc; -fx-font-size: 9;"/>
+                        </VBox>
+                        <!-- Pluie -->
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #E3F2FD; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Excès Pluie" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblJoursPluie" text="—"
+                                   style="-fx-text-fill: #1565C0; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                            <Label text="sup. 30 mm/j" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                            <Label text="-0.5% rendement/j" style="-fx-text-fill: #bcbcbc; -fx-font-size: 9;"/>
+                        </VBox>
+                        <!-- Gel -->
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #E3F2FD; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Gel" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblJoursGel" text="—"
+                                   style="-fx-text-fill: #0277BD; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                            <Label text="T inf. 0 C" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                            <Label text="-2% rendement/j" style="-fx-text-fill: #bcbcbc; -fx-font-size: 9;"/>
+                        </VBox>
+                        <!-- Facteur climatique -->
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #E8F5E9; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Facteur Climatique" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblFacteurClimat" text="—"
+                                   style="-fx-font-size: 13; -fx-font-weight: bold;"/>
+                            <Label text="min. 50%" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- === PRODUCTION + FINANCIER === -->
+                <HBox spacing="16">
+                    <!-- Production -->
+                    <VBox spacing="10" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20;">
+                        <effect>
+                            <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                        </effect>
+                        <Label text="Projection Production"
+                               style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Surface" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblSurface" text="—" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Rendement Théorique" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblRendementTheo" text="—" style="-fx-text-fill: #6B7F3F; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Production Théorique" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblProductionTheo" text="—" style="-fx-text-fill: #6B7F3F; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #E8F5E9; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Production Réelle" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblProductionReelle" text="—"
+                                   style="-fx-text-fill: #2E7D32; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Perte Climatique" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblPerteClimat" text="—" style="-fx-font-weight: bold;"/>
+                        </HBox>
+                    </VBox>
+
+                    <!-- Résultats Financiers -->
+                    <VBox spacing="10" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20;">
+                        <effect>
+                            <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                        </effect>
+                        <Label text="Résultats Financiers"
+                               style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Coût Total" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblCoutTotal" text="—" style="-fx-text-fill: #c0392b; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Revenu Brut" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblRevenuBrut" text="—" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #E8F5E9; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Marge Brute" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblMargeBrute" text="—" style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Prix Seuil Rentabilité" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="180"/>
+                            <Label fx:id="lblPrixSeuil" text="—" style="-fx-text-fill: #6B7F3F; -fx-font-weight: bold;"/>
+                        </HBox>
+
+                        <VBox alignment="CENTER" spacing="6"
+                              style="-fx-background-color: #116530; -fx-background-radius: 10; -fx-padding: 16;">
+                            <Label text="Score ROI" style="-fx-text-fill: #D4E6A5; -fx-font-size: 11;"/>
+                            <Label fx:id="lblScoreRoi" text="—"
+                                   style="-fx-text-fill: white; -fx-font-size: 22; -fx-font-weight: bold;"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+                <!-- === STATUT RENTABILITÉ === -->
+                <VBox fx:id="vboxStatut" alignment="CENTER" spacing="8"
+                      style="-fx-background-radius: 12; -fx-padding: 18;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.1)" radius="12"/>
+                    </effect>
+                    <Label fx:id="lblStatutRentabilite" text="—"
+                           style="-fx-font-size: 24; -fx-font-weight: bold;"/>
+                </VBox>
+
+                <!-- === ALERTES === -->
+                <VBox fx:id="vboxAlertes" spacing="8"/>
+
+                <!-- === CONSEIL === -->
+                <VBox spacing="8"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-border-color: #C8D5A0; -fx-border-radius: 12; -fx-border-width: 1;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                    </effect>
+                    <Label text="Conseil Ardhi Intelligence"
+                           style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblConseil" text="" wrapText="true"
+                           style="-fx-text-fill: #2c3e50; -fx-font-size: 13; -fx-line-spacing: 3;"/>
+                </VBox>
+
+                <!-- === SIMULATION DYNAMIQUE PRIX === -->
+                <VBox spacing="12"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-border-color: #C8D5A0; -fx-border-radius: 12; -fx-border-width: 1.5;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                    </effect>
+                    <Label text="Simulation - Ajuster le Prix de Vente"
+                           style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                    <Label text="Déplacez le curseur pour voir l'impact immédiat sur la rentabilité"
+                           style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;"/>
+                    <Slider fx:id="sliderPrixVente" min="50" max="2000" value="400"
+                            showTickLabels="true" showTickMarks="true" majorTickUnit="200" minorTickCount="4"
+                            blockIncrement="40"
+                            style="-fx-control-inner-background: #E8F5E9; -fx-pref-height: 40;"/>
+                    <HBox alignment="CENTER" spacing="30">
+                        <Label fx:id="lblSimuMarge" text="Marge : —"
+                               style="-fx-font-size: 16; -fx-font-weight: bold;"/>
+                        <Label fx:id="lblSimuRoi" text="ROI : —"
+                               style="-fx-font-size: 13; -fx-text-fill: #116530;"/>
+                    </HBox>
+                </VBox>
+
+            </VBox>
+
+        </VBox>
+    </content>
+</ScrollPane>

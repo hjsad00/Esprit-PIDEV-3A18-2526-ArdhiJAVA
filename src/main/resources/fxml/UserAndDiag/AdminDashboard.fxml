@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="710.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.AdminDashboardController">
+    <children>
+        <!-- LAYER 1: BACKGROUND SLIDESHOW -->
+        <AnchorPane>
+            <children>
+                <AnchorPane fx:id="heroBackground" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                            style="-fx-background-image: url('@../../img/1.jpg'); -fx-background-size: cover; -fx-background-position: center;" />
+                <AnchorPane fx:id="heroBackgroundOverlay" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                            style="-fx-background-image: url('@../../img/2.png'); -fx-background-size: cover; -fx-background-position: center;" opacity="0.0" />
+                <Rectangle height="710.0" width="1060.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                           style="-fx-fill: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);" />
+            </children>
+        </AnchorPane>
+
+        <!-- LAYER 2: CONTENT -->
+        <AnchorPane pickOnBounds="false">
+            <children>
+                <!-- FIXED HEADER -->
+                <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-padding: 5 40; -fx-background-color: rgba(0,0,0,0.6);"
+                      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <ImageView fitHeight="45.0" fitWidth="120.0" preserveRatio="true">
+                            <image><Image url="@../../img/ardhi_logo.png" /></image>
+                        </ImageView>
+                        <Label text="🔧 Administration" style="-fx-background-color: rgba(231,76,60,0.9); -fx-text-fill: white; -fx-padding: 8 20; -fx-background-radius: 20; -fx-font-size: 13px; -fx-font-weight: bold; -fx-border-color: rgba(255,255,255,0.3); -fx-border-width: 1.5; -fx-border-radius: 20;">
+                            <effect><DropShadow color="rgba(0,0,0,0.3)" radius="5" offsetY="2"/></effect>
+                        </Label>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <HBox fx:id="profileContainer" alignment="CENTER" maxHeight="45.0" maxWidth="45.0" minHeight="45.0" minWidth="45.0"
+                              onMouseClicked="#goToProfil" style="-fx-cursor: hand; -fx-background-color: rgba(0,0,0,0.5); -fx-background-radius: 100; -fx-border-color: rgba(255,255,255,0.5); -fx-border-radius: 100;">
+                            <children>
+                                <Label text="👤" textFill="WHITE"><font><Font size="24.0" /></font></Label>
+                            </children>
+                        </HBox>
+                    </children>
+                </HBox>
+
+                <!-- SCROLLABLE CONTENT -->
+                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                            style="-fx-background: transparent; -fx-background-color: transparent;"
+                            AnchorPane.topAnchor="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <content>
+                        <VBox alignment="TOP_CENTER" spacing="18.0" style="-fx-padding: 30 50 50 50; -fx-background-color: transparent;">
+                            <children>
+
+                                <!-- ══ WELCOME BANNER ══ -->
+                                <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: rgba(255,255,255,0.35); -fx-background-radius: 20; -fx-border-color: rgba(255,255,255,0.2); -fx-border-radius: 20; -fx-padding: 30;">
+                                    <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.2)" radius="20" offsetY="5"/></effect>
+                                    <children>
+                                        <HBox spacing="10.0" alignment="CENTER">
+                                            <children>
+                                                <Rectangle width="4" height="30" style="-fx-fill: #E74C3C;" />
+                                                <Label text="PANNEAU D'ADMINISTRATION" style="-fx-text-fill: #E74C3C; -fx-font-size: 13px; -fx-font-weight: bold; -fx-letter-spacing: 2px;" />
+                                            </children>
+                                        </HBox>
+                                        <Label fx:id="lblBienvenue" text="Bienvenue, Administrateur" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font><Font name="System Bold" size="36.0"/></font>
+                                        </Label>
+                                        <Label text="Gérez et supervisez l'ensemble de la plateforme Ardhi" style="-fx-text-fill: rgba(255,255,255,0.9); -fx-font-size: 15px;" />
+                                    </children>
+                                </VBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 1 : GESTION UTILISATEURS              -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #e74c3c;" />
+                                        <Label text="👤 GESTION UTILISATEURS" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminUsers"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(231,76,60,0.9), rgba(192,57,43,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(231,76,60,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="👥" style="-fx-font-size: 38;"/>
+                                                <Label text="Utilisateurs" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gérer les comptes" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminAbonnements"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(196,165,116,0.9), rgba(160,133,85,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(196,165,116,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="💎" style="-fx-font-size: 38;"/>
+                                                <Label text="Abonnements" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Suivi des clients" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminOffres"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(155,89,182,0.9), rgba(142,68,173,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(155,89,182,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="📦" style="-fx-font-size: 38;"/>
+                                                <Label text="Offres" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Packs &amp; Tarifs" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminBadges"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(241,196,15,0.9), rgba(243,156,18,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(241,196,15,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🏅" style="-fx-font-size: 38;"/>
+                                                <Label text="Badges" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gamification" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminUserBadges"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(142,68,173,0.9), rgba(155,89,182,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(142,68,173,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🎖" style="-fx-font-size: 38;"/>
+                                                <Label text="Affectations" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Badges Joueurs" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToSettings"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(52,73,94,0.9), rgba(44,62,80,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(52,73,94,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="⚙" style="-fx-font-size: 38;"/>
+                                                <Label text="Paramètres" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Config système" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 2 : MARKETPLACE                       -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #e67e22;" />
+                                        <Label text="🛒 MARKETPLACE" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminProduits"
+                                              style="-fx-background-color: linear-gradient(to bottom right, #f39c12, #e67e22); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(243,156,18,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="📦" style="-fx-font-size: 38;"/>
+                                                <Label text="Produits" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Catalogue" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminCommandes"
+                                              style="-fx-background-color: linear-gradient(to bottom right, #3498db, #2980b9); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(52,152,219,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🛍️" style="-fx-font-size: 38;"/>
+                                                <Label text="Commandes" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gérer les ordres" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminReclamations"
+                                              style="-fx-background-color: linear-gradient(to bottom right, #e67e22, #d35400); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(230,126,34,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="📝" style="-fx-font-size: 38;"/>
+                                                <Label text="Réclamations" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gérer les plaintes" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminCoupons"
+                                              style="-fx-background-color: linear-gradient(to bottom right, #e74c3c, #c0392b); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(231,76,60,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🎟️" style="-fx-font-size: 38;"/>
+                                                <Label text="Coupons" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gérer les codes" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 3 : ÉVÉNEMENTS                        -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #3498db;" />
+                                        <Label text="🎪 ÉVÉNEMENTS" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminEvenements"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(52,152,219,0.9), rgba(41,128,185,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(52,152,219,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🎪" style="-fx-font-size: 38;"/>
+                                                <Label text="Événements" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gestion événements" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 4 : CULTURES ET PARCELLES             -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #6b7f3f;" />
+                                        <Label text="🌾 CULTURES ET PARCELLES" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminParcelles"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(107,127,63,0.9), rgba(74,90,43,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(107,127,63,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🌾" style="-fx-font-size: 38;"/>
+                                                <Label text="Parcelles" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gestion terrain" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminCultures"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(46,204,113,0.9), rgba(39,174,96,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(46,204,113,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🌱" style="-fx-font-size: 38;"/>
+                                                <Label text="Cultures" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Suivi récoltes" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 5 : MATÉRIELS ET MAINTENANCE          -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #16a085;" />
+                                        <Label text="🛠 MATÉRIELS ET MAINTENANCE" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminMateriel"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(22,160,133,0.9), rgba(19,141,117,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(22,160,133,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🛠" style="-fx-font-size: 38;"/>
+                                                <Label text="Matériel" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gestion équipements" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 6 : GESTION EMPLOYÉ                   -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #4d6022;" />
+                                        <Label text="👨‍🌾 GESTION EMPLOYÉ" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminAgriculteurs"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(52,73,94,0.9), rgba(77,96,34,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(52,73,94,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="👨‍🌾" style="-fx-font-size: 38;"/>
+                                                <Label text="Agriculteurs" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gestion RH" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 7 : DIAGNOSTIC IA                     -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #27ae60;" />
+                                        <Label text="🌿 DIAGNOSTIC IA" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAIDiagPanel"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(39,174,96,0.9), rgba(30,132,73,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(39,174,96,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🌿" style="-fx-font-size: 38;"/>
+                                                <Label text="Diagnostics IA" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Historique scans" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminTraitements"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(52,152,219,0.9), rgba(41,128,185,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(52,152,219,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="💊" style="-fx-font-size: 38;"/>
+                                                <Label text="Traitements" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gérer les soins" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminTreatmentPlans"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(0,150,136,0.9), rgba(0,121,107,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(0,150,136,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="📋" style="-fx-font-size: 38;"/>
+                                                <Label text="Plans Traitement" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Plans de soins" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminTreatmentTasks"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(63,81,181,0.9), rgba(48,63,159,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(63,81,181,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="✅" style="-fx-font-size: 38;"/>
+                                                <Label text="Tâches Traitement" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Étapes de soins" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminReviews"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(255,87,34,0.9), rgba(230,74,25,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(255,87,34,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="⭐" style="-fx-font-size: 38;"/>
+                                                <Label text="Revues Expert" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Avis d'experts" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToMap"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(243,156,18,0.9), rgba(211,84,0,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(243,156,18,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🗺" style="-fx-font-size: 38;"/>
+                                                <Label text="Carte Maladies" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Épidémiologie" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToDiagnosticStats"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(155,89,182,0.9), rgba(142,68,173,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(155,89,182,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="📈" style="-fx-font-size: 38;"/>
+                                                <Label text="Statistiques" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Rapports Data" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 8 : SANTÉ ET PRÉVENTION               -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #1abc9c;" />
+                                        <Label text="🛡 SANTÉ ET PRÉVENTION" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminFarmHealthScans"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(26,188,156,0.9), rgba(22,160,133,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(26,188,156,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🩺" style="-fx-font-size: 38;"/>
+                                                <Label text="Health Scans" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Scores de la ferme" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminFarmHealthReports"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(22,160,133,0.9), rgba(19,141,117,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(22,160,133,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="📑" style="-fx-font-size: 38;"/>
+                                                <Label text="Health Reports" style="-fx-text-fill: white;"><font><Font name="System Bold" size="13.0"/></font></Label>
+                                                <Label text="Rapports complets" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminVulnerabilities"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(231,76,60,0.9), rgba(192,57,43,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(231,76,60,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🚨" style="-fx-font-size: 38;"/>
+                                                <Label text="Vulnérabilités" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Risques identifiés" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminPreventionPlans"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(52,152,219,0.9), rgba(41,128,185,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(52,152,219,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="🛡" style="-fx-font-size: 38;"/>
+                                                <Label text="Plans Prévention" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Stratégies à long" textAlignment="CENTER" wrapText="true" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminPreventionTasks"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(46,204,113,0.9), rgba(39,174,96,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(46,204,113,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="✅" style="-fx-font-size: 38;"/>
+                                                <Label text="Tâches Prévention" style="-fx-text-fill: white;"><font><Font name="System Bold" size="12.5"/></font></Label>
+                                                <Label text="Actions requises" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══════════════════════════════════════════════ -->
+                                <!-- SECTION 9 : COMMUNAUTÉ                        -->
+                                <!-- ══════════════════════════════════════════════ -->
+                                <HBox spacing="10.0" alignment="CENTER_LEFT">
+                                    <children>
+                                        <Rectangle width="4" height="25" style="-fx-fill: #9b59b6;" />
+                                        <Label text="💬 COMMUNAUTÉ" style="-fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-letter-spacing: 1.5px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 3, 0, 0, 2);" />
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" spacing="20.0">
+                                    <children>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminCommunityPosts"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(155,89,182,0.9), rgba(142,68,173,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(155,89,182,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="📝" style="-fx-font-size: 38;"/>
+                                                <Label text="Posts" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gérer les publications" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminCommunityComments"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(142,68,173,0.9), rgba(125,60,152,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(142,68,173,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="💬" style="-fx-font-size: 38;"/>
+                                                <Label text="Commentaires" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Modération" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                        <VBox alignment="CENTER" spacing="12.0" prefWidth="150.0" prefHeight="150.0" onMouseClicked="#goToAdminCommunityLikes"
+                                              style="-fx-background-color: linear-gradient(to bottom right, rgba(233,30,99,0.9), rgba(194,24,91,0.95)); -fx-background-radius: 20; -fx-padding: 25; -fx-cursor: hand;">
+                                            <effect><DropShadow blurType="GAUSSIAN" color="rgba(233,30,99,0.4)" radius="20"/></effect>
+                                            <children>
+                                                <Label text="👍" style="-fx-font-size: 38;"/>
+                                                <Label text="Votes/Likes" style="-fx-text-fill: white;"><font><Font name="System Bold" size="14.0"/></font></Label>
+                                                <Label text="Gérer les votes" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);"><font><Font size="11.0"/></font></Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                                <!-- ══ LOGOUT ══ -->
+                                <Button mnemonicParsing="false" onAction="#logout"
+                                        style="-fx-background-color: #6B7F3F; -fx-text-fill: white; -fx-background-radius: 30; -fx-cursor: hand; -fx-padding: 12 35; -fx-font-weight: bold; -fx-font-size: 15px;"
+                                        text="Se déconnecter" prefWidth="250.0">
+                                    <effect><DropShadow color="rgba(107,127,63,0.5)" radius="15" offsetY="5"/></effect>
+                                    <VBox.margin><Insets top="30.0" bottom="50.0"/></VBox.margin>
+                                </Button>
+
+                            </children>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

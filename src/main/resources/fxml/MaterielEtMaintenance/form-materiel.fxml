@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.neuron.ardhi.controllers.MaterielEtMaintenance.FormMaterielController"
+      spacing="20"
+      style="-fx-background-color: #f8f9fa;"
+      prefWidth="500"
+      prefHeight="450">
+
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <!-- En-tête -->
+    <Label fx:id="lblTitre" text="Ajouter un Matériel"
+           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c6b2c;"/>
+
+    <!-- Formulaire -->
+    <GridPane hgap="15" vgap="15">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="35"/>
+            <ColumnConstraints percentWidth="65"/>
+        </columnConstraints>
+
+        <!-- Nom -->
+        <Label text="Nom du matériel :" GridPane.rowIndex="0" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold;"/>
+        <TextField fx:id="txtNom" promptText="Ex: Tracteur John Deere"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <!-- Type -->
+        <Label text="Type :" GridPane.rowIndex="1" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold;"/>
+        <ComboBox fx:id="cmbType" promptText="Sélectionnez un type"
+                  GridPane.rowIndex="1" GridPane.columnIndex="1"
+                  prefWidth="200"/>
+
+        <!-- État (visible uniquement en mode ajout) -->
+        <Label fx:id="lblEtat" text="État :" GridPane.rowIndex="2" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold;"/>
+        <ComboBox fx:id="cmbEtat" promptText="Sélectionnez l'état"
+                  GridPane.rowIndex="2" GridPane.columnIndex="1"
+                  prefWidth="200"/>
+
+        <!-- Date d'achat -->
+        <Label text="Date d'achat :" GridPane.rowIndex="3" GridPane.columnIndex="0"
+               style="-fx-font-weight: bold;"/>
+        <DatePicker fx:id="dpDateAchat" promptText="Sélectionnez une date"
+                    GridPane.rowIndex="3" GridPane.columnIndex="1"
+                    prefWidth="200"/>
+    </GridPane>
+
+    <!-- Message d'information -->
+    <Label fx:id="lblInfo" wrapText="true"
+           style="-fx-text-fill: #666; -fx-font-size: 12px;"
+           text="ℹ️ Une notification de maintenance vous sera envoyée 1 an après la date d'achat."/>
+
+    <!-- Message en mode modification -->
+    <Label fx:id="lblModifInfo" wrapText="true" visible="false" managed="false"
+           style="-fx-text-fill: #ff6b00; -fx-font-size: 12px; -fx-font-weight: bold;"
+           text="⚠️ Note: Vous ne pouvez pas modifier l'état du matériel."/>
+
+    <!-- Boutons -->
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="btnSauvegarder" text="💾 Enregistrer"
+                onAction="#handleSauvegarder"
+                style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 20;"/>
+
+        <Button text="❌ Annuler"
+                onAction="#handleAnnuler"
+                style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 20;"/>
+    </HBox>
+
+</VBox>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Carte des Maladies</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        html,
+        body,
+        #map {
+            height: 100%;
+            width: 100%;
+            background-color: #f4f4f4;
+        }
+
+        /* FIX FOR JAVAFX WEBVIEW */
+        .leaflet-tile {
+            will-change: unset !important;
+            backface-visibility: visible !important;
+        }
+
+        .leaflet-fade-anim .leaflet-tile,
+        .leaflet-zoom-anim .leaflet-zoom-animated {
+            will-change: auto !important;
+        }
+
+        /* TOOLTIP STYLES (Native Leaflet Labels) */
+        .leaflet-tooltip {
+            border: 2px solid white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            font-weight: bold;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            font-size: 13px;
+            padding: 5px 10px;
+            white-space: nowrap;
+        }
+
+        .tooltip-high {
+            background-color: #c0392b;
+            color: white;
+            border-color: #e74c3c;
+        }
+
+        .tooltip-medium {
+            background-color: #f39c12;
+            color: #2c3e50;
+            border-color: #f1c40f;
+        }
+
+        .tooltip-low {
+            background-color: #27ae60;
+            color: white;
+            border-color: #2ecc71;
+        }
+
+        /* Hide the little triangle tip of the tooltip for a cleaner box look */
+        .leaflet-tooltip-bottom:before,
+        .leaflet-tooltip-top:before,
+        .leaflet-tooltip-left:before,
+        .leaflet-tooltip-right:before {
+            display: none;
+        }
+
+        .info {
+            padding: 6px 8px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        // CRITICAL FIX: Disable 3D transforms
+        L.Browser.any3d = false;
+        L.Browser.retina = false;
+
+        var map = L.map('map', {
+            fadeAnimation: false,
+            zoomAnimation: false,
+            markerZoomAnimation: false,
+            zoomSnap: 1,
+            zoomDelta: 1,
+            trackResize: true,
+            preferCanvas: true
+        }).setView([34.5, 9.5], 6);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
+
+        // Array to store all markers for bounds fitting
+        var allMarkers = [];
+
+        // Function to be called from Java
+        function addMarker(lat, lon, title, description, severity) {
+            var cssClass = 'tooltip-low';
+            var color = '#27ae60'; // Green default
+
+            if (severity === 'CRITICAL' || severity === 'HIGH') {
+                cssClass = 'tooltip-high';
+                color = '#e74c3c';
+            } else if (severity === 'MEDIUM') {
+                cssClass = 'tooltip-medium';
+                color = '#f39c12';
+            }
+
+            // Use a larger CircleMarker for better visibility
+            var marker = L.circleMarker([lat, lon], {
+                color: 'white',
+                fillColor: color,
+                fillOpacity: 0.9,
+                radius: 12,
+                weight: 3
+            }).addTo(map);
+
+            // Add the PERMANENT TEXT LABEL
+            marker.bindTooltip(title, {
+                permanent: false,
+                direction: 'top',
+                className: cssClass,
+                offset: [0, -12]
+            }).openTooltip();
+
+            marker.bindPopup('<b style="font-size:14px">' + title + '</b><br>' +
+                '<span style="color:' + color + '; font-weight:bold;">Niveau: ' + severity + '</span>' +
+                '<hr style="margin:5px 0">' + description);
+
+            marker.on('click', function (e) {
+                console.log("Marker clicked: " + title);
+                if (typeof app !== 'undefined') {
+                    console.log("app is defined. Calling Java bridge...");
+                    app.evaluateMarkerSporeCast(lat, lon, title);
+                } else {
+                    console.log("ERROR: app (Java Bridge) is NOT defined.");
+                }
+            });
+
+            allMarkers.push(marker);
+        }
+
+        // Function to fit map to show all markers - called from Java after adding markers
+        function fitAllMarkers() {
+            if (allMarkers.length > 0) {
+                var group = new L.featureGroup(allMarkers);
+                map.fitBounds(group.getBounds().pad(0.2));
+            }
+        }
+
+        var activeCone = null;
+
+        // Function to draw the SporeCast wind cone - called from Java bridge
+        function drawSporeCastCone(lat, lon, travelAngle, radiusKm, dirLabel) {
+            if (activeCone) {
+                map.removeLayer(activeCone);
+            }
+
+            var rLat = radiusKm / 111.0;
+            var rLon = radiusKm / (111.0 * Math.cos(lat * Math.PI / 180));
+
+            var points = [[lat, lon]]; // origin point
+
+            // Draw a cone of 90 degrees (+/- 45 from the central compass angle)
+            var startAngle = travelAngle - 45;
+            var endAngle = travelAngle + 45;
+
+            for (var a = startAngle; a <= endAngle; a += 5) {
+                // Convert compass angle to math angle: Math Angle = 90 - Compass Angle
+                var rad = (90 - a) * Math.PI / 180;
+                var pLat = lat + (rLat * Math.sin(rad));
+                var pLon = lon + (rLon * Math.cos(rad));
+                points.push([pLat, pLon]);
+            }
+
+            activeCone = L.polygon(points, {
+                color: '#c0392b',
+                fillColor: '#e74c3c',
+                fillOpacity: 0.25,
+                weight: 2,
+                dashArray: '5, 5'
+            }).addTo(map);
+
+            // Notify user with a popup
+            activeCone.bindPopup('<b style="color:#c0392b; font-size:14px;">🚨 Zone de Risque Épidémique</b><br/>Rayon: ' + radiusKm + 'km<br/>Propagation par les vents vers le ' + dirLabel).openPopup();
+
+            // Optionally, fit the map slightly to see the cone if it's large
+            // map.fitBounds(activeCone.getBounds(), {padding: [50, 50], maxZoom: 10});
+        }
+
+        // ── NDVI Overlay System ──
+        var ndviLayers = [];
+        var ndviActive = false;
+
+        // Shows the NDVI overlay from a JSON string of cells
+        // Each cell: { lat, lon, ndvi, size, color, label }
+        function showNDVIOverlay(cellsJson) {
+            removeNDVIOverlay(); // Clear any existing
+            var cells = JSON.parse(cellsJson);
+
+            for (var i = 0; i < cells.length; i++) {
+                var c = cells[i];
+                var halfSize = c.size / 2;
+                var bounds = [
+                    [c.lat - halfSize, c.lon - halfSize],
+                    [c.lat + halfSize, c.lon + halfSize]
+                ];
+
+                var rect = L.rectangle(bounds, {
+                    color: c.color,
+                    fillColor: c.color,
+                    fillOpacity: 0.45,
+                    weight: 1,
+                    opacity: 0.6
+                }).addTo(map);
+
+                rect.bindPopup(
+                    '<b style="font-size:13px;">🛰️ Indice NDVI</b><br>' +
+                    '<span style="color:' + c.color + '; font-weight:bold; font-size:16px;">' + c.ndvi.toFixed(2) + '</span><br>' +
+                    '<span style="color:#555;">' + c.label + '</span>'
+                );
+
+                ndviLayers.push(rect);
+            }
+
+            ndviActive = true;
+            updateLegend();
+        }
+
+        // Removes all NDVI rectangles from the map
+        function removeNDVIOverlay() {
+            for (var i = 0; i < ndviLayers.length; i++) {
+                map.removeLayer(ndviLayers[i]);
+            }
+            ndviLayers = [];
+            ndviActive = false;
+            updateLegend();
+        }
+
+        // ── Legend Control ──
+        var legend = L.control({ position: 'bottomright' });
+        legend.onAdd = function (map) {
+            var div = L.DomUtil.create('div', 'info legend');
+            div.setAttribute('id', 'map-legend');
+            buildDiseaseLegend(div);
+            return div;
+        };
+        legend.addTo(map);
+
+        function updateLegend() {
+            var div = document.getElementById('map-legend');
+            if (!div) return;
+            div.innerHTML = '';
+            if (ndviActive) {
+                buildNDVILegend(div);
+            } else {
+                buildDiseaseLegend(div);
+            }
+        }
+
+        function buildDiseaseLegend(div) {
+            div.innerHTML += '<h4 style="margin: 0 0 5px 0; color: #777;">Niveau de Risque</h4>';
+            div.innerHTML += '<div style="margin-bottom:3px;"><i style="display:inline-block; width:18px; height:18px; background:#e74c3c; border-radius:50%; vertical-align:middle; margin-right:5px;"></i> Critique</div>';
+            div.innerHTML += '<div style="margin-bottom:3px;"><i style="display:inline-block; width:18px; height:18px; background:#f39c12; border-radius:50%; vertical-align:middle; margin-right:5px;"></i> Moyen</div>';
+            div.innerHTML += '<div><i style="display:inline-block; width:18px; height:18px; background:#27ae60; border-radius:50%; vertical-align:middle; margin-right:5px;"></i> Faible</div>';
+        }
+
+        function buildNDVILegend(div) {
+            div.innerHTML += '<h4 style="margin: 0 0 5px 0; color: #555;">🛰️ Indice NDVI</h4>';
+            var scale = [
+                { color: '#006400', label: '> 0.7 Dense' },
+                { color: '#228B22', label: '0.5-0.7 Saine' },
+                { color: '#7CFC00', label: '0.3-0.5 Modérée' },
+                { color: '#FFA500', label: '0.1-0.3 Clairsemée' },
+                { color: '#8B4513', label: '< 0.1 Sol nu' }
+            ];
+            for (var i = 0; i < scale.length; i++) {
+                div.innerHTML += '<div style="margin-bottom:3px;"><i style="display:inline-block; width:18px; height:12px; background:' + scale[i].color + '; vertical-align:middle; margin-right:5px; border-radius:2px;"></i> ' + scale[i].label + '</div>';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,291 @@
+/* ══════════════════════════════════════════════════════════════════════════
+   CHATBOT ARDHI — DESIGN FINAL  (SmartFarm Manager – IA RH Chatbot)
+   Palette : vert forêt #2d6a4f / #40916c  |  fond #f5f5f0  |  blanc
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────────
+   EN-TÊTE
+   ───────────────────────────────────────────────────────────────────────── */
+.header {
+    -fx-background-color: linear-gradient(to right, #2d6a4f, #40916c);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 8, 0, 0, 3);
+}
+
+.header-title {
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.header-status {
+    -fx-font-size: 12px;
+    -fx-text-fill: rgba(255,255,255,0.85);
+}
+
+.bot-avatar-header {
+    -fx-background-color: rgba(255,255,255,0.18);
+    -fx-background-radius: 50%;
+    -fx-padding: 6;
+    -fx-min-width:  46px;
+    -fx-min-height: 46px;
+    -fx-max-width:  46px;
+    -fx-max-height: 46px;
+}
+
+.btn-clear {
+    -fx-background-color: rgba(255,255,255,0.22);
+    -fx-text-fill: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 7 14;
+    -fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+.btn-clear:hover { -fx-background-color: rgba(255,255,255,0.35); }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   ZONE DE MESSAGES (ScrollPane + chatContainer)
+   ───────────────────────────────────────────────────────────────────────── */
+.chat-scroll {
+    -fx-background-color: #f5f5f0;
+    -fx-border-color: transparent;
+}
+.chat-scroll .viewport { -fx-background-color: #f5f5f0; }
+.chat-scroll .scroll-bar:vertical { -fx-background-color: transparent; }
+.chat-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #c8d5c8;
+    -fx-background-radius: 4px;
+}
+.chat-scroll .scroll-bar:vertical .thumb:hover { -fx-background-color: #a0b8a0; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BULLES DE MESSAGES
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* Bulle bot (blanche) */
+.bubble-bot {
+    -fx-background-color: white;
+    -fx-background-radius: 4 18 18 18;
+    -fx-padding: 12 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+}
+
+/* Bulle utilisateur (vert forêt) */
+.bubble-user {
+    -fx-background-color: #2d6a4f;
+    -fx-background-radius: 18 18 4 18;
+    -fx-padding: 12 16;
+    -fx-effect: dropshadow(gaussian, rgba(45,106,79,0.30), 8, 0, 0, 3);
+}
+
+/* Texte dans les bulles */
+.msg-text-bot  { -fx-text-fill: #1a1a1a; -fx-font-size: 13.5px; -fx-wrap-text: true; }
+.msg-text-user { -fx-text-fill: white;   -fx-font-size: 13.5px; -fx-wrap-text: true; }
+.msg-time      { -fx-font-size: 10px;    -fx-text-fill: #aaaaaa; }
+.msg-time-user { -fx-font-size: 10px;    -fx-text-fill: rgba(255,255,255,0.65); }
+
+/* Avatar robot */
+.avatar-bot {
+    -fx-background-color: #e8f5e9;
+    -fx-background-radius: 50%;
+    -fx-min-width: 40px; -fx-min-height: 40px;
+    -fx-max-width: 40px; -fx-max-height: 40px;
+    -fx-alignment: center;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CARTE EMPLOYÉ RECOMMANDÉ
+   ───────────────────────────────────────────────────────────────────────── */
+.employee-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12px;
+    -fx-border-color: #e0ece0;
+    -fx-border-width: 1px;
+    -fx-border-radius: 12px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 10, 0, 0, 3);
+    -fx-padding: 14 16;
+    -fx-cursor: hand;
+}
+.employee-card:hover {
+    -fx-border-color: #40916c;
+    -fx-effect: dropshadow(gaussian, rgba(64,145,108,0.25), 14, 0, 0, 4);
+}
+.employee-card-name  { -fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a; }
+.employee-card-post  { -fx-font-size: 12px; -fx-text-fill: #666666; }
+.employee-card-score { -fx-font-size: 26px; -fx-font-weight: bold; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BOUTONS OUI/NON (assigner employé)
+   ───────────────────────────────────────────────────────────────────────── */
+.btn-assign-yes {
+    -fx-background-color: #2d6a4f;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 10 24;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+}
+.btn-assign-yes:hover { -fx-background-color: #40916c; }
+.btn-assign-yes:pressed { -fx-background-color: #1b4332; }
+
+.btn-assign-no {
+    -fx-background-color: white;
+    -fx-text-fill: #444444;
+    -fx-font-size: 13px;
+    -fx-background-radius: 8px;
+    -fx-padding: 10 24;
+    -fx-cursor: hand;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+}
+.btn-assign-no:hover { -fx-background-color: #f5f5f5; -fx-border-color: #aaaaaa; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   CHIPS DE SUGGESTIONS RAPIDES (barre du bas)
+   ───────────────────────────────────────────────────────────────────────── */
+.suggestions-bar { -fx-background-color: white; }
+
+.suggestion-chip {
+    -fx-background-color: #f0f7f0;
+    -fx-background-radius: 20px;
+    -fx-padding: 6 13;
+    -fx-font-size: 12px;
+    -fx-text-fill: #2d6a4f;
+    -fx-cursor: hand;
+    -fx-border-color: #c8e6c9;
+    -fx-border-radius: 20px;
+    -fx-border-width: 1px;
+}
+.suggestion-chip:hover {
+    -fx-background-color: #2d6a4f;
+    -fx-text-fill: white;
+    -fx-border-color: #2d6a4f;
+    -fx-effect: dropshadow(gaussian, rgba(45,106,79,0.3), 5, 0, 0, 2);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BARRE DE SAISIE
+   ───────────────────────────────────────────────────────────────────────── */
+.input-area {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, -2);
+}
+
+.input-field {
+    -fx-background-color: #f5f5f0;
+    -fx-background-radius: 25px;
+    -fx-padding: 12 20;
+    -fx-font-size: 14px;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 25px;
+    -fx-border-width: 1px;
+    -fx-text-fill: #1a1a1a;
+    -fx-prompt-text-fill: #999999;
+}
+.input-field:focused {
+    -fx-border-color: #40916c;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(64,145,108,0.15), 8, 0, 0, 0);
+}
+
+.btn-voice {
+    -fx-background-color: #f0f0f0;
+    -fx-text-fill: #555555;
+    -fx-background-radius: 50%;
+    -fx-min-width:  44px; -fx-min-height:  44px;
+    -fx-max-width:  44px; -fx-max-height:  44px;
+    -fx-cursor: hand;
+    -fx-font-size: 16px;
+    -fx-padding: 0;
+}
+.btn-voice:hover { -fx-background-color: #e0e0e0; }
+
+.btn-send {
+    -fx-background-color: #2d6a4f;
+    -fx-text-fill: white;
+    -fx-background-radius: 25px;
+    -fx-padding: 12 22;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(45,106,79,0.40), 10, 0, 0, 3);
+}
+.btn-send:hover  { -fx-background-color: #40916c; }
+.btn-send:pressed{ -fx-background-color: #1b4332; -fx-scale-x:0.97; -fx-scale-y:0.97; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PANNEAU LATÉRAL  "Suggestions"
+   ───────────────────────────────────────────────────────────────────────── */
+.side-panel { -fx-background-color: white; }
+
+.btn-refresh-side {
+    -fx-background-color: transparent;
+    -fx-text-fill: #888888;
+    -fx-font-size: 16px;
+    -fx-cursor: hand;
+    -fx-padding: 2 6;
+    -fx-background-radius: 4px;
+}
+.btn-refresh-side:hover { -fx-background-color: #f0f0f0; -fx-text-fill: #2d6a4f; }
+
+/* Rangée de suggestion latérale */
+.side-suggestion-row {
+    -fx-padding: 14 18;
+    -fx-border-color: #f5f5f5;
+    -fx-border-width: 0 0 1 0;
+    -fx-cursor: hand;
+    -fx-background-color: white;
+}
+.side-suggestion-row:hover { -fx-background-color: #f8faf8; }
+
+.side-bullet {
+    -fx-min-width: 8px; -fx-min-height: 8px;
+    -fx-max-width: 8px; -fx-max-height: 8px;
+    -fx-background-color: #40916c;
+    -fx-background-radius: 50%;
+}
+
+.side-suggestion-title { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #1a1a1a; -fx-wrap-text:true; }
+.side-suggestion-sub   { -fx-font-size: 12px; -fx-text-fill: #666666; -fx-wrap-text:true; }
+
+/* Image contextuelle arrondie */
+.side-context-image {
+    -fx-background-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 8, 0, 0, 2);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   INDICATEUR DE CHARGEMENT  (3 points animés)
+   ───────────────────────────────────────────────────────────────────────── */
+.typing-dot {
+    -fx-min-width: 8px; -fx-min-height: 8px;
+    -fx-max-width: 8px; -fx-max-height: 8px;
+    -fx-background-color: #40916c;
+    -fx-background-radius: 50%;
+}
+
+.progress-indicator { -fx-progress-color: #40916c; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BADGE CONFIANCE IA
+   ───────────────────────────────────────────────────────────────────────── */
+.confidence-badge {
+    -fx-background-radius: 12px;
+    -fx-padding: 3 10;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.confidence-high   { -fx-background-color: #27ae60; }
+.confidence-medium { -fx-background-color: #f39c12; }
+.confidence-low    { -fx-background-color: #e74c3c; }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   BARRE DE PROGRESSION (score)
+   ───────────────────────────────────────────────────────────────────────── */
+.score-bar { -fx-accent: #40916c; }
+.score-bar-warn { -fx-accent: #f39c12; }
+.score-bar-danger { -fx-accent: #e74c3c; }

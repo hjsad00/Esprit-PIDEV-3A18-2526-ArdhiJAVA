@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.text.Font?>
+
+<!-- Root locked to APP_WIDTH=1060, APP_HEIGHT=650 -->
+<StackPane prefHeight="650.0" prefWidth="1060.0"
+           maxHeight="650.0" maxWidth="1060.0"
+           stylesheets="@../../Style/UserAndDiagStyles.css"
+           xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.VirtualSoil3DController">
+   <children>
+
+      <!-- BACKGROUND -->
+      <AnchorPane>
+         <children>
+            <AnchorPane style="-fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #04040e, #080818, #04100d);"
+                        AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+                        AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" />
+            <Rectangle arcWidth="800" arcHeight="800"
+                       fill="rgba(39,174,96,0.035)" width="600" height="600"
+                       AnchorPane.leftAnchor="-180" AnchorPane.topAnchor="-180" />
+            <Rectangle arcWidth="700" arcHeight="700"
+                       fill="rgba(52,152,219,0.03)" width="500" height="500"
+                       AnchorPane.rightAnchor="-130" AnchorPane.bottomAnchor="-130" />
+         </children>
+      </AnchorPane>
+
+      <!-- CONTENT -->
+      <VBox>
+         <children>
+
+            <!-- TOP BAR: compact padding 8 16, spacing 10, all items fit 1060px -->
+            <HBox alignment="CENTER_LEFT" spacing="10"
+                  style="-fx-background-color: rgba(0,0,0,0.62); -fx-padding: 8 16;
+                         -fx-border-color: transparent transparent rgba(255,255,255,0.07) transparent;
+                         -fx-border-width: 0 0 1 0;">
+               <effect>
+                  <DropShadow blurType="GAUSSIAN" color="rgba(0,180,80,0.06)" offsetY="4" radius="14" />
+               </effect>
+               <children>
+
+                  <Button fx:id="btnBack" onAction="#handleBack" mnemonicParsing="false" text="←"
+                          style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 7;
+                                 -fx-cursor: hand; -fx-text-fill: rgba(255,255,255,0.8);
+                                 -fx-padding: 5 11; -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 7;">
+                     <font><Font size="15" /></font>
+                  </Button>
+
+                  <HBox alignment="CENTER_LEFT" spacing="8">
+                     <children>
+                        <Label text="🌍" style="-fx-font-size: 18;" />
+                        <VBox spacing="0">
+                           <children>
+                              <Label text="ARDHI PLATFORM"
+                                     style="-fx-text-fill: rgba(255,255,255,0.36); -fx-font-size: 8.5; -fx-font-weight: bold;" />
+                              <Label text="Profil de Sol 3D Virtuel"
+                                     style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14;">
+                                 <effect><DropShadow color="rgba(39,220,100,0.22)" radius="7" /></effect>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+
+                  <Region HBox.hgrow="ALWAYS" />
+
+                  <TextField fx:id="txtLat" prefWidth="0" maxWidth="0" visible="false" managed="false" text="36.8" />
+                  <TextField fx:id="txtLon" prefWidth="0" maxWidth="0" visible="false" managed="false" text="10.18" />
+
+                  <!-- Status badge -->
+                  <HBox fx:id="statusBadge" alignment="CENTER" spacing="4" managed="false" visible="false"
+                        style="-fx-background-color: rgba(39,174,96,0.13); -fx-background-radius: 18;
+                               -fx-padding: 3 10; -fx-border-color: rgba(39,174,96,0.38); -fx-border-radius: 18;">
+                     <children>
+                        <Label text="●" style="-fx-font-size: 7; -fx-text-fill: #27ae60;" />
+                        <Label text="Analyse complète" style="-fx-text-fill: #2ecc71; -fx-font-size: 10.5; -fx-font-weight: bold;" />
+                     </children>
+                  </HBox>
+
+                  <!-- View toggle -->
+                  <HBox fx:id="viewToggleBar" alignment="CENTER" spacing="0" managed="false" visible="false"
+                        style="-fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 8;
+                               -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 8; -fx-padding: 2;">
+                     <children>
+                        <ToggleButton fx:id="toggleBtn3D" text="🧊 3D" onAction="#handleToggle3D"
+                                      selected="true" mnemonicParsing="false"
+                                      style="-fx-background-radius: 6; -fx-cursor: hand; -fx-text-fill: white;
+                                             -fx-font-size: 11; -fx-padding: 4 11;
+                                             -fx-background-color: rgba(39,174,96,0.55);" />
+                        <ToggleButton fx:id="toggleBtnChart" text="📊 Graphes" onAction="#handleToggleChart"
+                                      mnemonicParsing="false"
+                                      style="-fx-background-radius: 6; -fx-cursor: hand;
+                                             -fx-text-fill: rgba(255,255,255,0.55);
+                                             -fx-font-size: 11; -fx-padding: 4 11;
+                                             -fx-background-color: transparent;" />
+                     </children>
+                  </HBox>
+
+                  <!-- Export: shortened label to save space -->
+                  <Button fx:id="btnExport" onAction="#handleExport" mnemonicParsing="false"
+                          text="⬇ CSV" managed="false" visible="false"
+                          style="-fx-background-color: rgba(52,152,219,0.18); -fx-text-fill: #5dade2;
+                                 -fx-background-radius: 8; -fx-cursor: hand; -fx-padding: 6 11;
+                                 -fx-border-color: rgba(52,152,219,0.32); -fx-border-radius: 8;
+                                 -fx-font-size: 11; -fx-font-weight: bold;" />
+
+                  <!-- Analyze button -->
+                  <Button fx:id="btnAnalyze" onAction="#handleAnalyze" mnemonicParsing="false"
+                          text="🔬 Analyser ce sol"
+                          style="-fx-background-color: linear-gradient(to bottom right, #27ae60, #1e8449);
+                                 -fx-text-fill: white; -fx-background-radius: 9; -fx-cursor: hand;
+                                 -fx-padding: 7 15; -fx-font-weight: bold; -fx-font-size: 12;
+                                 -fx-border-color: rgba(255,255,255,0.14); -fx-border-radius: 9;">
+                     <effect><DropShadow color="rgba(39,174,96,0.48)" radius="10" offsetY="2" /></effect>
+                  </Button>
+
+               </children>
+            </HBox>
+
+            <!-- BODY -->
+            <HBox VBox.vgrow="ALWAYS">
+               <children>
+
+                  <!-- LEFT: 3D / CHART  (takes remaining width: 1060 - 370 = 690px) -->
+                  <StackPane fx:id="leftContainer" HBox.hgrow="ALWAYS"
+                             style="-fx-background-color: #05050f;">
+
+                     <AnchorPane fx:id="sceneContainer" style="-fx-background-color: transparent;">
+                        <children>
+                           <Label fx:id="lblInstruction" visible="false" managed="false" text="" textFill="rgba(255,255,255,0.4)" />
+                           <StackPane fx:id="loadingOverlay" visible="false" managed="false"
+                                      style="-fx-background-color: rgba(5,5,15,0.8);"
+                                      AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+                                      AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+                              <children>
+                                 <VBox alignment="CENTER" spacing="12">
+                                    <children>
+                                       <ProgressIndicator fx:id="loadingIndicator" maxHeight="44" maxWidth="44"
+                                                          style="-fx-progress-color: #27ae60;" />
+                                       <Label text="Récupération des données SoilGrids…"
+                                              style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 12;" />
+                                    </children>
+                                 </VBox>
+                              </children>
+                           </StackPane>
+                           <Label text="🌱 SoilCore Viewer"
+                                  style="-fx-text-fill: rgba(255,255,255,0.09); -fx-font-size: 9.5;"
+                                  AnchorPane.bottomAnchor="8" AnchorPane.leftAnchor="12" />
+                           <Label fx:id="lblRotateHint"
+                                  text="⟳ Glisser · Molette · Cliquer sur une couche"
+                                  style="-fx-text-fill: rgba(255,255,255,0.18); -fx-font-size: 9.5;"
+                                  AnchorPane.bottomAnchor="8" AnchorPane.rightAnchor="12" />
+                           <Label fx:id="lblCoords" text=""
+                                  style="-fx-text-fill: rgba(255,255,255,0.16); -fx-font-size: 9.5; -fx-font-style: italic;"
+                                  AnchorPane.topAnchor="10" AnchorPane.leftAnchor="12" />
+                        </children>
+                     </AnchorPane>
+
+                     <VBox fx:id="chartPane" visible="false" managed="false"
+                           spacing="0" style="-fx-background-color: #05050f; -fx-padding: 16 20;">
+                        <children>
+                           <Label text="PROFIL DE PROFONDEUR — TOUTES LES COUCHES"
+                                  style="-fx-text-fill: rgba(255,255,255,0.38); -fx-font-size: 9.5;
+                                         -fx-font-weight: bold; -fx-padding: 0 0 10 0;" />
+                           <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS"
+                                       style="-fx-background: transparent; -fx-background-color: transparent;">
+                              <content>
+                                 <VBox fx:id="chartRowsContainer" spacing="8" />
+                              </content>
+                           </ScrollPane>
+                        </children>
+                     </VBox>
+
+                  </StackPane>
+
+                  <!-- RIGHT: STATS PANEL — prefWidth=370, maxWidth=370 -->
+                  <VBox prefWidth="370" maxWidth="370" spacing="0"
+                        style="-fx-background-color: rgba(0,0,0,0.65);
+                               -fx-border-color: transparent transparent transparent rgba(255,255,255,0.07);
+                               -fx-border-width: 0 0 0 1;"
+                        HBox.hgrow="NEVER">
+
+                     <!-- Header -->
+                     <HBox alignment="CENTER_LEFT" spacing="8"
+                           style="-fx-padding: 12 15 10 15;
+                                  -fx-border-color: transparent transparent rgba(255,255,255,0.07) transparent;
+                                  -fx-border-width: 0 0 1 0;">
+                        <children>
+                           <VBox spacing="2" HBox.hgrow="ALWAYS">
+                              <children>
+                                 <Label text="ANALYSE PHYTOPATHOLOGIQUE"
+                                        style="-fx-text-fill: rgba(255,255,255,0.36); -fx-font-size: 9; -fx-font-weight: bold;" />
+                                 <Label fx:id="lblDepthSelected" text="Cliquez sur une couche"
+                                        style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13;" />
+                              </children>
+                           </VBox>
+                           <StackPane style="-fx-background-color: rgba(255,255,255,0.05);
+                                            -fx-background-radius: 50; -fx-min-width: 50; -fx-min-height: 50;
+                                            -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 50;">
+                              <children>
+                                 <VBox alignment="CENTER" spacing="0">
+                                    <children>
+                                       <Label fx:id="lblScoreValue" text="--"
+                                              style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16;" />
+                                       <Label text="/100"
+                                              style="-fx-text-fill: rgba(255,255,255,0.32); -fx-font-size: 8;" />
+                                    </children>
+                                 </VBox>
+                              </children>
+                           </StackPane>
+                        </children>
+                     </HBox>
+
+                     <!-- Compare row -->
+                     <HBox fx:id="compareRow" alignment="CENTER_LEFT" spacing="5"
+                           managed="false" visible="false"
+                           style="-fx-padding: 6 15;
+                                  -fx-border-color: transparent transparent rgba(255,255,255,0.05) transparent;
+                                  -fx-border-width: 0 0 1 0; -fx-background-color: rgba(255,255,255,0.02);">
+                        <children>
+                           <Label text="Couche :"
+                                  style="-fx-text-fill: rgba(255,255,255,0.32); -fx-font-size: 10;" />
+                           <HBox fx:id="layerMiniButtons" spacing="4" alignment="CENTER_LEFT" HBox.hgrow="ALWAYS" />
+                        </children>
+                     </HBox>
+
+                     <!-- Cards scroll -->
+                     <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS"
+                                 style="-fx-background-color: transparent; -fx-background: transparent; -fx-padding: 0;">
+                        <content>
+                           <VBox spacing="9" style="-fx-padding: 11 13 16 13;">
+                              <children>
+
+                                 <!-- pH -->
+                                 <VBox fx:id="phCard" spacing="6"
+                                       style="-fx-background-color: rgba(255,255,255,0.04); -fx-background-radius: 11;
+                                              -fx-padding: 10 13; -fx-border-color: rgba(255,255,255,0.08);
+                                              -fx-border-radius: 11; -fx-border-width: 1;">
+                                    <children>
+                                       <HBox alignment="CENTER_LEFT" spacing="6">
+                                          <children>
+                                             <Label text="⚗" style="-fx-font-size: 13;" />
+                                             <Label text="pH DU SOL"
+                                                    style="-fx-text-fill: rgba(255,255,255,0.42); -fx-font-weight: bold; -fx-font-size: 9.5;" />
+                                             <Region HBox.hgrow="ALWAYS" />
+                                             <Label fx:id="lblPhBadge" text=""
+                                                    style="-fx-background-radius: 4; -fx-padding: 2 6; -fx-font-size: 9.5; -fx-font-weight: bold;" />
+                                          </children>
+                                       </HBox>
+                                       <HBox alignment="BOTTOM_LEFT" spacing="4">
+                                          <children>
+                                             <Label fx:id="lblPh" text="--"
+                                                    style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 28;" />
+                                             <Label text="pH" style="-fx-text-fill: rgba(255,255,255,0.3); -fx-font-size: 11;">
+                                                <HBox.margin><Insets bottom="5" /></HBox.margin>
+                                             </Label>
+                                          </children>
+                                       </HBox>
+                                       <VBox spacing="2">
+                                          <children>
+                                             <ProgressBar fx:id="phBar" progress="0" maxWidth="1.7976931348623157E308"
+                                                          style="-fx-pref-height: 5; -fx-background-radius: 3;
+                                                                 -fx-background-color: rgba(255,255,255,0.07);" />
+                                             <HBox>
+                                                <children>
+                                                   <Label text="Acide 0" style="-fx-text-fill: rgba(255,255,255,0.2); -fx-font-size: 8.5;" />
+                                                   <Region HBox.hgrow="ALWAYS" />
+                                                   <Label text="7" style="-fx-text-fill: rgba(255,255,255,0.2); -fx-font-size: 8.5;" />
+                                                   <Region HBox.hgrow="ALWAYS" />
+                                                   <Label text="Alcalin 14" style="-fx-text-fill: rgba(255,255,255,0.2); -fx-font-size: 8.5;" />
+                                                </children>
+                                             </HBox>
+                                          </children>
+                                       </VBox>
+                                       <Label fx:id="lblPhStatus" text="En attente d'analyse…"
+                                              style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 10.5;"
+                                              wrapText="true" />
+                                    </children>
+                                 </VBox>
+
+                                 <!-- Azote -->
+                                 <VBox fx:id="nitrogenCard" spacing="6"
+                                       style="-fx-background-color: rgba(39,174,96,0.07); -fx-background-radius: 11;
+                                              -fx-padding: 10 13; -fx-border-color: rgba(39,174,96,0.22);
+                                              -fx-border-radius: 11; -fx-border-width: 1;">
+                                    <children>
+                                       <HBox alignment="CENTER_LEFT" spacing="6">
+                                          <children>
+                                             <Label text="🌿" style="-fx-font-size: 13;" />
+                                             <Label text="AZOTE (N)"
+                                                    style="-fx-text-fill: rgba(46,204,113,0.65); -fx-font-weight: bold; -fx-font-size: 9.5;" />
+                                             <Region HBox.hgrow="ALWAYS" />
+                                             <Label fx:id="lblNitrogenBadge" text=""
+                                                    style="-fx-background-radius: 4; -fx-padding: 2 6; -fx-font-size: 9.5; -fx-font-weight: bold;" />
+                                          </children>
+                                       </HBox>
+                                       <HBox alignment="BOTTOM_LEFT" spacing="4">
+                                          <children>
+                                             <Label fx:id="lblNitrogen" text="--"
+                                                    style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 28;" />
+                                             <Label text="cg/kg" style="-fx-text-fill: rgba(255,255,255,0.3); -fx-font-size: 11;">
+                                                <HBox.margin><Insets bottom="5" /></HBox.margin>
+                                             </Label>
+                                          </children>
+                                       </HBox>
+                                       <ProgressBar fx:id="nitrogenBar" progress="0" maxWidth="1.7976931348623157E308"
+                                                    style="-fx-accent: #27ae60; -fx-pref-height: 5;
+                                                           -fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 3;" />
+                                       <Label fx:id="lblNitrogenStatus" text="En attente d'analyse…"
+                                              style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 10.5;"
+                                              wrapText="true" />
+                                    </children>
+                                 </VBox>
+
+                                 <!-- Texture -->
+                                 <VBox fx:id="textureCard" spacing="6"
+                                       style="-fx-background-color: rgba(230,168,69,0.07); -fx-background-radius: 11;
+                                              -fx-padding: 10 13; -fx-border-color: rgba(230,168,69,0.22);
+                                              -fx-border-radius: 11; -fx-border-width: 1;">
+                                    <children>
+                                       <HBox alignment="CENTER_LEFT" spacing="6">
+                                          <children>
+                                             <Label text="🪨" style="-fx-font-size: 13;" />
+                                             <Label text="TEXTURE DU SOL"
+                                                    style="-fx-text-fill: rgba(230,180,80,0.65); -fx-font-weight: bold; -fx-font-size: 9.5;" />
+                                          </children>
+                                       </HBox>
+                                       <HBox spacing="12">
+                                          <children>
+                                             <VBox spacing="3" HBox.hgrow="ALWAYS">
+                                                <children>
+                                                   <HBox alignment="CENTER_LEFT">
+                                                      <children>
+                                                         <Label text="Sable" style="-fx-text-fill: rgba(255,255,255,0.42); -fx-font-size: 10;" />
+                                                         <Region HBox.hgrow="ALWAYS" />
+                                                         <Label fx:id="lblSand" text="--%"
+                                                                style="-fx-text-fill: #e6a845; -fx-font-weight: bold; -fx-font-size: 15;" />
+                                                      </children>
+                                                   </HBox>
+                                                   <ProgressBar fx:id="sandBar" progress="0" maxWidth="1.7976931348623157E308"
+                                                                style="-fx-accent: #e6a845; -fx-pref-height: 4;
+                                                                       -fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 3;" />
+                                                </children>
+                                             </VBox>
+                                             <VBox spacing="3" HBox.hgrow="ALWAYS">
+                                                <children>
+                                                   <HBox alignment="CENTER_LEFT">
+                                                      <children>
+                                                         <Label text="Argile" style="-fx-text-fill: rgba(255,255,255,0.42); -fx-font-size: 10;" />
+                                                         <Region HBox.hgrow="ALWAYS" />
+                                                         <Label fx:id="lblClay" text="--%"
+                                                                style="-fx-text-fill: #a56336; -fx-font-weight: bold; -fx-font-size: 15;" />
+                                                      </children>
+                                                   </HBox>
+                                                   <ProgressBar fx:id="clayBar" progress="0" maxWidth="1.7976931348623157E308"
+                                                                style="-fx-accent: #a56336; -fx-pref-height: 4;
+                                                                       -fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 3;" />
+                                                </children>
+                                             </VBox>
+                                          </children>
+                                       </HBox>
+                                       <Label fx:id="lblTextureDesc" text="En attente d'analyse…"
+                                              style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 10.5; -fx-padding: 1 0 0 0;"
+                                              wrapText="true" />
+                                    </children>
+                                 </VBox>
+
+                                 <!-- CEC -->
+                                 <VBox fx:id="cecCard" spacing="6"
+                                       style="-fx-background-color: rgba(52,152,219,0.07); -fx-background-radius: 11;
+                                              -fx-padding: 10 13; -fx-border-color: rgba(52,152,219,0.22);
+                                              -fx-border-radius: 11; -fx-border-width: 1;">
+                                    <children>
+                                       <HBox alignment="CENTER_LEFT" spacing="6">
+                                          <children>
+                                             <Label text="⚡" style="-fx-font-size: 13;" />
+                                             <Label text="ÉCHANGE CATIONIQUE (CEC)"
+                                                    style="-fx-text-fill: rgba(52,172,240,0.65); -fx-font-weight: bold; -fx-font-size: 9.5;" />
+                                             <Region HBox.hgrow="ALWAYS" />
+                                             <Label fx:id="lblCecBadge" text=""
+                                                    style="-fx-background-radius: 4; -fx-padding: 2 6; -fx-font-size: 9.5; -fx-font-weight: bold;" />
+                                          </children>
+                                       </HBox>
+                                       <HBox alignment="BOTTOM_LEFT" spacing="4">
+                                          <children>
+                                             <Label fx:id="lblCec" text="--"
+                                                    style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 28;" />
+                                             <Label text="mmol(c)/kg" style="-fx-text-fill: rgba(255,255,255,0.3); -fx-font-size: 10;">
+                                                <HBox.margin><Insets bottom="5" /></HBox.margin>
+                                             </Label>
+                                          </children>
+                                       </HBox>
+                                       <ProgressBar fx:id="cecBar" progress="0" maxWidth="1.7976931348623157E308"
+                                                    style="-fx-accent: #3498db; -fx-pref-height: 4;
+                                                           -fx-background-color: rgba(255,255,255,0.07); -fx-background-radius: 3;" />
+                                       <Label text="Rétention micronutriments (Cu, Zn, Mn)."
+                                              style="-fx-text-fill: rgba(255,255,255,0.32); -fx-font-size: 10; -fx-font-style: italic;"
+                                              wrapText="true" />
+                                    </children>
+                                 </VBox>
+
+                                 <!-- Recommendations -->
+                                 <VBox fx:id="recoCard" spacing="6" managed="false" visible="false"
+                                       style="-fx-background-color: rgba(155,89,182,0.07); -fx-background-radius: 11;
+                                              -fx-padding: 10 13; -fx-border-color: rgba(155,89,182,0.22);
+                                              -fx-border-radius: 11; -fx-border-width: 1;">
+                                    <children>
+                                       <HBox alignment="CENTER_LEFT" spacing="6">
+                                          <children>
+                                             <Label text="💡" style="-fx-font-size: 13;" />
+                                             <Label text="RECOMMANDATIONS"
+                                                    style="-fx-text-fill: rgba(180,120,220,0.65); -fx-font-weight: bold; -fx-font-size: 9.5;" />
+                                          </children>
+                                       </HBox>
+                                       <Label fx:id="lblReco1" text="" wrapText="true"
+                                              style="-fx-text-fill: rgba(255,255,255,0.68); -fx-font-size: 10.5;" />
+                                       <Label fx:id="lblReco2" text="" wrapText="true"
+                                              style="-fx-text-fill: rgba(255,255,255,0.68); -fx-font-size: 10.5;" />
+                                       <Label fx:id="lblReco3" text="" wrapText="true"
+                                              style="-fx-text-fill: rgba(255,255,255,0.68); -fx-font-size: 10.5;" />
+                                    </children>
+                                 </VBox>
+
+                              </children>
+                           </VBox>
+                        </content>
+                     </ScrollPane>
+
+                     <!-- Footer -->
+                     <HBox alignment="CENTER"
+                           style="-fx-padding: 7 14;
+                                  -fx-border-color: rgba(255,255,255,0.06) transparent transparent transparent;
+                                  -fx-border-width: 1; -fx-background-color: rgba(0,0,0,0.18);">
+                        <children>
+                           <Label text="SoilGrids API  •  ISRIC World Soil Information"
+                                  style="-fx-text-fill: rgba(255,255,255,0.16); -fx-font-size: 9.5;" />
+                        </children>
+                     </HBox>
+
+                  </VBox>
+               </children>
+            </HBox>
+
+         </children>
+      </VBox>
+
+   </children>
+</StackPane>

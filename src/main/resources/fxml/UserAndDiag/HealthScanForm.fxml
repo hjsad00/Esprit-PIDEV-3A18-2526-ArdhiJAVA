@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="710.0" prefWidth="1060.0" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.HealthScanFormController">
+    <children>
+        <!-- LAYER 1: BACKGROUND -->
+        <AnchorPane>
+            <children>
+                <AnchorPane styleClass="app-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <Rectangle fill="BLACK" height="710.0" opacity="0.4" width="1060.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+        </AnchorPane>
+
+        <!-- LAYER 2: SCROLLABLE CONTENT -->
+        <ScrollPane styleClass="dashboard-scroll-pane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <content>
+                <VBox spacing="20.0" style="-fx-padding: 80 30 30 30;">
+                    <children>
+                        <!-- Main Content -->
+                        <HBox spacing="25.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <!-- Left: Form Section -->
+                                <VBox alignment="TOP_LEFT" spacing="15.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);" prefWidth="380.0" HBox.hgrow="SOMETIMES">
+                                    <padding>
+                                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                    </padding>
+                                    <children>
+                                        <Label text="🌾 Informations de la Culture" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                        </Label>
+
+                                        <!-- Crop Type -->
+                                        <Label text="Type de culture" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12;"/>
+                                        <ComboBox fx:id="comboCropType" maxWidth="1.7976931348623157E308" promptText="Sélectionnez..." style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 8;"/>
+
+                                        <!-- Planting Date -->
+                                        <Label text="Date de plantation" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12;"/>
+                                        <DatePicker fx:id="dpPlantingDate" maxWidth="1.7976931348623157E308" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 8;"/>
+
+                                        <!-- Growth Stage -->
+                                        <Label text="Stade de croissance" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12;"/>
+                                        <ComboBox fx:id="comboGrowthStage" maxWidth="1.7976931348623157E308" promptText="Sélectionnez..." style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 8;"/>
+
+                                        <Separator style="-fx-opacity: 0.3;"/>
+
+                                        <!-- Concerns -->
+                                        <HBox spacing="8" alignment="CENTER_LEFT">
+                                            <Label text="Préoccupations (optionnel)" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 12;"/>
+                                            <Button fx:id="btnMicConcerns" onAction="#dictateConcerns" style="-fx-background-color: #e67e22; -fx-background-radius: 20; -fx-cursor: hand; -fx-min-width: 35; -fx-min-height: 35; -fx-font-size: 12;" text="🎤" textFill="WHITE"/>
+                                        </HBox>
+                                        <TextArea fx:id="txtConcerns" prefRowCount="3" promptText="Décrivez vos préoccupations..." wrapText="true" style="-fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 8; -fx-control-inner-background: rgba(255,255,255,0.95);"/>
+
+                                        <!-- Scan Button -->
+                                        <Button fx:id="btnLaunchScan" onAction="#launchScan" prefHeight="50.0" maxWidth="1.7976931348623157E308" disable="true" style="-fx-background-color: rgba(107, 127, 63, 0.85); -fx-background-radius: 10; -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 10; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 8, 0, 0, 2); -fx-text-fill: white;" text="🔍 LANCER LE SCAN DE SANTÉ">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Button>
+
+                                        <!-- Progress Indicator (hidden by default) -->
+                                        <HBox fx:id="progressBox" visible="false" managed="false" alignment="CENTER" spacing="10.0" style="-fx-padding: 10;">
+                                            <children>
+                                                <ProgressIndicator prefWidth="30.0" prefHeight="30.0"/>
+                                                <Label fx:id="lblProgress" text="Analyse en cours..." style="-fx-text-fill: white;">
+                                                    <font>
+                                                        <Font size="13.0"/>
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </VBox>
+
+                                <!-- Right: Photo Upload Grid -->
+                                <VBox alignment="TOP_CENTER" spacing="15.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);" prefWidth="600.0" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                    </padding>
+                                    <children>
+                                        <Label text="📷 Photos du Champ (6 angles)" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                        </Label>
+
+                                        <Label text="Cliquez chaque zone pour importer une photo" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 12;"/>
+
+                                        <!-- 2x3 Photo Grid -->
+                                        <GridPane hgap="12.0" vgap="12.0" alignment="CENTER">
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="ALWAYS" minWidth="160.0"/>
+                                                <ColumnConstraints hgrow="ALWAYS" minWidth="160.0"/>
+                                                <ColumnConstraints hgrow="ALWAYS" minWidth="160.0"/>
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints vgrow="ALWAYS" minHeight="140.0"/>
+                                                <RowConstraints vgrow="ALWAYS" minHeight="140.0"/>
+                                            </rowConstraints>
+
+                                            <!-- Row 1 -->
+                                            <VBox fx:id="boxPhotoCrops" onMouseClicked="#selectPhotoCrops" alignment="CENTER" spacing="5.0" style="-fx-border-color: rgba(255,255,255,0.3); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 12; -fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                                <padding><Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/></padding>
+                                                <children>
+                                                    <ImageView fx:id="imgCrops" fitHeight="80.0" fitWidth="130.0" preserveRatio="true"/>
+                                                    <Label fx:id="lblCrops" text="🌿 Cultures" style="-fx-text-fill: white; -fx-font-size: 11;"/>
+                                                </children>
+                                            </VBox>
+
+                                            <VBox fx:id="boxPhotoSoil" onMouseClicked="#selectPhotoSoil" alignment="CENTER" spacing="5.0" style="-fx-border-color: rgba(255,255,255,0.3); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 12; -fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                                <padding><Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/></padding>
+                                                <children>
+                                                    <ImageView fx:id="imgSoil" fitHeight="80.0" fitWidth="130.0" preserveRatio="true"/>
+                                                    <Label fx:id="lblSoil" text="🪨 Sol" style="-fx-text-fill: white; -fx-font-size: 11;"/>
+                                                </children>
+                                            </VBox>
+
+                                            <VBox fx:id="boxPhotoEdges" onMouseClicked="#selectPhotoEdges" alignment="CENTER" spacing="5.0" style="-fx-border-color: rgba(255,255,255,0.3); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 12; -fx-cursor: hand;" GridPane.columnIndex="2" GridPane.rowIndex="0">
+                                                <padding><Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/></padding>
+                                                <children>
+                                                    <ImageView fx:id="imgEdges" fitHeight="80.0" fitWidth="130.0" preserveRatio="true"/>
+                                                    <Label fx:id="lblEdges" text="🌳 Bordures" style="-fx-text-fill: white; -fx-font-size: 11;"/>
+                                                </children>
+                                            </VBox>
+
+                                            <!-- Row 2 -->
+                                            <VBox fx:id="boxPhotoInsects" onMouseClicked="#selectPhotoInsects" alignment="CENTER" spacing="5.0" style="-fx-border-color: rgba(255,255,255,0.3); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 12; -fx-cursor: hand;" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                                                <padding><Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/></padding>
+                                                <children>
+                                                    <ImageView fx:id="imgInsects" fitHeight="80.0" fitWidth="130.0" preserveRatio="true"/>
+                                                    <Label fx:id="lblInsects" text="🐛 Insectes" style="-fx-text-fill: white; -fx-font-size: 11;"/>
+                                                </children>
+                                            </VBox>
+
+                                            <VBox fx:id="boxPhotoSpacing" onMouseClicked="#selectPhotoSpacing" alignment="CENTER" spacing="5.0" style="-fx-border-color: rgba(255,255,255,0.3); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 12; -fx-cursor: hand;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                <padding><Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/></padding>
+                                                <children>
+                                                    <ImageView fx:id="imgSpacing" fitHeight="80.0" fitWidth="130.0" preserveRatio="true"/>
+                                                    <Label fx:id="lblSpacing" text="📐 Espacement" style="-fx-text-fill: white; -fx-font-size: 11;"/>
+                                                </children>
+                                            </VBox>
+
+                                            <VBox fx:id="boxPhotoOverview" onMouseClicked="#selectPhotoOverview" alignment="CENTER" spacing="5.0" style="-fx-border-color: rgba(255,255,255,0.3); -fx-border-style: dashed; -fx-border-radius: 12; -fx-background-color: rgba(255,255,255,0.15); -fx-background-radius: 12; -fx-cursor: hand;" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                <padding><Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/></padding>
+                                                <children>
+                                                    <ImageView fx:id="imgOverview" fitHeight="80.0" fitWidth="130.0" preserveRatio="true"/>
+                                                    <Label fx:id="lblOverview" text="🏞️ Vue d'ensemble" style="-fx-text-fill: white; -fx-font-size: 11;"/>
+                                                </children>
+                                            </VBox>
+                                        </GridPane>
+
+                                        <Label fx:id="lblPhotoCount" text="0/6 photos importées" style="-fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 11;"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- LAYER 3: HEADER (Overlay) -->
+        <AnchorPane pickOnBounds="false" StackPane.alignment="TOP_CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 15 20;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" offsetY="2" radius="10"/>
+                    </effect>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-text-fill: white;" text="←">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Button>
+
+                        <Label text="🌿 Scan Santé du Champ" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                            <font>
+                                <Font name="System Bold" size="20.0"/>
+                            </font>
+                        </Label>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

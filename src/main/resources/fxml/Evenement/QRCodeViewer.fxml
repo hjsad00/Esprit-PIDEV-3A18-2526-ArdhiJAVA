@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.QRCodeViewerController"
+           prefWidth="480" prefHeight="620"
+           style="-fx-background-color: linear-gradient(to bottom right, #1A1A2E 0%, #0F3460 100%);"
+           stylesheets="@/Style/evenement-style.css">
+
+    <VBox spacing="25" alignment="CENTER" style="-fx-padding: 40;">
+
+        <!-- Titre -->
+        <VBox alignment="CENTER" spacing="8">
+            <Label text="📱 Votre QR Code de Check-in"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label fx:id="eventTitleLabel" text=""
+                   style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.7);"/>
+        </VBox>
+
+        <!-- QR Code Image -->
+        <StackPane style="-fx-background-color: white; -fx-background-radius: 20;
+                          -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 20, 0, 0, 6);">
+            <VBox alignment="CENTER" spacing="12">
+                <ImageView fx:id="qrImageView"
+                           fitWidth="280" fitHeight="280"
+                           preserveRatio="true"
+                           smooth="true"/>
+                <Label fx:id="participantNameLabel" text=""
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                <Label fx:id="tokenLabel" text=""
+                       style="-fx-font-size: 10px; -fx-text-fill: #95A5A6; -fx-font-family: monospace;"/>
+            </VBox>
+        </StackPane>
+
+        <!-- Instructions -->
+        <VBox alignment="CENTER" spacing="8"
+              style="-fx-background-color: rgba(255,255,255,0.1);
+                     -fx-background-radius: 15; -fx-padding: 18;">
+            <Label text="📋 Instructions"
+                   style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="Présentez ce QR code à l'entrée de l'événement"
+                   wrapText="true"
+                   style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.8); -fx-text-alignment: center;"/>
+            <Label text="L'organisateur le scannera pour valider votre présence ✅"
+                   wrapText="true"
+                   style="-fx-font-size: 12px; -fx-text-fill: rgba(255,255,255,0.8); -fx-text-alignment: center;"/>
+        </VBox>
+
+        <!-- Boutons -->
+        <HBox spacing="15" alignment="CENTER">
+            <Button text="💾 Sauvegarder"
+                    onAction="#handleSauvegarder"
+                    prefWidth="160" prefHeight="42"
+                    style="-fx-background-color: linear-gradient(to right, #3498DB, #2980B9);
+                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px;
+                           -fx-background-radius: 20; -fx-cursor: hand;">
+                <effect><DropShadow color="rgba(52,152,219,0.4)" radius="10" offsetY="3"/></effect>
+            </Button>
+
+            <Button text="✖ Fermer"
+                    onAction="#handleFermer"
+                    prefWidth="120" prefHeight="42"
+                    style="-fx-background-color: linear-gradient(to right, #E74C3C, #C0392B);
+                           -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13px;
+                           -fx-background-radius: 20; -fx-cursor: hand;">
+                <effect><DropShadow color="rgba(231,76,60,0.4)" radius="10" offsetY="3"/></effect>
+            </Button>
+        </HBox>
+
+    </VBox>
+
+</StackPane>

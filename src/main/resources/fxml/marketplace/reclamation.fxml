@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<!--
+    Layout : BorderPane
+    ├── top    : Navbar dark + Stats bar
+    ├── center : ScrollPane > VBox > Formulaire + FlowPane cards
+    └── bottom : Footer
+-->
+<BorderPane prefHeight="860.0" prefWidth="1200.0"
+            style="-fx-background-color: #F4F7F6;"
+            xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.marketplace.ReclamationController">
+
+    <!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+    <top>
+        <VBox>
+            <HBox alignment="CENTER_LEFT" spacing="0"
+                  style="-fx-background-color: #2b5329; -fx-pref-height: 70; -fx-min-height: 70;">
+                <padding><Insets left="30" right="30" /></padding>
+
+                <HBox alignment="CENTER_LEFT" spacing="8">
+                    <ImageView fitHeight="36" fitWidth="36" preserveRatio="true">
+                        <image><Image url="@../../img/ardhi_logo.png" /></image>
+                    </ImageView>
+                    <VBox alignment="CENTER_LEFT" spacing="0">
+                        <Label text="ARDHI"
+                               style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white; -fx-letter-spacing: 3px;" />
+                        <Label text="MARKETPLACE AGRICOLE"
+                               style="-fx-font-size: 8px; -fx-text-fill: #6a8a78; -fx-letter-spacing: 1.5px;" />
+                    </VBox>
+                </HBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Label text="📝  Gestion des Réclamations"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #7fffc0;" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button onAction="#rafraichir"
+                        style="-fx-background-color: #436d41; -fx-text-fill: #7fffc0; -fx-font-size: 13px; -fx-background-radius: 10; -fx-cursor: hand; -fx-border-color: #5c835a; -fx-border-radius: 10; -fx-border-width: 1.5;"
+                        text="🔄  Actualiser">
+                    <HBox.margin><Insets right="12" /></HBox.margin>
+                </Button>
+
+                <Button onAction="#retour"
+                        style="-fx-background-color: transparent; -fx-text-fill: #c8d8c8; -fx-font-size: 18px; -fx-background-radius: 10; -fx-cursor: hand; -fx-border-color: #5c835a; -fx-border-radius: 10; -fx-border-width: 1.5;"
+                        text="←" />
+            </HBox>
+
+            <!-- Stats bar -->
+            <HBox alignment="CENTER_LEFT" spacing="0"
+                  style="-fx-background-color: #2b5329; -fx-border-color: #1a3525; -fx-border-width: 1 0 0 0; -fx-pref-height: 56;">
+                <padding><Insets left="30" right="30" /></padding>
+
+                <!-- Total -->
+                <HBox alignment="CENTER" spacing="10"
+                      style="-fx-background-color: #436d41; -fx-background-radius: 12; -fx-padding: 8 20; -fx-border-color: #5c835a; -fx-border-radius: 12; -fx-border-width: 1;">
+                    <Label text="📋" style="-fx-font-size: 16px;" />
+                    <VBox spacing="0" alignment="CENTER_LEFT">
+                        <Label text="TOTAL" style="-fx-font-size: 8px; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                        <Label fx:id="lblTotalReclamations" text="0"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" />
+                    </VBox>
+                </HBox>
+
+                <HBox style="-fx-padding: 0 20;" alignment="CENTER">
+                    <Label text="·" style="-fx-text-fill: #5c835a; -fx-font-size: 20px;" />
+                </HBox>
+
+                <!-- En attente -->
+                <HBox alignment="CENTER" spacing="10"
+                      style="-fx-background-color: #436d41; -fx-background-radius: 12; -fx-padding: 8 20; -fx-border-color: #5c835a; -fx-border-radius: 12; -fx-border-width: 1;">
+                    <Label text="⏳" style="-fx-font-size: 16px;" />
+                    <VBox spacing="0" alignment="CENTER_LEFT">
+                        <Label text="EN ATTENTE" style="-fx-font-size: 8px; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                        <Label fx:id="lblEnAttente" text="0"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #ffd966;" />
+                    </VBox>
+                </HBox>
+
+                <HBox style="-fx-padding: 0 20;" alignment="CENTER">
+                    <Label text="·" style="-fx-text-fill: #5c835a; -fx-font-size: 20px;" />
+                </HBox>
+
+                <!-- En cours -->
+                <HBox alignment="CENTER" spacing="10"
+                      style="-fx-background-color: #436d41; -fx-background-radius: 12; -fx-padding: 8 20; -fx-border-color: #5c835a; -fx-border-radius: 12; -fx-border-width: 1;">
+                    <Label text="🔄" style="-fx-font-size: 16px;" />
+                    <VBox spacing="0" alignment="CENTER_LEFT">
+                        <Label text="EN COURS" style="-fx-font-size: 8px; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                        <Label fx:id="lblEnCours" text="0"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #7eb8f7;" />
+                    </VBox>
+                </HBox>
+
+                <HBox style="-fx-padding: 0 20;" alignment="CENTER">
+                    <Label text="·" style="-fx-text-fill: #5c835a; -fx-font-size: 20px;" />
+                </HBox>
+
+                <!-- Résolues -->
+                <HBox alignment="CENTER" spacing="10"
+                      style="-fx-background-color: #436d41; -fx-background-radius: 12; -fx-padding: 8 20; -fx-border-color: #5c835a; -fx-border-radius: 12; -fx-border-width: 1;">
+                    <Label text="✅" style="-fx-font-size: 16px;" />
+                    <VBox spacing="0" alignment="CENTER_LEFT">
+                        <Label text="RÉSOLUES" style="-fx-font-size: 8px; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                        <Label fx:id="lblResolues" text="0"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #7fffc0;" />
+                    </VBox>
+                </HBox>
+
+                <HBox style="-fx-padding: 0 20;" alignment="CENTER">
+                    <Label text="·" style="-fx-text-fill: #5c835a; -fx-font-size: 20px;" />
+                </HBox>
+
+                <!-- Rejetées -->
+                <HBox alignment="CENTER" spacing="10"
+                      style="-fx-background-color: #436d41; -fx-background-radius: 12; -fx-padding: 8 20; -fx-border-color: #5c835a; -fx-border-radius: 12; -fx-border-width: 1;">
+                    <Label text="❌" style="-fx-font-size: 16px;" />
+                    <VBox spacing="0" alignment="CENTER_LEFT">
+                        <Label text="REJETÉES" style="-fx-font-size: 8px; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                        <Label fx:id="lblRejetees" text="0"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #f1948a;" />
+                    </VBox>
+                </HBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+                <Label text="Vos réclamations agricoles  ✓"
+                       style="-fx-font-size: 11px; -fx-text-fill: #6b7280; -fx-font-style: italic;" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ═══════════════════════ BODY ═══════════════════════ -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+                    style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-color: transparent;">
+            <content>
+                <VBox spacing="0" style="-fx-background-color: #F4F7F6;">
+                    <padding><Insets top="32" right="48" bottom="48" left="48" /></padding>
+
+                    <!-- ── FORMULAIRE NOUVELLE RÉCLAMATION ── -->
+                    <VBox spacing="0"
+                          style="-fx-background-color: white; -fx-background-radius: 18; -fx-border-color: #e5e7eb; -fx-border-radius: 18; -fx-border-width: 1; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 18, 0, 0, 5);">
+                        <VBox.margin><Insets bottom="32" /></VBox.margin>
+
+                        <!-- Header formulaire -->
+                        <HBox alignment="CENTER_LEFT" spacing="12"
+                              style="-fx-background-color: #f5f8f5; -fx-background-radius: 18 18 0 0; -fx-padding: 16 24;">
+                            <Label text="📋" style="-fx-font-size: 20px;" />
+                            <Label text="Nouvelle réclamation"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2b5329;" />
+                        </HBox>
+
+                        <Separator style="-fx-background-color: #eef2ef;" />
+
+                        <VBox spacing="20" style="-fx-padding: 24;">
+
+                            <!-- Ligne 1 : Produit + Type -->
+                            <HBox spacing="20">
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label text="PRODUIT CONCERNÉ  *"
+                                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                    <ComboBox fx:id="comboProduit" maxWidth="1.7976931348623157E308"
+                                              promptText="Sélectionnez un produit…"
+                                              style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px;" />
+                                </VBox>
+                                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                                    <Label text="TYPE DE RÉCLAMATION  *"
+                                           style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                    <ComboBox fx:id="comboType" maxWidth="1.7976931348623157E308"
+                                              promptText="Sélectionnez le type…"
+                                              style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px;" />
+                                </VBox>
+                            </HBox>
+
+                            <!-- Ligne 2 : Sujet -->
+                            <VBox spacing="6">
+                                <Label text="SUJET (optionnel)"
+                                       style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                <TextField fx:id="txtSujet" promptText="Résumé court de votre réclamation…"
+                                           style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px; -fx-padding: 9 12;" />
+                            </VBox>
+
+                            <!-- Ligne 3 : Description -->
+                            <VBox spacing="6">
+                                <Label text="DESCRIPTION DÉTAILLÉE  *"
+                                       style="-fx-font-size: 9px; -fx-font-weight: bold; -fx-text-fill: #6b7280; -fx-letter-spacing: 1px;" />
+                                <TextArea fx:id="txtDescription" prefRowCount="4" wrapText="true"
+                                          promptText="Décrivez en détail votre réclamation…"
+                                          style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 13px;" />
+                            </VBox>
+
+                            <!-- Boutons -->
+                            <HBox spacing="12" alignment="CENTER_LEFT">
+                                <Button fx:id="btnSoumettre" onAction="#soumettreReclamation"
+                                        text="✓   Soumettre la réclamation"
+                                        style="-fx-background-color: #4a7c47; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 12; -fx-cursor: hand; -fx-padding: 11 24; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 3);" />
+                                <Button fx:id="btnAnnuler" onAction="#annuler"
+                                        text="✕   Annuler"
+                                        style="-fx-background-color: #F4F7F6; -fx-text-fill: #6a8a78; -fx-font-size: 13px; -fx-font-weight: bold; -fx-background-radius: 12; -fx-cursor: hand; -fx-padding: 11 24; -fx-border-color: #e5e7eb; -fx-border-radius: 12; -fx-border-width: 1;" />
+                            </HBox>
+                        </VBox>
+                    </VBox>
+
+                    <!-- ── SECTION LISTE DES RÉCLAMATIONS ── -->
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <VBox.margin><Insets bottom="20" /></VBox.margin>
+                        <Label text="📊" style="-fx-font-size: 22px;" />
+                        <Label text="Mes réclamations"
+                               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2b5329;" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <!-- Filtre statut -->
+                        <Label text="Filtrer :"
+                               style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #6b7280;" />
+                        <ComboBox fx:id="comboFiltreStatut" prefWidth="160"
+                                  style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #e5e7eb; -fx-border-width: 1.5; -fx-background-color: #ffffff; -fx-font-size: 12px;" />
+                    </HBox>
+
+                    <!-- Cards FlowPane -->
+                    <FlowPane fx:id="reclamationsContainer" hgap="22" vgap="22"
+                              style="-fx-background-color: transparent;" />
+
+                    <!-- Empty state -->
+                    <VBox fx:id="emptyState" alignment="CENTER" spacing="14"
+                          visible="false" managed="false"
+                          style="-fx-padding: 60 0;">
+                        <Label text="📭" style="-fx-font-size: 56px;" />
+                        <Label text="Aucune réclamation pour le moment"
+                               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #6b7280;" />
+                        <Label text="Vos réclamations soumises apparaîtront ici."
+                               style="-fx-font-size: 13px; -fx-text-fill: #6b7280;" />
+                    </VBox>
+
+                </VBox>
+            </content>
+        </ScrollPane>
+    </center>
+
+    <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+    <bottom>
+        <HBox alignment="CENTER" style="-fx-background-color: #2b5329; -fx-padding: 12 30;">
+            <Label text="© 2025 Ardhi — Marketplace Agricole  |  Tous droits réservés"
+                   style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.35);" />
+        </HBox>
+    </bottom>
+
+</BorderPane>

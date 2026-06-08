@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.gestionemployecontroller.ChatbotController"
+            stylesheets="@/Style/chatbot.css"
+            style="-fx-background-color: #f0f4f0;">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         EN-TÊTE  ─  Bande verte avec titre + statut + bouton effacer
+         ═══════════════════════════════════════════════════════════════ -->
+    <top>
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="14"
+              style="-fx-padding: 14 22; -fx-background-color: linear-gradient(to right,#2d6a4f,#40916c);">
+
+            <!-- Avatar robot animé -->
+            <StackPane styleClass="bot-avatar-header">
+                <Label text="🤖" style="-fx-font-size: 30px;"/>
+            </StackPane>
+
+            <!-- Titre + statut -->
+            <VBox spacing="2">
+                <Label text="SmartFarm Manager – IA RH Chatbot" styleClass="header-title"/>
+                <HBox spacing="6" alignment="CENTER_LEFT">
+                    <Label text="●" style="-fx-text-fill:#95d5b2; -fx-font-size:11px;"/>
+                    <Label fx:id="lblStatus" text="En ligne" styleClass="header-status"/>
+                </HBox>
+            </VBox>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <!-- Indicateur de chargement -->
+            <ProgressIndicator fx:id="loadingIndicator" maxWidth="22" maxHeight="22"
+                               visible="false" styleClass="progress-indicator"/>
+
+            <!-- Bouton effacer -->
+            <Button fx:id="btnClearChat" text="🗑 Effacer" styleClass="btn-clear"
+                    onAction="#handleClearChat"/>
+        </HBox>
+    </top>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         CORPS  ─  Chat (gauche, 70%)  +  Suggestions (droite, 30%)
+         ═══════════════════════════════════════════════════════════════ -->
+    <center>
+        <HBox>
+
+            <!-- ─────────────────────────────────────────────────────
+                 COLONNE GAUCHE : zone de messages
+                 ───────────────────────────────────────────────────── -->
+            <VBox HBox.hgrow="ALWAYS">
+
+                <!-- Messages -->
+                <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS"
+                            styleClass="chat-scroll"
+                            style="-fx-background-color:#f5f5f0; -fx-border-color:transparent;">
+                    <VBox fx:id="chatContainer" spacing="12"
+                          style="-fx-padding: 22 20 22 20; -fx-background-color:#f5f5f0;"/>
+                </ScrollPane>
+
+                <!-- Chips de suggestions rapides -->
+                <HBox spacing="8" styleClass="suggestions-bar"
+                      style="-fx-padding:10 18; -fx-background-color:white;
+                             -fx-border-color:#e8e8e8; -fx-border-width:1 0 0 0;">
+                    <Label text="💡" style="-fx-font-size:13px;"/>
+                    <Label fx:id="lblSuggestion1" styleClass="suggestion-chip"/>
+                    <Label fx:id="lblSuggestion2" styleClass="suggestion-chip"/>
+                    <Label fx:id="lblSuggestion3" styleClass="suggestion-chip"/>
+                    <Label fx:id="lblSuggestion4" styleClass="suggestion-chip"/>
+                </HBox>
+
+                <!-- Barre de saisie -->
+                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="input-area"
+                      style="-fx-padding:14 18; -fx-background-color:white;">
+                    <TextField fx:id="txtMessage"
+                               promptText="Entrez votre message..."
+                               HBox.hgrow="ALWAYS"
+                               styleClass="input-field"/>
+                    <Button fx:id="btnVoice" text="🎤" styleClass="btn-voice"/>
+                    <Button fx:id="btnSend" text="Envoyer" styleClass="btn-send"
+                            onAction="#handleSendMessage">
+                        <font><Font size="14"/></font>
+                    </Button>
+                </HBox>
+
+            </VBox>
+
+            <!-- ─────────────────────────────────────────────────────
+                 COLONNE DROITE : panneau Suggestions
+                 ───────────────────────────────────────────────────── -->
+            <VBox fx:id="sidePanel" styleClass="side-panel" spacing="0"
+                  style="-fx-pref-width:280; -fx-min-width:260; -fx-max-width:320;
+                         -fx-background-color:white;
+                         -fx-border-color:#e0e0e0; -fx-border-width:0 0 0 1;">
+
+                <!-- Titre du panneau -->
+                <HBox alignment="CENTER_LEFT" spacing="10"
+                      style="-fx-padding:18 18 12 18; -fx-border-color:#f0f0f0; -fx-border-width:0 0 1 0;">
+                    <Label text="Suggestions" style="-fx-font-size:17px; -fx-font-weight:bold; -fx-text-fill:#1a1a1a;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button fx:id="btnRefreshSide" text="↻" styleClass="btn-refresh-side"
+                            onAction="#handleRefreshSuggestions"/>
+                </HBox>
+
+                <!-- Contenu dynamique des suggestions -->
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                            style="-fx-background-color:white; -fx-border-color:transparent; -fx-padding:0;">
+                    <VBox fx:id="sidePanelContent" spacing="0"
+                          style="-fx-padding:0; -fx-background-color:white;"/>
+                </ScrollPane>
+
+                <!-- Image contextuelle -->
+                <StackPane fx:id="sideImageContainer" style="-fx-padding:12;">
+                    <ImageView fx:id="sideContextImage"
+                               fitWidth="240" fitHeight="160"
+                               preserveRatio="true"
+                               style="-fx-background-radius:10;"/>
+                </StackPane>
+
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="750.0" prefWidth="1200.0" styleClass="main-container" stylesheets="@../../Style/modern-lists.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.gestionemployecontroller.EmployeController">
+
+    <!-- ========== HEADER ========== -->
+    <top>
+        <VBox spacing="15" styleClass="page-header">
+            <!-- Barre de navigation -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Button fx:id="btnRetour" maxWidth="120" onAction="#handleRetour" styleClass="button-secondary" text="%common.back" />
+                <Label styleClass="label-title" text="%employe.title" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="label-field" text="%common.total" />
+                <Label fx:id="lblTotalEmployes" styleClass="label-count" text="0" />
+                <Separator orientation="VERTICAL" />
+                <Label styleClass="label-field" text="%common.active" />
+                <Label fx:id="lblActifs" styleClass="label-count" text="0" />
+
+                <!-- Tops Performances -->
+                <Separator orientation="VERTICAL" />
+                <HBox alignment="CENTER" spacing="10" styleClass="top-performers">
+                    <Label styleClass="top-label" text="🏆 Top 1:" />
+                    <Label fx:id="lblTop1" styleClass="top-value" text="-" />
+                    <Label styleClass="top-label" text="🥈 Top 2:" />
+                    <Label fx:id="lblTop2" styleClass="top-value" text="-" />
+                    <Label styleClass="top-label" text="🥉 Top 3:" />
+                    <Label fx:id="lblTop3" styleClass="top-value" text="-" />
+                </HBox>
+            </HBox>
+
+            <!-- Barre de recherche et actions -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <TextField fx:id="txtRecherche" onKeyReleased="#handleRechercher" prefWidth="350" promptText="%employe.search.prompt" styleClass="search-box" />
+
+                <Label styleClass="label-field" text="%common.sort.by" />
+                <ComboBox fx:id="cmbTri" blendMode="DARKEN" onAction="#handleTri" prefHeight="26.0" prefWidth="184.0" styleClass="combo-box" />
+
+                <Button onAction="#handleTriCroissant" styleClass="button-sort" text="%common.sort.asc" />
+                <Button onAction="#handleTriDecroissant" styleClass="button-sort" text="%common.sort.desc" />
+
+                <Button onAction="#handleActualiser" styleClass="button-neutral" text="%common.refresh" />
+
+                <!-- 🆕 BOUTON GESTION TÂCHES -->
+                <Button onAction="#goToTaches" style="-fx-background-color: #16a085;                                -fx-text-fill: white;                                -fx-font-weight: bold;                                -fx-padding: 8 16;                                -fx-background-radius: 5;                                -fx-cursor: hand;                                -fx-font-size: 14px;" text="%employe.go.tasks">
+                    <tooltip>
+                        <Tooltip text="%employe.go.tasks.tooltip" />
+                    </tooltip>
+                </Button>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Button fx:id="btnExportPDF" onAction="#handleExportPDF" styleClass="button-pdf" text="%common.export.pdf" />
+
+                <Button fx:id="btnStatistiques" onAction="#handleShowStatistics" styleClass="button-info" text="%employe.stats" />
+
+                <Button onAction="#handleShowTopPerformeurs" style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 8 16; -fx-background-radius: 5; -fx-cursor: hand; -fx-font-size: 13px;" text="🏆 Top Performeurs">
+                    <tooltip>
+                        <Tooltip text="Voir le classement des 3 meilleurs employés" />
+                    </tooltip>
+                </Button>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- ========== CONTENU PRINCIPAL ========== -->
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <!-- Progress Indicator -->
+            <ProgressIndicator fx:id="progressIndicator" managed="false" visible="false" />
+
+            <!-- TableView Employés -->
+            <TableView fx:id="tableEmployees" styleClass="table-view" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="60" sortable="true" text="%employe.col.id" />
+                    <TableColumn fx:id="colNom" prefWidth="150" sortable="true" text="%employe.col.nom" />
+                    <TableColumn fx:id="colPrenom" prefWidth="150" sortable="true" text="%employe.col.prenom" />
+                    <TableColumn fx:id="colEmail" prefWidth="240" sortable="true" text="%employe.col.email" />
+                    <TableColumn fx:id="colPoste" prefWidth="150" sortable="true" text="%employe.col.poste" />
+                    <TableColumn fx:id="colTelephone" prefWidth="140" sortable="true" text="%employe.col.telephone" />
+                    <TableColumn fx:id="colActif" prefWidth="80" sortable="true" text="%employe.col.actif" />
+                    <TableColumn fx:id="colPerformance" prefWidth="120" sortable="false" text="Performance" />
+                </columns>
+                <!-- Colonne Performance -->
+
+                <placeholder>
+                    <VBox alignment="CENTER" spacing="10">
+                        <Label style="-fx-font-size: 16px; -fx-text-fill: #999;" text="%employe.empty" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #bbb;" text="%employe.empty.hint" />
+                    </VBox>
+                </placeholder>
+            </TableView>
+
+            <!-- Boutons d'action -->
+            <HBox alignment="CENTER" spacing="15" styleClass="card">
+                <Button onAction="#handleAjouter" prefWidth="200" styleClass="button-primary" text="%employe.add" />
+
+                <Button onAction="#handleModifier" prefWidth="150" styleClass="button-edit" text="%common.edit" />
+
+                <Button onAction="#handleSupprimer" prefWidth="150" styleClass="button-delete" text="%common.delete" />
+
+                <Button onAction="#handleEnvoyerAttestation" prefWidth="200" style="-fx-background-color: #1a3a5c;                                -fx-text-fill: white;                                -fx-font-weight: bold;                                -fx-font-size: 13px;                                -fx-padding: 8 16;                                -fx-background-radius: 6;                                -fx-cursor: hand;" text="✉ Attestation de Travail">
+                    <tooltip><Tooltip text="Envoyer une attestation de présence officielle à l'employé sélectionné" /></tooltip>
+                </Button>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Label fx:id="lblSelection" style="-fx-font-size: 12px; -fx-text-fill: #888; -fx-font-style: italic;" text="%common.no.selection" />
+            </HBox>
+
+            <!-- Container pour statistiques  -->
+            <VBox fx:id="statsContainer" managed="false" spacing="10" visible="false">
+            </VBox>
+
+            <!-- Label temps de chargement  -->
+            <Label fx:id="lblTempsChargement" managed="false" style="-fx-font-size: 10px; -fx-text-fill: #999; -fx-font-style: italic;" text="" visible="false" />
+        </VBox>
+    </center>
+
+</BorderPane>

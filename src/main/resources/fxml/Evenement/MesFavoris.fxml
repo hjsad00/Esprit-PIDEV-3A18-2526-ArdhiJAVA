@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.MesFavorisController"
+           prefWidth="1060" prefHeight="710"
+           stylesheets="@/Style/evenement-style.css"
+           style="-fx-background-color: linear-gradient(to bottom right, #667A3F 0%, #8BC34A 100%);">
+
+    <!-- MAIN CONTENT -->
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                style="-fx-background: transparent;
+                       -fx-background-color: transparent;">
+        <VBox alignment="TOP_CENTER" spacing="30" style="-fx-padding: 40;">
+
+            <!-- Hero Header -->
+            <VBox alignment="CENTER" spacing="20"
+                  style="-fx-background-color: rgba(255,255,255,0.95);
+                         -fx-background-radius: 25;
+                         -fx-padding: 40;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 25, 0, 0, 8);">
+
+                <HBox spacing="12" alignment="CENTER">
+                    <Rectangle width="4" height="32"
+                               style="-fx-fill: #F39C12;
+                                      -fx-arc-width: 0;
+                                      -fx-arc-height: 0;"/>
+                    <Label text="MES FAVORIS"
+                           style="-fx-text-fill: #F39C12;
+                                  -fx-font-size: 13px;
+                                  -fx-font-weight: bold;
+                                  -fx-letter-spacing: 2px;"/>
+                </HBox>
+
+                <HBox spacing="20" alignment="CENTER">
+                    <Label text="♥"
+                           style="-fx-font-size: 48px;"/>
+                    <Label text="Événements Favoris"
+                           style="-fx-text-fill: #2C3E50;
+                                  -fx-font-size: 38px;
+                                  -fx-font-weight: bold;"/>
+                </HBox>
+
+                <!-- Statistics Row -->
+                <HBox spacing="50" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+                    <VBox alignment="CENTER" spacing="8">
+                        <Label text="Mes Favoris"
+                               style="-fx-font-size: 13px;
+                                      -fx-text-fill: #888;"/>
+                        <Label fx:id="totalFavorisLabel"
+                               text="0"
+                               style="-fx-font-size: 38px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #FF6B6B;"/>
+                    </VBox>
+
+                    <Separator orientation="VERTICAL" prefHeight="60"/>
+
+                    <VBox alignment="CENTER" spacing="8">
+                        <Label text="Événements à venir"
+                               style="-fx-font-size: 13px;
+                                      -fx-text-fill: #888;"/>
+                        <Label fx:id="evenementsAVenirLabel"
+                               text="0"
+                               style="-fx-font-size: 38px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #50C878;"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Actions Bar -->
+            <HBox spacing="18" alignment="CENTER_RIGHT"
+                  style="-fx-background-color: rgba(255,255,255,0.9);
+                         -fx-background-radius: 20;
+                         -fx-padding: 20 25;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                <!-- Search Field -->
+                <TextField fx:id="searchField"
+                           promptText="🔍 Rechercher dans mes favoris..."
+                           prefWidth="300"
+                           prefHeight="45"
+                           style="-fx-background-color: #F8F9FA;
+                                  -fx-background-radius: 25;
+                                  -fx-padding: 0 20;
+                                  -fx-font-size: 14px;
+                                  -fx-border-color: rgba(0,0,0,0.1);
+                                  -fx-border-radius: 25;"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Filtres -->
+                <Label text="Filtrer:"
+                       style="-fx-font-size: 14px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #666;"/>
+                <ComboBox fx:id="filterTypeCombo"
+                          prefWidth="140"
+                          prefHeight="45"
+                          promptText="Type"
+                          style="-fx-background-radius: 25;
+                                 -fx-background-color: #F8F9FA;"/>
+
+                <ComboBox fx:id="filterStatutCombo"
+                          prefWidth="140"
+                          prefHeight="45"
+                          promptText="Statut"
+                          style="-fx-background-radius: 25;
+                                 -fx-background-color: #F8F9FA;"/>
+
+                <!-- Boutons d'action -->
+                <Button text="🔄 Actualiser"
+                        onAction="#handleRefresh"
+                        style="-fx-background-color: #3498DB;
+                               -fx-text-fill: white;
+                               -fx-background-radius: 25;
+                               -fx-padding: 10 25;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 14px;
+                               -fx-cursor: hand;">
+                    <effect>
+                        <DropShadow color="rgba(52,152,219,0.4)" radius="10" offsetY="3"/>
+                    </effect>
+                </Button>
+
+                <Button text="← Retour"
+                        onAction="#handleRetour"
+                        style="-fx-background-color: #6B7F3F;
+                               -fx-text-fill: white;
+                               -fx-background-radius: 25;
+                               -fx-padding: 10 25;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 14px;
+                               -fx-cursor: hand;">
+                    <effect>
+                        <DropShadow color="rgba(107,127,63,0.4)" radius="10" offsetY="3"/>
+                    </effect>
+                </Button>
+            </HBox>
+
+            <!-- Empty State -->
+            <VBox fx:id="emptyStateBox" alignment="CENTER" spacing="25"
+                  style="-fx-background-color: rgba(255,255,255,0.9);
+                         -fx-background-radius: 30;
+                         -fx-padding: 60;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0, 0, 5);"
+                  visible="false" managed="false" maxWidth="600">
+
+                <Label text="💔" style="-fx-font-size: 80px;"/>
+
+                <Label text="Aucun événement favori"
+                       style="-fx-font-size: 24px;
+                              -fx-text-fill: #2C3E50;
+                              -fx-font-weight: bold;"/>
+
+                <Label fx:id="emptyStateLabel"
+                       text="Ajoutez des événements à vos favoris en cliquant sur le cœur ❤️ dans la liste des événements"
+                       style="-fx-font-size: 16px;
+                              -fx-text-fill: #666;"
+                       textAlignment="CENTER"
+                       wrapText="true"/>
+
+                <Button text="🔍 Découvrir des événements"
+                        onAction="#handleDecouvrirEvenements"
+                        style="-fx-background-color: linear-gradient(to right, #FF6B6B, #EE5A6F);
+                               -fx-text-fill: white;
+                               -fx-background-radius: 30;
+                               -fx-padding: 15 40;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 16px;
+                               -fx-cursor: hand;
+                               -fx-border-width: 0;">
+                    <effect>
+                        <DropShadow color="rgba(255,107,107,0.4)" radius="12" offsetY="4"/>
+                    </effect>
+                </Button>
+            </VBox>
+
+            <!-- Events Grid -->
+            <FlowPane fx:id="favorisFlowPane"
+                      hgap="28"
+                      vgap="28"
+                      alignment="CENTER"
+                      prefWrapLength="1000"
+                      style="-fx-padding: 10;"/>
+        </VBox>
+    </ScrollPane>
+</StackPane>

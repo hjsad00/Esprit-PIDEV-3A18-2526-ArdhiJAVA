@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.StatistiquesController"
+           stylesheets="@/Style/evenement-style.css"
+           prefWidth="1400" prefHeight="900"
+           style="-fx-background-color: linear-gradient(to bottom right, #667A3F 0%, #8BC34A 100%);">
+
+
+    <!-- MAIN CONTENT -->
+    <BorderPane style="-fx-background-color: transparent;">
+
+        <!-- HEADER SECTION -->
+        <top>
+            <VBox style="-fx-background-color: rgba(255,255,255,0.95);
+                         -fx-padding: 30 50;
+                         -fx-background-radius: 0 0 30 30;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0, 0, 8);">
+
+                <HBox alignment="CENTER_LEFT" spacing="25">
+
+                    <!-- Back Button -->
+                    <Button text="← Retour"
+                            onAction="#handleRetour"
+                            style="-fx-background-color: transparent;
+                                   -fx-border-color: #6B7F3F;
+                                   -fx-border-width: 2;
+                                   -fx-border-radius: 22;
+                                   -fx-background-radius: 22;
+                                   -fx-text-fill: #6B7F3F;
+                                   -fx-padding: 10 25;
+                                   -fx-font-size: 14px;
+                                   -fx-font-weight: bold;
+                                   -fx-cursor: hand;">
+                        <effect>
+                            <DropShadow color="rgba(107,127,63,0.2)" radius="8" offsetY="2"/>
+                        </effect>
+                    </Button>
+
+                    <!-- Title with Icon -->
+                    <HBox spacing="15" alignment="CENTER_LEFT">
+                        <Rectangle width="5" height="35"
+                                   style="-fx-fill: #6B7F3F; -fx-arc-width: 5; -fx-arc-height: 5;"/>
+                        <Label text="📊 Tableau de Bord - Statistiques"
+                               style="-fx-font-size: 32px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #2C3E50;"/>
+                    </HBox>
+
+                    <Region HBox.hgrow="ALWAYS"/>
+
+                    <!-- Refresh Button -->
+                    <Button text="🔄 Actualiser"
+                            onAction="#handleRefresh"
+                            style="-fx-background-color: linear-gradient(to right, #6B7F3F, #8BC34A);
+                                   -fx-text-fill: white;
+                                   -fx-background-radius: 22;
+                                   -fx-padding: 12 30;
+                                   -fx-font-size: 14px;
+                                   -fx-font-weight: bold;
+                                   -fx-cursor: hand;">
+                        <effect>
+                            <DropShadow color="rgba(107,127,63,0.4)" radius="12" offsetY="4"/>
+                        </effect>
+                    </Button>
+                </HBox>
+            </VBox>
+        </top>
+
+        <!-- CENTER CONTENT -->
+        <center>
+            <ScrollPane fitToWidth="true"
+                        style="-fx-background-color: transparent;
+                              -fx-background: transparent;"
+                        hbarPolicy="NEVER">
+                <VBox spacing="30" style="-fx-padding: 30 50 40 50;">
+
+                    <!-- KPI CARDS ROW -->
+                    <HBox spacing="25" alignment="CENTER">
+
+                        <!-- Total Events Card -->
+                        <VBox alignment="CENTER" spacing="10"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30 40;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);
+                                     -fx-border-color: rgba(107,127,63,0.2);
+                                     -fx-border-radius: 20;">
+                            <Label text="📅" style="-fx-font-size: 36px;"/>
+                            <Label text="Total Événements"
+                                   style="-fx-text-fill: #666666;
+                                          -fx-font-size: 13px;"/>
+                            <Label fx:id="totalEvenementsLabel"
+                                   text="0"
+                                   style="-fx-font-size: 40px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #6B7F3F;"/>
+                        </VBox>
+
+                        <!-- Total Participations Card -->
+                        <VBox alignment="CENTER" spacing="10"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30 40;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);
+                                     -fx-border-color: rgba(74,144,226,0.3);
+                                     -fx-border-radius: 20;">
+                            <Label text="👥" style="-fx-font-size: 36px;"/>
+                            <Label text="Participations"
+                                   style="-fx-text-fill: #666666;
+                                          -fx-font-size: 13px;"/>
+                            <Label fx:id="totalParticipationsLabel"
+                                   text="0"
+                                   style="-fx-font-size: 40px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #4A90E2;"/>
+                        </VBox>
+
+                        <!-- Attendance Rate Card -->
+                        <VBox alignment="CENTER" spacing="10"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30 40;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);
+                                     -fx-border-color: rgba(80,200,120,0.3);
+                                     -fx-border-radius: 20;">
+                            <Label text="✅" style="-fx-font-size: 36px;"/>
+                            <Label text="Taux Présence"
+                                   style="-fx-text-fill: #666666;
+                                          -fx-font-size: 13px;"/>
+                            <Label fx:id="tauxPresenceLabel"
+                                   text="0%"
+                                   style="-fx-font-size: 40px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #50C878;"/>
+                        </VBox>
+
+                        <!-- Average Rating Card -->
+                        <VBox alignment="CENTER" spacing="10"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30 40;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);
+                                     -fx-border-color: rgba(243,156,18,0.3);
+                                     -fx-border-radius: 20;">
+                            <Label text="⭐" style="-fx-font-size: 36px;"/>
+                            <Label text="Note Moyenne"
+                                   style="-fx-text-fill: #666666;
+                                          -fx-font-size: 13px;"/>
+                            <Label fx:id="noteMoyenneLabel"
+                                   text="0.0"
+                                   style="-fx-font-size: 40px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #F39C12;"/>
+                        </VBox>
+
+                        <!-- Cancellation Rate Card -->
+                        <VBox alignment="CENTER" spacing="10"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30 40;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);
+                                     -fx-border-color: rgba(255,107,107,0.3);
+                                     -fx-border-radius: 20;">
+                            <Label text="❌" style="-fx-font-size: 36px;"/>
+                            <Label text="Taux Annulation"
+                                   style="-fx-text-fill: #666666;
+                                          -fx-font-size: 13px;"/>
+                            <Label fx:id="tauxAnnulationLabel"
+                                   text="0%"
+                                   style="-fx-font-size: 40px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #FF6B6B;"/>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- CHARTS ROW 1 -->
+                    <HBox spacing="25">
+
+                        <!-- Pie Chart Container -->
+                        <VBox spacing="15" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Rectangle width="4" height="20"
+                                           style="-fx-fill: #6B7F3F; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                                <Label text="📊 Répartition par Type d'Événement"
+                                       style="-fx-font-size: 18px;
+                                              -fx-font-weight: bold;
+                                              -fx-text-fill: #2C3E50;"/>
+                            </HBox>
+
+                            <PieChart fx:id="typesChart"
+                                      prefHeight="380"
+                                      style="-fx-background-color: transparent;"/>
+                        </VBox>
+
+                        <!-- Bar Chart Container -->
+                        <VBox spacing="15" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Rectangle width="4" height="20"
+                                           style="-fx-fill: #6B7F3F; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                                <Label text="🏆 Top Événements par Participation"
+                                       style="-fx-font-size: 18px;
+                                              -fx-font-weight: bold;
+                                              -fx-text-fill: #2C3E50;"/>
+                            </HBox>
+
+                            <BarChart fx:id="participantsChart"
+                                      prefHeight="380"
+                                      style="-fx-background-color: transparent;">
+                                <xAxis>
+                                    <CategoryAxis side="BOTTOM"
+                                                  style="-fx-tick-label-fill: #666666;
+                                                        -fx-font-size: 12px;"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis side="LEFT"
+                                                style="-fx-tick-label-fill: #666666;
+                                                      -fx-font-size: 12px;"/>
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- CHARTS ROW 2 -->
+                    <HBox spacing="25">
+
+                        <!-- Area Chart - Tendance -->
+                        <VBox spacing="15" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Rectangle width="4" height="20"
+                                           style="-fx-fill: #6B7F3F; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                                <Label text="📈 Tendance de Création"
+                                       style="-fx-font-size: 18px;
+                                              -fx-font-weight: bold;
+                                              -fx-text-fill: #2C3E50;"/>
+                            </HBox>
+
+                            <AreaChart fx:id="tendanceChart"
+                                       prefHeight="380"
+                                       style="-fx-background-color: transparent;">
+                                <xAxis>
+                                    <CategoryAxis side="BOTTOM"
+                                                  style="-fx-tick-label-fill: #666666;
+                                                        -fx-font-size: 12px;"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis side="LEFT"
+                                                style="-fx-tick-label-fill: #666666;
+                                                      -fx-font-size: 12px;"/>
+                                </yAxis>
+                            </AreaChart>
+                        </VBox>
+
+                        <!-- Bar Chart - Notes -->
+                        <VBox spacing="15" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: rgba(255,255,255,0.95);
+                                     -fx-background-radius: 20;
+                                     -fx-padding: 30;
+                                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                            <HBox spacing="10" alignment="CENTER_LEFT">
+                                <Rectangle width="4" height="20"
+                                           style="-fx-fill: #6B7F3F; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                                <Label text="⭐ Distribution des Évaluations"
+                                       style="-fx-font-size: 18px;
+                                              -fx-font-weight: bold;
+                                              -fx-text-fill: #2C3E50;"/>
+                            </HBox>
+
+                            <BarChart fx:id="notesChart"
+                                      prefHeight="380"
+                                      style="-fx-background-color: transparent;">
+                                <xAxis>
+                                    <CategoryAxis side="BOTTOM"
+                                                  style="-fx-tick-label-fill: #666666;
+                                                        -fx-font-size: 12px;"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis side="LEFT"
+                                                style="-fx-tick-label-fill: #666666;
+                                                      -fx-font-size: 12px;"/>
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+
+                    </HBox>
+
+                    <!-- TOP EVENTS SECTION -->
+                    <VBox spacing="15"
+                          style="-fx-background-color: rgba(255,255,255,0.95);
+                                 -fx-background-radius: 20;
+                                 -fx-padding: 30;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Rectangle width="4" height="20"
+                                       style="-fx-fill: #6B7F3F; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                            <Label text="🏆 Top 5 Événements"
+                                   style="-fx-font-size: 18px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #2C3E50;"/>
+                        </HBox>
+
+                        <VBox fx:id="topEventsContainer" spacing="12"/>
+                    </VBox>
+
+                    <!-- STATUTS DISTRIBUTION SECTION -->
+                    <VBox spacing="15"
+                          style="-fx-background-color: rgba(255,255,255,0.95);
+                                 -fx-background-radius: 20;
+                                 -fx-padding: 30;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <Rectangle width="4" height="20"
+                                       style="-fx-fill: #6B7F3F; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                            <Label text="📊 Distribution des Statuts"
+                                   style="-fx-font-size: 18px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #2C3E50;"/>
+                        </HBox>
+
+                        <VBox fx:id="statutsContainer" spacing="10"/>
+                    </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>
+        </StackPane>

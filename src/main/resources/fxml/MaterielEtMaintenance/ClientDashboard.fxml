@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1060.0" style="-fx-background-color: linear-gradient(to bottom right, #F5F7F0, #E8EBE0);" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.ClientDashboardController">
+    <children>
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-padding: 15 30;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <effect>
+                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.1)" radius="10" offsetY="2"/>
+            </effect>
+            <children>
+                <ImageView fitHeight="60.0" fitWidth="60.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../img/ardhi_logo.png"/>
+                    </image>
+                </ImageView>
+                <Label fx:id="lblRole" text="Espace Agriculteur" style="-fx-text-fill: #888888;">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                    <HBox.margin>
+                        <Insets left="20.0"/>
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+
+        <!-- Main Content (scrollable so le bouton du bas reste accessible) -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED"
+                    AnchorPane.topAnchor="90.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
+            <content>
+                <VBox alignment="TOP_CENTER" spacing="30.0" prefWidth="900.0">
+                    <children>
+                        <!-- Welcome Message -->
+                        <VBox alignment="CENTER" spacing="8.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 30;">
+                            <effect>
+                                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.1)" radius="15"/>
+                            </effect>
+                            <children>
+                                <Label fx:id="lblBienvenue" text="Bienvenue sur Ardhi" style="-fx-text-fill: #6B7F3F;">
+                                    <font>
+                                        <Font name="System Bold" size="28.0"/>
+                                    </font>
+                                </Label>
+                                <Label text="Gérez votre exploitation agricole intelligemment" style="-fx-text-fill: #888888;">
+                                    <font>
+                                        <Font size="14.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+
+                        <!-- User Action Cards -->
+
+                        <HBox alignment="CENTER" spacing="30.0">
+                            <children>
+                                <!-- Profile Card -->
+                                <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;" prefWidth="220.0" onMouseClicked="#goToProfil">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.1)" radius="12"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="👤" style="-fx-font-size: 40;"/>
+                                        <Label text="Mon Profil" style="-fx-text-fill: #6B7F3F;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Gérer mes informations&#10;personnelles" textAlignment="CENTER" style="-fx-text-fill: #999999;">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+
+                                <!-- Subscription Card -->
+                                <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom right, #C4A574, #A08555); -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;" prefWidth="220.0" onMouseClicked="#goToAbonnement">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(196,165,116,0.3)" radius="15"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="💎" style="-fx-font-size: 40;"/>
+                                        <Label text="Abonnement" style="-fx-text-fill: white;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Découvrir nos offres&#10;Premium &amp; VIP" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+
+                                <!-- NOUVELLE CARTE ÉVÉNEMENTS -->
+                                <VBox alignment="CENTER" spacing="15.0"
+                                      style="-fx-background-color: linear-gradient(to bottom right, #E8773F, #C55A2B); -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;"
+                                      prefWidth="220.0"
+                                      onMouseClicked="#goToEvenements">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(232,119,63,0.3)" radius="15"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="🎪" style="-fx-font-size: 40;"/>
+                                        <Label text="Événements" style="-fx-text-fill: white;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Foires, formations&#10;et ateliers agricoles"
+                                               textAlignment="CENTER"
+                                               style="-fx-text-fill: rgba(255,255,255,0.85);">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+
+                                <!-- AI Diagnosis Card (placeholder for future feature) -->
+                                <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom right, #6B7F3F, #4A5A2B); -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;" prefWidth="220.0" onMouseClicked="#goToDiagnostics">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.15)" radius="12"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="🌱" style="-fx-font-size: 40;"/>
+                                        <Label text="Diagnostic IA" style="-fx-text-fill: white;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Analyser vos cultures&#10;avec l'intelligence artificielle" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                                <VBox alignment="CENTER" spacing="15.0"
+                                      style="-fx-background-color: linear-gradient(to bottom right, #8DBF44, #6B9E2E);
+             -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;"
+                                      prefWidth="220.0"
+                                      onMouseClicked="#goToMarketplace">
+
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.15)" radius="12"/>
+                                    </effect>
+
+                                    <children>
+                                        <Label text="🛒" style="-fx-font-size: 40;"/>
+                                        <Label text="Marketplace" style="-fx-text-fill: white;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Acheter  vendre des produits agricoles"
+                                               textAlignment="CENTER"
+                                               style="-fx-text-fill: rgba(255,255,255,0.85);">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+
+                                <!-- Orders Card -->
+                                <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom right, #e67e22, #d35400); -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;" prefWidth="220.0" onMouseClicked="#goToCommandes">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.15)" radius="12"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="📦" style="-fx-font-size: 40;"/>
+                                        <Label text="Mes Commandes" style="-fx-text-fill: white;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Suivre mes achats&#10;et commandes" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+
+                            </children>
+                        </HBox>
+
+
+                        <!-- Second Row of Cards -->
+                        <HBox alignment="CENTER" spacing="30.0">
+                            <children>
+                                <!-- Product Management Card (visible only for AGRICULTEUR) -->
+                                <VBox fx:id="productManagementCard" alignment="CENTER" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom right, #f39c12, #e67e22); -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;" prefWidth="220.0" onMouseClicked="#goToProductManagement" visible="false" managed="false">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.15)" radius="12"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="🌾" style="-fx-font-size: 40;"/>
+                                        <Label text="Mes Produits" style="-fx-text-fill: white;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Gérer mes produits&#10;agricoles" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+
+                                <!-- Diagnostic History Card -->
+                                <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom right, #5B99A3, #3A7A85); -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;" prefWidth="220.0" onMouseClicked="#goToHistoriqueDiagnostics">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(91,153,163,0.3)" radius="15"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="📜" style="-fx-font-size: 40;"/>
+                                        <Label text="Historique" style="-fx-text-fill: white;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Consultez vos&#10;diagnostics précédents" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+
+                                <!-- Orders Received Card (visible only for AGRICULTEUR) -->
+                                <VBox fx:id="ordersReceivedCard" alignment="CENTER" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom right, #27ae60, #2ecc71); -fx-background-radius: 15; -fx-padding: 35; -fx-cursor: hand;" prefWidth="220.0" onMouseClicked="#goToCommandesVendeur" visible="false" managed="false">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="rgba(39,174,96,0.3)" radius="15"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="📥" style="-fx-font-size: 40;"/>
+                                        <Label text="Commandes reçues" style="-fx-text-fill: white;">
+                                            <font>
+                                                <Font name="System Bold" size="18.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label text="Gérer les commandes&#10;pour mes produits" textAlignment="CENTER" style="-fx-text-fill: rgba(255,255,255,0.85);">
+                                            <font>
+                                                <Font size="12.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <!-- Logout Button -->
+                        <Button mnemonicParsing="false" onAction="#logout" style="-fx-background-color: transparent; -fx-border-color: #e74c3c; -fx-border-radius: 8; -fx-cursor: hand;" text="Se déconnecter" textFill="#e74c3c" prefWidth="200.0">
+                            <font>
+                                <Font name="System Bold" size="13.0"/>
+                            </font>
+                            <padding>
+                                <Insets bottom="10.0" top="10.0"/>
+                            </padding>
+                            <VBox.margin>
+                                <Insets top="20.0" bottom="50.0"/>
+                            </VBox.margin>
+                        </Button>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>

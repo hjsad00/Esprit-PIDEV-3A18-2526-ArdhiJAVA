@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.EvenementListController"
+           prefWidth="1060" prefHeight="710"
+           stylesheets="@/Style/evenement-style.css"
+           style="-fx-background-color: linear-gradient(to bottom right, #667A3F 0%, #8BC34A 100%);">
+
+
+    <!-- MAIN CONTENT -->
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                style="-fx-background: transparent;
+                       -fx-background-color: transparent;">
+        <VBox alignment="TOP_CENTER" spacing="30" style="-fx-padding: 40;">
+
+            <!-- Hero Header -->
+            <VBox alignment="CENTER" spacing="20"
+                  style="-fx-background-color: rgba(255,255,255,0.95);
+                         -fx-background-radius: 25;
+                         -fx-padding: 40;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 25, 0, 0, 8);">
+
+                <HBox spacing="12" alignment="CENTER">
+                    <Rectangle width="4" height="32"
+                               style="-fx-fill: #F39C12;
+                                      -fx-arc-width: 0;
+                                      -fx-arc-height: 0;"/>
+                    <Label text="PLATEFORME D'ÉVÉNEMENTS AGRICOLES"
+                           style="-fx-text-fill: #F39C12;
+                                  -fx-font-size: 13px;
+                                  -fx-font-weight: bold;
+                                  -fx-letter-spacing: 2px;"/>
+                </HBox>
+
+                <Label text="🎪 Découvrez nos Événements"
+                       style="-fx-text-fill: #2C3E50;
+                              -fx-font-size: 38px;
+                              -fx-font-weight: bold;"/>
+
+                <!-- Statistics Row -->
+                <HBox spacing="50" alignment="CENTER" style="-fx-padding: 10 0 0 0;">
+                    <VBox alignment="CENTER" spacing="8">
+                        <Label text="Total Événements"
+                               style="-fx-font-size: 13px;
+                                      -fx-text-fill: #888;"/>
+                        <Label fx:id="totalEventsLabel"
+                               text="0"
+                               style="-fx-font-size: 38px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #6B7F3F;"/>
+                    </VBox>
+
+                    <Separator orientation="VERTICAL" prefHeight="60"/>
+
+                    <VBox alignment="CENTER" spacing="8">
+                        <Label text="Événements Actifs"
+                               style="-fx-font-size: 13px;
+                                      -fx-text-fill: #888;"/>
+                        <Label fx:id="activeEventsLabel"
+                               text="0"
+                               style="-fx-font-size: 38px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #50C878;"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Search & Filters Bar -->
+            <HBox spacing="18" alignment="CENTER"
+                  style="-fx-background-color: rgba(255,255,255,0.9);
+                         -fx-background-radius: 20;
+                         -fx-padding: 25;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                <TextField fx:id="searchField"
+                           promptText="🔍 Rechercher un événement..."
+                           prefWidth="380"
+                           prefHeight="50"
+                           style="-fx-background-color: #F8F9FA;
+                                  -fx-background-radius: 25;
+                                  -fx-padding: 0 25;
+                                  -fx-font-size: 15px;
+                                  -fx-border-color: rgba(0,0,0,0.1);
+                                  -fx-border-radius: 25;"/>
+
+                <Label text="Type:"
+                       style="-fx-font-size: 15px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #666;"/>
+                <ComboBox fx:id="filterTypeCombo"
+                          prefWidth="160"
+                          prefHeight="50"
+                          style="-fx-background-radius: 25;
+                                 -fx-background-color: #F8F9FA;"/>
+
+                <Label text="Statut:"
+                       style="-fx-font-size: 15px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #666;"/>
+                <ComboBox fx:id="filterStatutCombo"
+                          prefWidth="160"
+                          prefHeight="50"
+                          style="-fx-background-radius: 25;
+                                 -fx-background-color: #F8F9FA;"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button fx:id="addEventButton"
+                        text="➕ Nouvel Événement"
+                        onAction="#handleAddEvent"
+                        style="-fx-background-color: linear-gradient(to right, #FF6B6B, #EE5A6F);
+                               -fx-text-fill: white;
+                               -fx-background-radius: 25;
+                               -fx-padding: 12 32;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 15px;
+                               -fx-cursor: hand;">
+                    <effect>
+                        <DropShadow color="rgba(255,107,107,0.4)" radius="12" offsetY="4"/>
+                    </effect>
+                </Button>
+            </HBox>
+
+            <!-- Events Grid -->
+            <FlowPane fx:id="eventsFlowPane"
+                      hgap="28"
+                      vgap="28"
+                      alignment="CENTER"
+                      prefWrapLength="1000"
+                      style="-fx-padding: 10;"/>
+
+            <!-- Back Button -->
+            <Button text="← Retour au menu"
+                    onAction="#handleRetour"
+                    style="-fx-background-color: rgba(255,255,255,0.9);
+                           -fx-text-fill: #6B7F3F;
+                           -fx-border-color: rgba(107,127,63,0.3);
+                           -fx-border-width: 2;
+                           -fx-border-radius: 25;
+                           -fx-background-radius: 25;
+                           -fx-cursor: hand;
+                           -fx-padding: 12 38;
+                           -fx-font-size: 15px;
+                           -fx-font-weight: bold;">
+                <effect>
+                    <DropShadow color="rgba(0,0,0,0.1)" radius="10" offsetY="3"/>
+                </effect>
+            </Button>
+        </VBox>
+    </ScrollPane>
+</StackPane>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.MesEvenementsController"
+           prefWidth="1060" prefHeight="710"
+           stylesheets="@/Style/evenement-style.css"
+           style="-fx-background-color: linear-gradient(to bottom right, #667A3F 0%, #8BC34A 100%);">
+
+
+    <!-- MAIN CONTENT -->
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                vbarPolicy="AS_NEEDED"
+                style="-fx-background: transparent;
+                       -fx-background-color: transparent;">
+        <VBox alignment="TOP_CENTER" spacing="30" style="-fx-padding: 40;">
+
+            <!-- Hero Header -->
+            <VBox alignment="CENTER" spacing="20"
+                  style="-fx-background-color: rgba(255,255,255,0.95);
+                         -fx-background-radius: 25;
+                         -fx-padding: 40;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 25, 0, 0, 8);">
+
+                <HBox spacing="12" alignment="CENTER">
+                    <Rectangle width="4" height="32"
+                               style="-fx-fill: #6B7F3F;
+                                      -fx-arc-width: 0;
+                                      -fx-arc-height: 0;"/>
+                    <Label text="MES INSCRIPTIONS AUX ÉVÉNEMENTS"
+                           style="-fx-text-fill: #6B7F3F;
+                                  -fx-font-size: 13px;
+                                  -fx-font-weight: bold;
+                                  -fx-letter-spacing: 2px;"/>
+                </HBox>
+
+                <Label text="📅 Mes Événements"
+                       style="-fx-text-fill: #2C3E50;
+                              -fx-font-size: 38px;
+                              -fx-font-weight: bold;"/>
+
+                <!-- Statistics Cards -->
+                <HBox spacing="35" alignment="CENTER" style="-fx-padding: 15 0 0 0;">
+
+                    <!-- Total Inscriptions Card -->
+                    <VBox alignment="CENTER" spacing="10"
+                          style="-fx-background-color: rgba(255,255,255,0.95);
+                                 -fx-background-radius: 20;
+                                 -fx-padding: 30 50;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);
+                                 -fx-border-color: rgba(80,200,120,0.3);
+                                 -fx-border-width: 2;
+                                 -fx-border-radius: 20;">
+                        <Label text="📊" style="-fx-font-size: 36px;"/>
+                        <Label text="Total Inscriptions"
+                               style="-fx-font-size: 12px;
+                                      -fx-text-fill: #888;"/>
+                        <Label fx:id="totalInscriptionsLabel"
+                               text="0"
+                               style="-fx-font-size: 42px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #50C878;"/>
+                    </VBox>
+
+                    <!-- Next Event Card -->
+                    <VBox alignment="CENTER" spacing="10"
+                          style="-fx-background-color: rgba(255,255,255,0.95);
+                                 -fx-background-radius: 20;
+                                 -fx-padding: 30 50;
+                                 -fx-min-width: 300;
+                                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);
+                                 -fx-border-color: rgba(243,156,18,0.3);
+                                 -fx-border-width: 2;
+                                 -fx-border-radius: 20;">
+                        <Label text="📅" style="-fx-font-size: 36px;"/>
+                        <Label text="Prochain Événement"
+                               style="-fx-font-size: 12px;
+                                      -fx-text-fill: #888;"/>
+                        <Label fx:id="nextEventLabel"
+                               text="Aucun événement à venir"
+                               style="-fx-font-size: 17px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #F39C12;
+                                      -fx-wrap-text: true;
+                                      -fx-text-alignment: center;"
+                               wrapText="true"
+                               maxWidth="280"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <!-- Filters Bar -->
+            <HBox spacing="20" alignment="CENTER"
+                  style="-fx-background-color: rgba(255,255,255,0.9);
+                         -fx-background-radius: 20;
+                         -fx-padding: 25;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 5);">
+
+                <Label text="Filtrer par statut:"
+                       style="-fx-font-size: 15px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #666;"/>
+                <ComboBox fx:id="filterStatutCombo"
+                          prefWidth="220"
+                          prefHeight="50"
+                          style="-fx-background-radius: 25;
+                                 -fx-background-color: #F8F9FA;"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <Button text="🔄 Actualiser"
+                        onAction="#handleRefresh"
+                        style="-fx-background-color: transparent;
+                               -fx-border-color: #6B7F3F;
+                               -fx-border-width: 2;
+                               -fx-border-radius: 25;
+                               -fx-background-radius: 25;
+                               -fx-text-fill: #6B7F3F;
+                               -fx-padding: 12 32;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 15px;
+                               -fx-cursor: hand;">
+                    <effect>
+                        <DropShadow color="rgba(107,127,63,0.2)" radius="10" offsetY="3"/>
+                    </effect>
+                </Button>
+            </HBox>
+
+            <!-- Events Container -->
+            <VBox fx:id="eventsContainer"
+                  spacing="22"
+                  alignment="TOP_CENTER"
+                  style="-fx-padding: 10;"/>
+
+            <!-- Back Button -->
+            <Button text="← Retour au menu"
+                    onAction="#handleRetour"
+                    style="-fx-background-color: rgba(255,255,255,0.9);
+                           -fx-text-fill: #6B7F3F;
+                           -fx-border-color: rgba(107,127,63,0.3);
+                           -fx-border-width: 2;
+                           -fx-border-radius: 25;
+                           -fx-background-radius: 25;
+                           -fx-cursor: hand;
+                           -fx-padding: 12 38;
+                           -fx-font-size: 15px;
+                           -fx-font-weight: bold;">
+                <effect>
+                    <DropShadow color="rgba(0,0,0,0.1)" radius="10" offsetY="3"/>
+                </effect>
+            </Button>
+        </VBox>
+    </ScrollPane>
+</StackPane>

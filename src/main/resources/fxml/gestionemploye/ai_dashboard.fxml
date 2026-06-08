@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.gestionemployecontroller.Aidashboardcontroller">
+
+    <!-- En-tête -->
+    <top>
+        <VBox style="-fx-background-color: #27ae60; -fx-padding: 20;">
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="📊 Analytics AI - Système de Recommandation"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="🔄 Actualiser" onAction="#handleRefresh"
+                        style="-fx-background-color: white; -fx-text-fill: #27ae60; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Contenu -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #f5f7fa;">
+            <VBox spacing="20" style="-fx-padding: 20;">
+
+                <!-- Statistiques principales -->
+                <HBox spacing="20">
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                        <Label text="Total Recommandations" styleClass="stat-label"/>
+                        <Label fx:id="lblTotalRecommandations" text="0" styleClass="stat-value"/>
+                    </VBox>
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                        <Label text="Taux d'Acceptation" styleClass="stat-label"/>
+                        <Label fx:id="lblTauxAcceptation" text="0%" styleClass="stat-value"/>
+                    </VBox>
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                        <Label text="Score Moyen" styleClass="stat-label"/>
+                        <Label fx:id="lblScoreMoyen" text="0.0" styleClass="stat-value"/>
+                    </VBox>
+                    <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+                        <Label text="Meilleur Employé" styleClass="stat-label"/>
+                        <Label fx:id="lblMeilleurEmploye" text="N/A" styleClass="stat-value"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Graphiques -->
+                <HBox spacing="20">
+                    <PieChart fx:id="pieChartAcceptation" HBox.hgrow="ALWAYS"/>
+                    <BarChart fx:id="barChartScores" HBox.hgrow="ALWAYS">
+                        <xAxis><CategoryAxis/></xAxis>
+                        <yAxis><NumberAxis/></yAxis>
+                    </BarChart>
+                </HBox>
+
+                <!-- Tendance -->
+                <LineChart fx:id="lineChartTendance">
+                    <xAxis><CategoryAxis label="Date"/></xAxis>
+                    <yAxis><NumberAxis label="Nombre"/></yAxis>
+                </LineChart>
+
+                <!-- Tableau Top Employés -->
+                <VBox>
+                    <Label text="🏆 Top 10 Employés Recommandés"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-padding: 0 0 10 0;"/>
+                    <TableView fx:id="tableTopEmployes">
+                        <columns>
+                            <TableColumn fx:id="colEmploye" text="Employé" prefWidth="200"/>
+                            <TableColumn fx:id="colNbRecommandations" text="Nb Recommandations" prefWidth="150"/>
+                            <TableColumn fx:id="colAcceptees" text="Acceptées" prefWidth="100"/>
+                            <TableColumn fx:id="colScoreMoyen" text="Score Moyen" prefWidth="120"/>
+                            <TableColumn fx:id="colTaux" text="Taux" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="750.0" prefWidth="1200.0" styleClass="main-container" stylesheets="@../../Style/modern-lists.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.gestionemployecontroller.AdminAgriculteursController">
+
+    <top>
+        <VBox spacing="15" styleClass="page-header">
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Button fx:id="btnRetour" maxWidth="150" onAction="#handleRetour" styleClass="button-secondary" text="← Retour " />
+                <Label styleClass="label-title" text="👨‍🌾 Gestion des Agriculteurs" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label styleClass="label-field" text="Total:" />
+                <Label fx:id="lblTotalAgriculteurs" styleClass="label-count" text="0" />
+            </HBox>
+
+            <!-- Barre de recherche -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <TextField fx:id="txtRecherche" onKeyReleased="#handleRechercher" prefWidth="350" promptText="🔍 Rechercher par nom, prénom, email..." styleClass="search-box" />
+
+                <Button onAction="#handleActualiser" styleClass="button-neutral" text="🔄 Actualiser" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Label style="-fx-text-fill: #6B7F3F; -fx-font-weight: bold; -fx-font-size: 12px;" text="📋 Cliquez sur un agriculteur pour gérer ses employés et tâches" />
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <TableView fx:id="tableAgriculteurs" onMouseClicked="#handleTableClick" prefHeight="462.0" prefWidth="1125.0" styleClass="table-view" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="60" sortable="true" text="ID" />
+                    <TableColumn fx:id="colNom" prefWidth="150" sortable="true" text="Nom" />
+                    <TableColumn fx:id="colPrenom" prefWidth="150" sortable="true" text="Prénom" />
+                    <TableColumn fx:id="colEmail" prefWidth="200" sortable="true" text="Email" />
+                    <TableColumn fx:id="colNbEmployes" prefWidth="120" sortable="true" text="Nb Employés" />
+                    <TableColumn fx:id="colNbTaches" prefWidth="120" sortable="true" text="Nb Tâches" />
+                    <TableColumn fx:id="colActions" prefWidth="300" sortable="false" text="Actions" />
+                </columns>
+                <placeholder>
+                    <VBox alignment="CENTER" prefHeight="461.0" prefWidth="1139.0" spacing="10">
+                        <Label style="-fx-font-size: 16px; -fx-text-fill: #999;" text="📭 Aucun agriculteur trouvé" />
+                        <Label style="-fx-font-size: 12px; -fx-text-fill: #bbb;" text="Créez des utilisateurs avec le rôle AGRICULTEUR" />
+                    </VBox>
+                </placeholder>
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>

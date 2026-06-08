@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.effect.DropShadow?>
+
+<ScrollPane fitToWidth="true"
+            style="-fx-background-color: #f8faf7; -fx-background: #f8faf7;"
+            xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.Parcelle_Cultures.IrrigationPlannerController">
+    <content>
+        <VBox spacing="20" style="-fx-background-color: transparent; -fx-padding: 24;">
+
+            <!-- ========== EN-TÊTE ========== -->
+            <HBox alignment="CENTER_LEFT" spacing="16"
+                  style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 18 28; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 14;">
+                <effect>
+                    <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="12"/>
+                </effect>
+                <Label text="💧" style="-fx-font-size: 32;"/>
+                <VBox spacing="3">
+                    <Label text="Planificateur Intelligent des Besoins en Eau"
+                           style="-fx-text-fill: #116530; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                    <Label text="Calcul agronomique ET0  |  Stress hydrique  |  Optimisation irrigation"
+                           style="-fx-text-fill: #116530; -fx-font-size: 11;"/>
+                </VBox>
+                <HBox HBox.hgrow="ALWAYS"/>
+                <Label text="PREMIUM"
+                       style="-fx-background-color: #116530; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 10; -fx-background-radius: 20; -fx-padding: 5 14;"/>
+                <Button onAction="#retour" text="← Retour"
+                        style="-fx-background-color: transparent; -fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 12; -fx-cursor: hand; -fx-underline: true;"/>
+            </HBox>
+
+            <!-- ========== SÉLECTIONS ========== -->
+            <VBox spacing="14"
+                  style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 22; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 12;">
+                <effect>
+                    <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                </effect>
+                <Label text="Sélection Culture et Parcelle"
+                       style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Culture" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                        <ComboBox fx:id="cbCulture" maxWidth="Infinity"
+                                  promptText="Sélectionner une culture..."
+                                  style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-border-color: #C8D5A0; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 2;"/>
+                    </VBox>
+                    <VBox spacing="6" HBox.hgrow="ALWAYS">
+                        <Label text="Parcelle" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                        <ComboBox fx:id="cbParcelle" maxWidth="Infinity"
+                                  promptText="Sélectionner une parcelle..."
+                                  style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-border-color: #C8D5A0; -fx-border-radius: 8; -fx-border-width: 1; -fx-padding: 2;"/>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" spacing="16">
+                    <Button fx:id="btnCalculer" onAction="#calculerIrrigation"
+                            text="Calculer les Besoins en Eau"
+                            style="-fx-background-color: #116530; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 13; -fx-background-radius: 10; -fx-cursor: hand; -fx-padding: 11 26;"/>
+                    <ProgressIndicator fx:id="progressIndicator" prefWidth="28" prefHeight="28"
+                                       visible="false" style="-fx-progress-color: #116530;"/>
+                    <Label fx:id="lblEtat" text="" style="-fx-text-fill: #116530; -fx-font-size: 12;"/>
+                </HBox>
+            </VBox>
+
+            <!-- ========== RÉSULTATS ========== -->
+            <VBox fx:id="vboxResultats" spacing="16" visible="false" managed="false">
+
+                <!-- === MÉTÉO === -->
+                <VBox spacing="12"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                    </effect>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Données Météorologiques"
+                               style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblSourceMeteo" text=""
+                               style="-fx-text-fill: #116530; -fx-font-size: 10; -fx-background-color: #f8faf7; -fx-background-radius: 5; -fx-padding: 3 8;"/>
+                    </HBox>
+                    <Label fx:id="lblDescMeteo" text=""
+                           style="-fx-text-fill: #7f8c8d; -fx-font-size: 12; -fx-font-style: italic;"/>
+                    <HBox spacing="12">
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Temp. Moy." style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblTmoy" text="—"
+                                   style="-fx-text-fill: #116530; -fx-font-size: 18; -fx-font-weight: bold;"/>
+                            <Label text="Moyenne" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #FFF3E0; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Temp. Max" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblTmax" text="—"
+                                   style="-fx-text-fill: #E65100; -fx-font-size: 18; -fx-font-weight: bold;"/>
+                            <Label text="Maximum" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #E3F2FD; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Temp. Min" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblTmin" text="—"
+                                   style="-fx-text-fill: #1565C0; -fx-font-size: 18; -fx-font-weight: bold;"/>
+                            <Label text="Minimum" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #E3F2FD; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Précipitations" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblPrecip" text="—"
+                                   style="-fx-text-fill: #0277BD; -fx-font-size: 18; -fx-font-weight: bold;"/>
+                            <Label text="7 jours" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 10; -fx-padding: 14;" HBox.hgrow="ALWAYS">
+                            <Label text="Humidité" style="-fx-text-fill: #7f8c8d; -fx-font-size: 10;"/>
+                            <Label fx:id="lblHumidite" text="—"
+                                   style="-fx-text-fill: #116530; -fx-font-size: 18; -fx-font-weight: bold;"/>
+                            <Label text="Relative" style="-fx-text-fill: #95a5a6; -fx-font-size: 9;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- === CALCULS AGRONOMIQUES === -->
+                <HBox spacing="16">
+                    <!-- Colonne gauche : formules -->
+                    <VBox spacing="10" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20;">
+                        <effect>
+                            <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                        </effect>
+                        <Label text="Calculs Agronomiques"
+                               style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Kc Culture (besoin hydrique)" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="200"/>
+                            <Label fx:id="lblKc" text="—" style="-fx-text-fill: #116530; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="ET0 Évapotranspiration" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="200"/>
+                            <Label fx:id="lblET0" text="—" style="-fx-text-fill: #116530; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Besoin Brut (Kc x ET0)" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="200"/>
+                            <Label fx:id="lblBesoinBrut" text="—" style="-fx-text-fill: #116530; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #E8F5E9; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Besoin Net (- Précipitations)" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="200"/>
+                            <Label fx:id="lblBesoinNet" text="—" style="-fx-text-fill: #2E7D32; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" spacing="10"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 10;">
+                            <Label text="Efficacité Hydrique" style="-fx-text-fill: #7f8c8d; -fx-font-size: 12;" minWidth="200"/>
+                            <Label fx:id="lblEfficacite" text="—" style="-fx-text-fill: #116530; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                        </HBox>
+
+                        <VBox spacing="3"
+                              style="-fx-background-color: #F0F4E8; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #C8D5A0; -fx-border-radius: 8; -fx-border-width: 1;">
+                            <Label text="Formules utilisées" style="-fx-text-fill: #116530; -fx-font-size: 10; -fx-font-weight: bold;"/>
+                            <Label text="ET0 = 0.0023 x (T+17.8) x Racine(Tmax-Tmin)"
+                                   style="-fx-text-fill: #7f8c8d; -fx-font-size: 10; -fx-font-family: 'Courier New';"/>
+                            <Label text="Volume = BesoinNet x Surface(ha) x 10 000 L"
+                                   style="-fx-text-fill: #7f8c8d; -fx-font-size: 10; -fx-font-family: 'Courier New';"/>
+                        </VBox>
+                    </VBox>
+
+                    <!-- Colonne droite : volume + niveau -->
+                    <VBox spacing="12" prefWidth="240">
+                        <!-- Volume recommandé -->
+                        <VBox alignment="CENTER" spacing="8"
+                              style="-fx-background-color: #116530; -fx-background-radius: 14; -fx-padding: 28;">
+                            <effect>
+                                <DropShadow blurType="GAUSSIAN" color="rgba(107,127,63,0.35)" radius="14"/>
+                            </effect>
+                            <Label text="Volume Recommande / Semaine"
+                                   style="-fx-text-fill: #D4E6A5; -fx-font-size: 11; -fx-font-weight: bold;"/>
+                            <Label fx:id="lblVolume" text="—"
+                                   style="-fx-text-fill: white; -fx-font-size: 26; -fx-font-weight: bold;"/>
+                            <Label fx:id="lblVolumeM3" text=""
+                                   style="-fx-text-fill: #C8D5A0; -fx-font-size: 10;"/>
+                        </VBox>
+                        <!-- Niveau irrigation -->
+                        <VBox alignment="CENTER" spacing="8"
+                              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 18;">
+                            <effect>
+                                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                            </effect>
+                            <Label text="Niveau d'Irrigation"
+                                   style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;"/>
+                            <Label fx:id="lblNiveauIrrigation" text="—"
+                                   style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+                    </VBox>
+                </HBox>
+
+                <!-- === STRESS HYDRIQUE === -->
+                <VBox fx:id="vboxStress" spacing="10"
+                      style="-fx-background-color: #E8F5E9; -fx-background-radius: 12; -fx-padding: 18; -fx-border-color: #A5D6A7; -fx-border-radius: 12; -fx-border-width: 1;">
+                    <Label fx:id="lblStress" text="—"
+                           style="-fx-font-size: 14; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblCauseStress" text="" wrapText="true"
+                           style="-fx-text-fill: #2c3e50; -fx-font-size: 12;"/>
+                </VBox>
+
+                <!-- === CONSEIL PRINCIPAL === -->
+                <VBox spacing="8"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 20; -fx-border-color: #C8D5A0; -fx-border-radius: 12; -fx-border-width: 1;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="10"/>
+                    </effect>
+                    <Label text="Conseil Ardhi Intelligence"
+                           style="-fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblConseil" text="" wrapText="true"
+                           style="-fx-text-fill: #2c3e50; -fx-font-size: 13; -fx-line-spacing: 3;"/>
+                </VBox>
+
+            </VBox>
+
+        </VBox>
+    </content>
+</ScrollPane>

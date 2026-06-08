@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane prefHeight="780.0" prefWidth="1200.0"
+            style="-fx-background-color: #f8faf7;"
+            xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.Parcelle_Cultures.SmartParcelleController">
+
+    <VBox spacing="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+        <!-- ===== HEADER ===== -->
+        <HBox alignment="CENTER_LEFT" spacing="15"
+              style="-fx-background-color: white; -fx-padding: 14 24; -fx-border-color: rgba(0,0,0,0.05); -fx-border-width: 0 0 1 0;">
+            <effect>
+                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="8"/>
+            </effect>
+            <Button mnemonicParsing="false" onAction="#retour"
+                    style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 8; -fx-cursor: hand;"
+                    text="← Retour" textFill="#116530">
+                <font><Font name="System Bold" size="13.0"/></font>
+                <padding><Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/></padding>
+            </Button>
+            <Label text="Smart Agriculture — Recommandation IA"
+                   style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 20;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblSaison"
+                   style="-fx-background-color: #f8faf7; -fx-background-radius: 20; -fx-padding: 5 16; -fx-text-fill: #116530; -fx-font-size: 14; -fx-font-weight: bold;"/>
+            <Label fx:id="lblEtatAnalyse" text="Prêt pour l'analyse"
+                   style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;"/>
+            <ProgressIndicator fx:id="progressIndicator" prefHeight="24" prefWidth="24"
+                               visible="false" style="-fx-progress-color: #116530;"/>
+        </HBox>
+
+        <!-- ===== CORPS PRINCIPAL ===== -->
+        <HBox spacing="14" VBox.vgrow="ALWAYS" style="-fx-padding: 14 16;">
+
+            <!-- ================= COLONNE GAUCHE (360px) ================= -->
+            <VBox spacing="12" prefWidth="360" minWidth="340">
+
+                <!-- INFOS PARCELLE -->
+                <VBox spacing="8"
+                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 16; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 14; -fx-border-width: 1;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                    </effect>
+                    <Label text="Parcelle Analysée"
+                           style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 15;"/>
+                    <Label fx:id="lblTitreParcelle" text="—"
+                           style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 17;" wrapText="true"/>
+                    <GridPane vgap="6" hgap="10">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="80"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <Label text="Surface:" style="-fx-text-fill: #b2bec3; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                        <Label fx:id="lblSurface" text="—" style="-fx-text-fill: #2c3e50; -fx-font-size: 13; -fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                        <Label text="Type sol:" style="-fx-text-fill: #b2bec3; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                        <Label fx:id="lblTypeSol" text="—" style="-fx-text-fill: #2c3e50; -fx-font-size: 13;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Label text="Irrigation:" style="-fx-text-fill: #b2bec3; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                        <Label fx:id="lblIrrigation" text="—" style="-fx-text-fill: #2c3e50; -fx-font-size: 13;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                        <Label text="GPS:" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                        <Label fx:id="lblGps" text="Auto-detection" style="-fx-text-fill: #116530; -fx-font-size: 13;" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                    </GridPane>
+
+                    <!-- GPS manuel -->
+                    <Label text="Coordonnées GPS (optionnel)" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+                    <HBox spacing="8">
+                        <TextField fx:id="tfLatitude" promptText="Latitude"
+                                   style="-fx-background-color: #f8faf7; -fx-background-radius: 8; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 8; -fx-padding: 6; -fx-font-size: 12;"
+                                   HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="tfLongitude" promptText="Longitude"
+                                   style="-fx-background-color: #f8faf7; -fx-background-radius: 8; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 8; -fx-padding: 6; -fx-font-size: 12;"
+                                   HBox.hgrow="ALWAYS"/>
+                    </HBox>
+                </VBox>
+
+                <!-- SCORE QUALITÉ -->
+                <VBox spacing="8"
+                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 16; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 14; -fx-border-width: 1;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                    </effect>
+                    <Label text="Score Qualité Parcelle"
+                           style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 15;"/>
+                    <Label fx:id="lblScoreQualite" text="—/10"
+                           style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 28;"/>
+                    <ProgressBar fx:id="progressScoreQualite" progress="0" prefWidth="320"
+                                 style="-fx-accent: #116530;" prefHeight="10"/>
+                    <Label text="Sol - Irrigation - Météo - Diversification"
+                           style="-fx-text-fill: #95a5a6; -fx-font-size: 12;" wrapText="true"/>
+                </VBox>
+
+                <!-- ALERTES MÉTIER -->
+                <VBox fx:id="boxAlertes" spacing="6"/>
+
+                <!-- OPTION DE DIVISION -->
+                <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 4 0;">
+                    <CheckBox fx:id="chkDiviser" text="Diviser en 2 cultures ?" selected="true"
+                              style="-fx-text-fill: #116530; -fx-font-size: 14;"/>
+                </HBox>
+
+                <!-- BOUTON ANALYSER -->
+                <Button fx:id="btnAnalyser" onAction="#lancerAnalyse"
+                        text="Lancer l'Analyse IA" prefWidth="340"
+                        style="-fx-background-color: #116530; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15; -fx-background-radius: 12; -fx-cursor: hand; -fx-padding: 14;"/>
+            </VBox>
+
+            <!-- ================= COLONNE DROITE ================= -->
+            <VBox spacing="12" HBox.hgrow="ALWAYS">
+
+                <!-- CARTE LEAFLET -->
+                <VBox style="-fx-background-color: white; -fx-background-radius: 14; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 14; -fx-border-width: 1;"
+                      prefHeight="210" VBox.vgrow="NEVER">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                    </effect>
+                    <Label text="Carte de Division — Satellite"
+                           style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 13; -fx-padding: 10 16 4 16;"/>
+                    <WebView fx:id="webMapView" VBox.vgrow="ALWAYS"/>
+                </VBox>
+
+                <!-- MÉTÉO TEMPS RÉEL (large horizontal layout) -->
+                <VBox spacing="10"
+                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 14 18; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 14; -fx-border-width: 1;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                    </effect>
+                    <HBox alignment="CENTER_LEFT" spacing="12">
+                        <Label text="Météo Temps Réel"
+                               style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 15;"/>
+                        <Label fx:id="lblMeteoDesc" text="-" wrapText="true"
+                               style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;"/>
+                    </HBox>
+                    <HBox spacing="14">
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #FFF3E0; -fx-background-radius: 12; -fx-padding: 12 18;"
+                              HBox.hgrow="ALWAYS">
+                            <Label text="Température" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d;"/>
+                            <Label fx:id="lblTemperature" text="-"
+                                   style="-fx-text-fill: #E65100; -fx-font-weight: bold; -fx-font-size: 22;"/>
+                            <Label text="Degrés" style="-fx-text-fill: #95a5a6; -fx-font-size: 11;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #E3F2FD; -fx-background-radius: 12; -fx-padding: 12 18;"
+                              HBox.hgrow="ALWAYS">
+                            <Label text="Humidité" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d;"/>
+                            <Label fx:id="lblHumidite" text="-"
+                                   style="-fx-text-fill: #1565C0; -fx-font-weight: bold; -fx-font-size: 22;"/>
+                            <Label text="%%" style="-fx-text-fill: #95a5a6; -fx-font-size: 11;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #E8F5E9; -fx-background-radius: 12; -fx-padding: 12 18;"
+                              HBox.hgrow="ALWAYS">
+                            <Label text="Précipitations" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d;"/>
+                            <Label fx:id="lblPrecipitations" text="-"
+                                   style="-fx-text-fill: #2E7D32; -fx-font-weight: bold; -fx-font-size: 22;"/>
+                            <Label text="mm" style="-fx-text-fill: #95a5a6; -fx-font-size: 11;"/>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="4"
+                              style="-fx-background-color: #F5F7F0; -fx-background-radius: 12; -fx-padding: 12 18;"
+                              HBox.hgrow="ALWAYS">
+                            <Label text="Vent" style="-fx-font-size: 12; -fx-text-fill: #7f8c8d;"/>
+                            <Label fx:id="lblVent" text="-"
+                                   style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 22;"/>
+                            <Label text="km/h" style="-fx-text-fill: #95a5a6; -fx-font-size: 11;"/>
+                        </VBox>
+                    </HBox>
+                    <HBox spacing="10">
+                        <Label fx:id="lblAlertGel" text="ALERTE: Risque de gel !" visible="false" managed="false"
+                               style="-fx-background-color: #E3F2FD; -fx-text-fill: #1565C0; -fx-background-radius: 8; -fx-padding: 8 14; -fx-font-weight: bold; -fx-font-size: 13;"/>
+                        <Label fx:id="lblAlertPluie" text="ALERTE: Pluie excessive !" visible="false" managed="false"
+                               style="-fx-background-color: #FFF3E0; -fx-text-fill: #E65100; -fx-background-radius: 8; -fx-padding: 8 14; -fx-font-weight: bold; -fx-font-size: 13;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- RECOMMANDATIONS CULTURE 1 & 2 -->
+                <HBox spacing="12" VBox.vgrow="NEVER">
+
+                    <!-- CULTURE 1 -->
+                    <VBox spacing="8" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: #E8F5E9; -fx-background-radius: 14; -fx-padding: 14; -fx-border-color: #A5D6A7; -fx-border-radius: 14; -fx-border-width: 1;">
+                        <effect>
+                            <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.06)" radius="8"/>
+                        </effect>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="C1" style="-fx-font-size: 16; -fx-text-fill: #2E7D32; -fx-font-weight: bold;"/>
+                            <VBox>
+                                <Label text="Culture 1"
+                                       style="-fx-text-fill: #388E3C; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                                <Label fx:id="lblCulture1Nom" text="—"
+                                       style="-fx-text-fill: #1B5E20; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                            </VBox>
+                        </HBox>
+                        <ProgressBar fx:id="progressScore1" progress="0" prefWidth="400"
+                                     style="-fx-accent: #116530;" prefHeight="8"/>
+                        <Label fx:id="lblCulture1Score" text="" style="-fx-text-fill: #388E3C; -fx-font-size: 12;"/>
+                        <GridPane vgap="5" hgap="10">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="100"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+                            <Label text="Surface:" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblCulture1Surface" text="—" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 14;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Rendement:" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblCulture1Rendement" text="—" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 14;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="Production:" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblCulture1Production" text="—" style="-fx-text-fill: #2E7D32; -fx-font-weight: bold; -fx-font-size: 14;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </VBox>
+
+                    <!-- CULTURE 2 -->
+                    <VBox fx:id="vboxCulture2" spacing="8" HBox.hgrow="ALWAYS"
+                          style="-fx-background-color: #FFF8E1; -fx-background-radius: 14; -fx-padding: 14; -fx-border-color: #FFE082; -fx-border-radius: 14; -fx-border-width: 1;">
+                        <effect>
+                            <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.06)" radius="8"/>
+                        </effect>
+                        <HBox alignment="CENTER_LEFT" spacing="10">
+                            <Label text="C2" style="-fx-font-size: 16; -fx-text-fill: #E65100; -fx-font-weight: bold;"/>
+                            <VBox>
+                                <Label text="Culture 2"
+                                       style="-fx-text-fill: #E65100; -fx-font-size: 12; -fx-font-weight: bold;"/>
+                                <Label fx:id="lblCulture2Nom" text="—"
+                                       style="-fx-text-fill: #BF360C; -fx-font-weight: bold; -fx-font-size: 18;"/>
+                            </VBox>
+                        </HBox>
+                        <ProgressBar fx:id="progressScore2" progress="0" prefWidth="400"
+                                     style="-fx-accent: #FF8F00;" prefHeight="8"/>
+                        <Label fx:id="lblCulture2Score" text="" style="-fx-text-fill: #E65100; -fx-font-size: 12;"/>
+                        <GridPane vgap="5" hgap="10">
+                            <columnConstraints>
+                                <ColumnConstraints minWidth="100"/>
+                                <ColumnConstraints hgrow="ALWAYS"/>
+                            </columnConstraints>
+                            <Label text="Surface:" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblCulture2Surface" text="—" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 14;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                            <Label text="Rendement:" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblCulture2Rendement" text="—" style="-fx-text-fill: #2c3e50; -fx-font-weight: bold; -fx-font-size: 14;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                            <Label text="Production:" style="-fx-text-fill: #7f8c8d; -fx-font-size: 13;" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <Label fx:id="lblCulture2Production" text="—" style="-fx-text-fill: #E65100; -fx-font-weight: bold; -fx-font-size: 14;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        </GridPane>
+                    </VBox>
+                </HBox>
+
+                <!-- JUSTIFICATION -->
+                <VBox spacing="6"
+                      style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 14; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 14; -fx-border-width: 1;"
+                      VBox.vgrow="ALWAYS">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.07)" radius="8"/>
+                    </effect>
+                    <HBox alignment="CENTER_LEFT" spacing="10">
+                        <Label text="Analyse et Justification"
+                               style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 14;"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <Label fx:id="lblSource" text=""
+                               style="-fx-background-color: #f8faf7; -fx-background-radius: 10; -fx-padding: 4 12; -fx-text-fill: #116530; -fx-font-size: 12;"/>
+                    </HBox>
+                    <TextArea fx:id="taJustification" editable="false" wrapText="true"
+                              VBox.vgrow="ALWAYS"
+                              style="-fx-control-inner-background: transparent; -fx-background-color: transparent; -fx-text-fill: #2c3e50; -fx-font-size: 13; -fx-border-color: transparent;"/>
+                </VBox>
+
+                <!-- BOUTONS ACTIONS -->
+                <HBox spacing="12" alignment="CENTER_RIGHT">
+                    <Button fx:id="btnAppliquer" onAction="#appliquerRecommandation"
+                            text="Appliquer la recommandation" visible="false" managed="false"
+                            style="-fx-background-color: #116530; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 12; -fx-cursor: hand; -fx-padding: 12 24; -fx-font-size: 14;"/>
+                    <Button onAction="#retourAction" text="Retour aux parcelles"
+                            style="-fx-background-color: white; -fx-text-fill: #116530; -fx-background-radius: 12; -fx-cursor: hand; -fx-padding: 12 24; -fx-font-size: 13; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 12; -fx-border-width: 1;"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1060.0"
+            style="-fx-background-color: #f8faf7;"
+            xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.Parcelle_Cultures.CreditDossierController">
+    <children>
+        <VBox spacing="15.0"
+              AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0"
+              AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+
+                <!-- ==================== HEADER ==================== -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15 25; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 12;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                    </effect>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#retour"
+                                style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 8; -fx-cursor: hand;"
+                                text="← Retour" textFill="#116530">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                            <padding><Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/></padding>
+                        </Button>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/ardhi_logo.png"/>
+                            </image>
+                        </ImageView>
+                        <VBox spacing="2.0">
+                            <Label text="Dossier de Crédit Agricole" style="-fx-text-fill: #116530;">
+                                <font><Font name="System Bold" size="20.0"/></font>
+                            </Label>
+                            <Label text="📋 Génération automatique de dossier bancaire"
+                                   style="-fx-text-fill: #8D6E63; -fx-font-size: 11;"/>
+                        </VBox>
+                        <Label style="-fx-text-fill: white; -fx-background-color: linear-gradient(to right, #C4A574, #D4B584); -fx-background-radius: 5; -fx-padding: 4 12;"
+                               text="⭐ PREMIUM">
+                            <font><Font name="System Bold" size="11.0"/></font>
+                            <HBox.margin><Insets left="15.0"/></HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- ==================== MAIN CONTENT ==================== -->
+                <HBox spacing="15.0" VBox.vgrow="ALWAYS">
+                    <children>
+
+                        <!-- ===== LEFT PANEL – Parcelle Info + Config ===== -->
+                        <VBox spacing="12.0" prefWidth="380.0"
+                              style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
+                            <effect>
+                                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="8"/>
+                            </effect>
+                            <children>
+                                <!-- Parcelle sélectionnée -->
+                                <Label text="Choisir une parcelle" style="-fx-text-fill: #116530; -fx-font-weight: bold;">
+                                    <font><Font name="System Bold" size="14.0"/></font>
+                                </Label>
+                                <ComboBox fx:id="cbParcelle" maxWidth="Infinity" promptText="Sélectionner une parcelle..."
+                                          style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: rgba(0,0,0,0.05); -fx-padding: 4;"/>
+
+                                <Separator style="-fx-padding: 5 0;"/>
+
+                                <Label text="Détails de la parcelle" style="-fx-text-fill: #116530; -fx-font-weight: bold;">
+                                    <font><Font name="System Bold" size="12.0"/></font>
+                                </Label>
+
+                                <GridPane hgap="10" vgap="8">
+                                    <columnConstraints>
+                                        <ColumnConstraints minWidth="110" prefWidth="120"/>
+                                        <ColumnConstraints hgrow="ALWAYS"/>
+                                    </columnConstraints>
+
+                                    <Label text="Référence :" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;" GridPane.rowIndex="0"/>
+                                    <Label fx:id="lblRefParcelle" text="—" style="-fx-font-weight: bold; -fx-text-fill: #2D3A1E;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                                    <Label text="Localisation :" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;" GridPane.rowIndex="1"/>
+                                    <Label fx:id="lblLocalisation" text="—" style="-fx-text-fill: #2D3A1E;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                                    <Label text="Surface :" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;" GridPane.rowIndex="2"/>
+                                    <Label fx:id="lblSurface" text="—" style="-fx-text-fill: #2D3A1E;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                                    <Label text="Type sol :" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;" GridPane.rowIndex="3"/>
+                                    <Label fx:id="lblTypeSol" text="—" style="-fx-text-fill: #2D3A1E;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                                    <Label text="Irrigation :" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;" GridPane.rowIndex="4"/>
+                                    <Label fx:id="lblIrrigation" text="—" style="-fx-text-fill: #2D3A1E;" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                                    <Label text="Cultures :" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;" GridPane.rowIndex="5"/>
+                                    <Label fx:id="lblNbCultures" text="—" style="-fx-text-fill: #2D3A1E;" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                                </GridPane>
+
+                                <Separator style="-fx-padding: 5 0;"/>
+
+                                <!-- Configuration du dossier -->
+                                <Label text="Configuration du dossier" style="-fx-text-fill: #116530; -fx-font-weight: bold;">
+                                    <font><Font name="System Bold" size="14.0"/></font>
+                                </Label>
+
+                                <Label text="Langue du document" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                                <ComboBox fx:id="cbLangue" prefWidth="250.0"
+                                          style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd;"/>
+
+                                <Label text="Durée de l'emprunt (années)" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                                <Spinner fx:id="spinDuree" prefWidth="250.0"
+                                         style="-fx-background-radius: 8;"/>
+
+                                <Separator style="-fx-padding: 5 0;"/>
+
+                                <!-- Bouton Générer -->
+                                <Button fx:id="btnGenerer" onAction="#genererDossier"
+                                        text="📄  Générer le Dossier PDF"
+                                        maxWidth="Infinity"
+                                        style="-fx-background-color: linear-gradient(to right, #116530, #4a8c3f); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-padding: 14 30; -fx-font-size: 14; -fx-effect: dropshadow(gaussian, #11653066, 12, 0, 0, 3);">
+                                </Button>
+
+                                <Label fx:id="lblStatus" text="" wrapText="true"
+                                       style="-fx-text-fill: #556B47; -fx-font-size: 11;"
+                                       alignment="CENTER" maxWidth="Infinity"/>
+                            </children>
+                        </VBox>
+
+                        <!-- ===== RIGHT PANEL – Preview / Résumé ===== -->
+                        <VBox spacing="12.0" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20;">
+                            <effect>
+                                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="8"/>
+                            </effect>
+                            <children>
+                                <Label text="Aperçu du Dossier" style="-fx-text-fill: #116530; -fx-font-weight: bold;">
+                                    <font><Font name="System Bold" size="14.0"/></font>
+                                </Label>
+
+                                <javafx.scene.control.ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                                    style="-fx-background-color: transparent; -fx-background: transparent;">
+                                    <content>
+                                        <VBox fx:id="vboxPreview" spacing="10.0" style="-fx-background-color: transparent;">
+                                            <children>
+                                                <!-- Analyse Financière -->
+                                                <VBox spacing="6" style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 14;">
+                                                    <Label text="💰 Analyse Financière" style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 13;"/>
+                                                    <GridPane hgap="15" vgap="6">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints minWidth="160" prefWidth="180"/>
+                                                            <ColumnConstraints hgrow="ALWAYS"/>
+                                                        </columnConstraints>
+                                                        <Label text="Coûts totaux :" style="-fx-text-fill: #556B47;" GridPane.rowIndex="0"/>
+                                                        <Label fx:id="lblCouts" text="—" style="-fx-font-weight: bold; -fx-text-fill: #2D3A1E;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                                        <Label text="Chiffre d'affaires :" style="-fx-text-fill: #556B47;" GridPane.rowIndex="1"/>
+                                                        <Label fx:id="lblCA" text="—" style="-fx-font-weight: bold; -fx-text-fill: #2D3A1E;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                                                        <Label text="Marge brute :" style="-fx-text-fill: #556B47;" GridPane.rowIndex="2"/>
+                                                        <Label fx:id="lblMarge" text="—" style="-fx-font-weight: bold; -fx-text-fill: #3B5E20;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                                                        <Label text="ROI :" style="-fx-text-fill: #556B47;" GridPane.rowIndex="3"/>
+                                                        <Label fx:id="lblROI" text="—" style="-fx-font-weight: bold; -fx-text-fill: #2D3A1E;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                                    </GridPane>
+                                                </VBox>
+
+                                                <!-- Prêt Recommandé -->
+                                                <VBox spacing="8" alignment="CENTER"
+                                                      style="-fx-background-color: linear-gradient(to bottom right, #0A1628, #0D3D2E); -fx-background-radius: 10; -fx-padding: 18; -fx-border-color: #6ec6a04d; -fx-border-radius: 10; -fx-border-width: 1;">
+                                                    <Label text="💳 Prêt Recommandé" style="-fx-text-fill: #6EC6A0; -fx-font-weight: bold; -fx-font-size: 13;"/>
+                                                    <Label fx:id="lblMontantPret" text="— DT"
+                                                           style="-fx-text-fill: #6EC6A0; -fx-font-size: 26; -fx-font-weight: bold;"/>
+                                                    <Label fx:id="lblCapacite" text="Capacité remboursement : — DT/an"
+                                                           style="-fx-text-fill: #7EC8A0; -fx-font-size: 11;"/>
+                                                </VBox>
+
+                                                <!-- Score de Risque -->
+                                                <VBox spacing="8"
+                                                      style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-padding: 14;">
+                                                    <Label text="🛡️ Score de Risque Bancaire" style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 13;"/>
+                                                    <HBox spacing="15" alignment="CENTER_LEFT">
+                                                        <Label fx:id="lblScoreRisque" text="—/10"
+                                                               style="-fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #2D3A1E;"/>
+                                                        <Label fx:id="lblNiveauRisque" text="—"
+                                                               style="-fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 4 14; -fx-font-weight: bold; -fx-font-size: 12;"/>
+                                                    </HBox>
+                                                    <GridPane hgap="15" vgap="4">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints minWidth="160" prefWidth="180"/>
+                                                            <ColumnConstraints hgrow="ALWAYS"/>
+                                                        </columnConstraints>
+                                                        <Label text="Rentabilité (40%) :" style="-fx-text-fill: #556B47; -fx-font-size: 11;" GridPane.rowIndex="0"/>
+                                                        <Label fx:id="lblScoreRenta" text="—" style="-fx-font-size: 11; -fx-text-fill: #2D3A1E; -fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                                                        <Label text="Climat (30%) :" style="-fx-text-fill: #556B47; -fx-font-size: 11;" GridPane.rowIndex="1"/>
+                                                        <Label fx:id="lblScoreClimat" text="—" style="-fx-font-size: 11; -fx-text-fill: #2D3A1E; -fx-font-weight: bold;" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                                                        <Label text="Diversification (20%) :" style="-fx-text-fill: #556B47; -fx-font-size: 11;" GridPane.rowIndex="2"/>
+                                                        <Label fx:id="lblScoreDiversif" text="—" style="-fx-font-size: 11; -fx-text-fill: #2D3A1E; -fx-font-weight: bold;" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                                                        <Label text="Historique (10%) :" style="-fx-text-fill: #556B47; -fx-font-size: 11;" GridPane.rowIndex="3"/>
+                                                        <Label fx:id="lblScoreHisto" text="—" style="-fx-font-size: 11; -fx-text-fill: #2D3A1E; -fx-font-weight: bold;" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                                                    </GridPane>
+                                                </VBox>
+
+                                                <!-- Info -->
+                                                <VBox style="-fx-background-color: #FFF8E1; -fx-background-radius: 8; -fx-padding: 10;">
+                                                    <Label text="ℹ️ Information" style="-fx-text-fill: #F57C00; -fx-font-weight: bold; -fx-font-size: 11;"/>
+                                                    <Label text="Les données affichées sont des estimations basées sur les cultures enregistrées et les conditions climatiques actuelles. Le PDF généré pourra être présenté à votre banque."
+                                                           wrapText="true" style="-fx-text-fill: #F57C00; -fx-font-size: 10;"/>
+                                                </VBox>
+                                            </children>
+                                        </VBox>
+                                    </content>
+                                </javafx.scene.control.ScrollPane>
+                            </children>
+                        </VBox>
+
+                    </children>
+                </HBox>
+
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

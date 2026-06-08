@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.StackPane?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1060.0" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.PostDetailController">
+    <children>
+        <!-- Background Image -->
+         <AnchorPane styleClass="community-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        
+        <!-- Dark Overlay -->
+        <Rectangle height="710.0" width="1060.0" opacity="0.4" fill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+        <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: rgba(0,0,0,0.2); -fx-background-radius: 12; -fx-padding: 15 25;" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <effect>
+                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="10" offsetY="2"/>
+            </effect>
+            <children>
+                <Button mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: rgba(255,255,255,0.2); -fx-background-radius: 8; -fx-cursor: hand; -fx-text-fill: white;" text="← Retour">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                    <padding>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
+                    </padding>
+                </Button>
+                <Label text="Détails du Post" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" AnchorPane.topAnchor="80.0" AnchorPane.bottomAnchor="120.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <content>
+                <!-- Wraps content in a centered container for readability -->
+                <VBox alignment="TOP_CENTER" style="-fx-padding: 20;">
+                    <VBox fx:id="contentContainer" spacing="15.0" maxWidth="800.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-padding: 25; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);">
+                        <!-- Post content will be added here dynamically -->
+                    </VBox>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- Comment Input Area (Glass) -->
+        <VBox spacing="10.0" style="-fx-background-color: rgba(255, 255, 255, 0.2); -fx-padding: 15; -fx-background-radius: 20 20 0 0; -fx-border-color: rgba(255,255,255,0.1); -fx-border-width: 1 0 0 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <effect>
+                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.2)" radius="15" offsetY="-2"/>
+            </effect>
+            <TextArea fx:id="txtComment" prefHeight="60.0" promptText="Écrire un commentaire..." wrapText="true" style="-fx-control-inner-background: rgba(255,255,255,0.9); -fx-background-radius: 10; -fx-border-radius: 10;"/>
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="btnMicComment" onAction="#dictateComment" style="-fx-background-color: #e67e22; -fx-background-radius: 20; -fx-cursor: hand; -fx-min-width: 45; -fx-min-height: 40;" text="🎤" textFill="WHITE"/>
+                <Button text="Envoyer" onAction="#sendComment" style="-fx-background-color: linear-gradient(to right, #6B7F3F, #4A5A2B); -fx-text-fill: white; -fx-background-radius: 20; -fx-cursor: hand; -fx-font-weight: bold; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 1);" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

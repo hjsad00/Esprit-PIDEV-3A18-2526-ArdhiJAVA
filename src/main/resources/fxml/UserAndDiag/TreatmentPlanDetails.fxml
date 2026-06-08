@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="710.0" prefWidth="1060.0" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.TreatmentPlanDetailsController">
+    <children>
+        <!-- LAYER 1: BACKGROUND -->
+        <AnchorPane>
+            <children>
+                <AnchorPane styleClass="app-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <Rectangle fill="BLACK" height="710.0" opacity="0.4" width="1060.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+        </AnchorPane>
+
+        <!-- LAYER 2: SCROLLABLE CONTENT -->
+        <ScrollPane styleClass="dashboard-scroll-pane" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background: transparent; -fx-background-color: transparent;" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <content>
+                <VBox spacing="0.0">
+                    <children>
+                        <!-- Spacer for Header (handled by padding in next VBox or just top margin) -->
+                        <VBox spacing="30.0" style="-fx-padding: 100 40 40 40;">
+                            <children>
+
+                                <!-- CAMERA OVERLAY SECTION (Hidden by default) -->
+                                <StackPane fx:id="cameraOverlay" managed="false" visible="false" style="-fx-background-color: black;">
+                                    <children>
+                                        <ImageView fx:id="cameraView" fitHeight="300.0" fitWidth="400.0" preserveRatio="true" />
+                                        
+                                        <!-- AR DRAWING LAYER -->
+                                        <javafx.scene.canvas.Canvas fx:id="arCanvas" width="400.0" height="300.0" mouseTransparent="true" />
+                                        <AnchorPane fx:id="arOverlayPane" maxHeight="300.0" maxWidth="400.0" style="-fx-background-color: transparent;" mouseTransparent="true" />
+                                        <VBox alignment="BOTTOM_CENTER" spacing="10" style="-fx-padding: 10;">
+                                            <Label fx:id="cameraStatusLabel" text="Initialisation..." textFill="white"/>
+                                            <HBox alignment="CENTER" spacing="10">
+                                                <Button text="📸 Capturer" onAction="#handleCapture" style="-fx-background-color: white; -fx-text-fill: black; -fx-font-weight: bold;"/>
+                                                <Button text="❌ Fermer" onAction="#closeCamera" style="-fx-background-color: rgba(255,0,0,0.7); -fx-text-fill: white;"/>
+                                            </HBox>
+                                        </VBox>
+
+                                    </children>
+                                </StackPane>
+
+                                <!-- NEW VISUAL GUIDANCE SECTION (Always Visible) -->
+                                <VBox alignment="CENTER" spacing="10.0">
+                                    <children>
+                                        <Label style="-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 16;" text="Ma Plante (Visualisation)" />
+                                        <AnchorPane fx:id="imageWrapper" maxWidth="350.0" maxHeight="250.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 10, 0, 0, 0);">
+                                            <children>
+                                                <ImageView fx:id="originalImage" fitHeight="250.0" fitWidth="350.0" pickOnBounds="true" preserveRatio="true" />
+                                            </children>
+                                        </AnchorPane>
+                                        <Label style="-fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 11; -fx-font-style: italic;" text="Cliquez sur 📍 dans les tâches pour voir la zone précise" />
+                                    </children>
+                                </VBox>
+
+                                <VBox fx:id="tasksContainer" spacing="15.0" />
+
+
+
+                                <!-- NEW ACTION BUTTONS BOX -->
+                                <HBox alignment="CENTER" spacing="20.0" style="-fx-padding: 20 0 40 0;">
+                                    <children>
+                                        <Button mnemonicParsing="false" onAction="#openCameraMode" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="📷 Mode Caméra">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#handleReevaluate" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="🤖 Réévaluer via IA">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#requestExpertPlanReview" prefHeight="45.0" prefWidth="250.0" style="-fx-background-color: rgba(39, 174, 96, 0.85); -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="🧑‍🌾 Réévaluer Auprès Agronome">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#goToSoilProfiler" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: rgba(139, 90, 43, 0.85); -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="🔬 Analyser le Sol">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#handleWhatsAppReminder" prefHeight="45.0" prefWidth="220.0" style="-fx-background-color: rgba(37, 211, 102, 0.85); -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="📱 Rappel WhatsApp">
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#handleAbandon" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 10; -fx-cursor: hand;" text="Abandonner">
+                                            <font>
+                                                <Font name="System Bold" size="14.0" />
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </HBox>
+
+                            </children>
+                        </VBox>
+
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- LAYER 3: HEADER (Overlay) -->
+        <AnchorPane pickOnBounds="false" StackPane.alignment="TOP_CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 20 30;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" offsetY="2" radius="10" />
+                    </effect>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-text-fill: white;" text="←">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Button>
+
+                        <VBox alignment="CENTER_LEFT" spacing="2">
+                            <children>
+                                <Label fx:id="diseaseTitle" text="Protocole" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="startDateLabel" text="Débuté le: --/--/----" textFill="rgba(255,255,255,0.7)">
+                                    <font>
+                                        <Font size="13.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

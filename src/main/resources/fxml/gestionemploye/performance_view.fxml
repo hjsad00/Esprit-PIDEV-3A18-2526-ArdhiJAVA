@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/20"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.neuron.ardhi.controllers.gestionemployecontroller.PerformanceController"
+      spacing="20"
+      style="-fx-padding: 30 40; -fx-background-color: linear-gradient(135deg, #F5F7F0 0%, #E8EBE0 100%);">
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         HEADER AVEC STATISTIQUES
+         ══════════════════════════════════════════════════════════════ -->
+    <HBox alignment="CENTER_LEFT" spacing="20"
+          style="-fx-background-color: white; -fx-background-radius: 20px; -fx-padding: 25px;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+        <VBox>
+            <Label text="📊 Performance des Employés"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+            <Label text="Évaluation et classement de votre équipe agricole"
+                   style="-fx-font-size: 14px; -fx-text-fill: #7F8C8D;"/>
+        </VBox>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <!-- Cartes Statistiques -->
+        <HBox spacing="20" alignment="CENTER">
+            <!-- Score Moyen -->
+            <VBox alignment="CENTER"
+                  style="-fx-background-color: #F8F9FA; -fx-background-radius: 15px; -fx-padding: 15px 25px;">
+                <Label fx:id="lblMoyenneScore" text="0.0"
+                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #6B7F3F;"/>
+                <Label text="Score Moyen"
+                       style="-fx-font-size: 12px; -fx-text-fill: #7F8C8D; -fx-font-weight: 600;"/>
+            </VBox>
+
+            <!-- Meilleur Employé -->
+            <VBox alignment="CENTER"
+                  style="-fx-background-color: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+                         -fx-background-radius: 15px; -fx-padding: 15px 25px;">
+                <Label text="🏆" style="-fx-font-size: 28px;"/>
+                <Label fx:id="lblMeilleurEmploye" text="Aucun"
+                       style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Label text="Meilleur"
+                       style="-fx-font-size: 11px; -fx-text-fill: rgba(255,255,255,0.9); -fx-font-weight: 600;"/>
+            </VBox>
+
+            <!-- Total Tâches -->
+            <VBox alignment="CENTER"
+                  style="-fx-background-color: #F8F9FA; -fx-background-radius: 15px; -fx-padding: 15px 25px;">
+                <Label fx:id="lblTotalTaches" text="0"
+                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #4ECDC4;"/>
+                <Label text="Tâches Total"
+                       style="-fx-font-size: 12px; -fx-text-fill: #7F8C8D; -fx-font-weight: 600;"/>
+            </VBox>
+        </HBox>
+    </HBox>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         BARRE D'ACTIONS
+         ══════════════════════════════════════════════════════════════ -->
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <Button text="🔄 Actualiser"
+                onAction="#handleActualiser"
+                style="-fx-background-color: #6B7F3F; -fx-text-fill: white;
+                       -fx-background-radius: 25px; -fx-padding: 10px 25px;
+                       -fx-font-weight: bold; -fx-cursor: hand;"/>
+
+        <Button text="👁️ Voir Détails"
+                onAction="#handleVoirDetails"
+                style="-fx-background-color: #4ECDC4; -fx-text-fill: white;
+                       -fx-background-radius: 25px; -fx-padding: 10px 25px;
+                       -fx-font-weight: bold; -fx-cursor: hand;"/>
+
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <Label text="💡 Double-cliquez sur un employé pour voir les détails"
+               style="-fx-text-fill: #7F8C8D; -fx-font-size: 12px; -fx-font-style: italic;"/>
+    </HBox>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         TABLEAU DES PERFORMANCES
+         ══════════════════════════════════════════════════════════════ -->
+    <TableView fx:id="tablePerformance"
+               VBox.vgrow="ALWAYS"
+               onMouseClicked="#handleVoirDetails"
+               style="-fx-background-color: white; -fx-background-radius: 20px;
+                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 5);">
+        <columns>
+            <!-- Nom Employé -->
+            <TableColumn fx:id="colNom" text="👤 Employé" prefWidth="180"/>
+
+            <!-- Total Tâches -->
+            <TableColumn fx:id="colTotalTaches" text="📋 Total" prefWidth="80"/>
+
+            <!-- Tâches Terminées -->
+            <TableColumn fx:id="colTerminees" text="✅ Terminées" prefWidth="100"/>
+
+            <!-- Tâches En Retard -->
+            <TableColumn fx:id="colEnRetard" text="⏰ En Retard" prefWidth="100"/>
+
+            <!-- Score (avec barre de progression) -->
+            <TableColumn fx:id="colScore" text="📊 Score" prefWidth="180"/>
+
+            <!-- Appréciation (badge) -->
+            <TableColumn fx:id="colAppreciation" text="🎯 Appréciation" prefWidth="150"/>
+
+            <!-- Statut Visuel -->
+            <TableColumn fx:id="colStatut" text="📈 Statut" prefWidth="100"/>
+        </columns>
+
+        <!-- Placeholder pour table vide -->
+        <placeholder>
+            <VBox alignment="CENTER" spacing="15" style="-fx-padding: 50px;">
+                <Label text="📊" style="-fx-font-size: 64px;"/>
+                <Label text="Aucune donnée de performance"
+                       style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #7F8C8D;"/>
+                <Label text="Les performances apparaîtront ici une fois que vos employés auront des tâches"
+                       style="-fx-font-size: 13px; -fx-text-fill: #95A5A6; -fx-wrap-text: true;
+                              -fx-text-alignment: center; -fx-max-width: 400;"/>
+            </VBox>
+        </placeholder>
+    </TableView>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         LÉGENDE
+         ══════════════════════════════════════════════════════════════ -->
+    <HBox spacing="30" alignment="CENTER"
+          style="-fx-background-color: white; -fx-background-radius: 15px; -fx-padding: 15px;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 10, 0, 0, 2);">
+        <Label text="Légende:"
+               style="-fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="🏆" style="-fx-font-size: 16px;"/>
+            <Label text="Excellent (90+)"
+                   style="-fx-text-fill: #27ae60; -fx-font-size: 12px;"/>
+        </HBox>
+
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="⭐" style="-fx-font-size: 16px;"/>
+            <Label text="Très bien (75-89)"
+                   style="-fx-text-fill: #27ae60; -fx-font-size: 12px;"/>
+        </HBox>
+
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="👍" style="-fx-font-size: 16px;"/>
+            <Label text="Bien (60-74)"
+                   style="-fx-text-fill: #f39c12; -fx-font-size: 12px;"/>
+        </HBox>
+
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="👌" style="-fx-font-size: 16px;"/>
+            <Label text="Moyen (50-59)"
+                   style="-fx-text-fill: #f39c12; -fx-font-size: 12px;"/>
+        </HBox>
+
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="⚠️" style="-fx-font-size: 16px;"/>
+            <Label text="Faible (<50)"
+                   style="-fx-text-fill: #e74c3c; -fx-font-size: 12px;"/>
+        </HBox>
+    </HBox>
+
+</VBox>

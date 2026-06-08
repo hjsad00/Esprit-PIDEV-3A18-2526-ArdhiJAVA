@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/20"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="tn.neuron.ardhi.controllers.Parcelle_Cultures.AgriculteurStatsController"
+           style="-fx-background-color: #f8faf7;">
+
+    <BorderPane style="-fx-background-color: transparent;">
+
+        <!-- HEADER -->
+        <top>
+            <HBox alignment="CENTER_LEFT" spacing="15.0"
+                  style="-fx-background-color: white; -fx-background-radius: 0 0 20 20; -fx-padding: 15 25; -fx-border-color: rgba(0,0,0,0.05); -fx-border-width: 0 0 1 0;">
+                <effect>
+                    <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                </effect>
+                <Button text="← Retour"
+                        onAction="#retour"
+                        style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 8; -fx-cursor: hand;"
+                        textFill="#116530">
+                    <font>
+                        <Font name="System Bold" size="12.0"/>
+                    </font>
+                    <padding>
+                        <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
+                    </padding>
+                </Button>
+                <Label text="Tableau de bord agricole"
+                       style="-fx-text-fill: #116530;">
+                    <font>
+                        <Font name="System Bold" size="22.0"/>
+                    </font>
+                </Label>
+                <Label text="👨‍🌾 Agricultreur"
+                       style="-fx-text-fill: #116530; -fx-background-color: #f8faf7; -fx-background-radius: 5; -fx-padding: 4 10;">
+                    <font>
+                        <Font name="System Bold" size="11.0"/>
+                    </font>
+                </Label>
+            </HBox>
+        </top>
+
+        <!-- CENTER -->
+        <center>
+            <VBox spacing="20.0">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+
+                <!-- KPI ROW -->
+                <HBox spacing="15.0">
+                    <children>
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Surface totale exploitée" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <Label fx:id="lblSurfaceTotale" text="0.00 ha"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Production totale estimée"
+                                   style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <Label fx:id="lblProductionTotale" text="0.00 t"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Parcelles actives"
+                                   style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <Label fx:id="lblTauxActives" text="0.0%"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Diversification"
+                                   style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <Label fx:id="lblDiversification" text="0.00"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Rendement moyen"
+                                   style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <Label fx:id="lblRendementMoyen" text="0.00 t/ha"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                        </VBox>
+
+                        <VBox alignment="CENTER" spacing="6" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 14; -fx-padding: 15 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <Label text="Score global"
+                                   style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                            <Label fx:id="lblScoreGlobal" text="0.0 / 10"
+                                   style="-fx-text-fill: #2c3e50; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                            <Label fx:id="lblNiveau" text="N/A"
+                                   style="-fx-text-fill: #43A047; -fx-font-size: 11; -fx-font-weight: bold; -fx-background-color: #E8F5E9; -fx-background-radius: 8; -fx-padding: 3 8;"/>
+                        </VBox>
+                    </children>
+                </HBox>
+
+                <!-- CHARTS -->
+                <HBox spacing="15.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <!-- Pie chart -->
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Rectangle width="4" height="20"
+                                           style="-fx-fill: #116530; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                                <Label text="Répartition des types de cultures"
+                                       style="-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                            </HBox>
+                            <PieChart fx:id="pieRepartitionTypes" VBox.vgrow="ALWAYS"
+                                      style="-fx-background-color: transparent;"/>
+                        </VBox>
+
+                        <!-- Bar chart -->
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 4);">
+                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                <Rectangle width="4" height="20"
+                                           style="-fx-fill: #116530; -fx-arc-width: 3; -fx-arc-height: 3;"/>
+                                <Label text="Importance relative par type"
+                                       style="-fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                            </HBox>
+                            <BarChart fx:id="barProductionParType" VBox.vgrow="ALWAYS"
+                                      style="-fx-background-color: transparent;">
+                                <xAxis>
+                                    <CategoryAxis side="BOTTOM"/>
+                                </xAxis>
+                                <yAxis>
+                                    <NumberAxis side="LEFT"/>
+                                </yAxis>
+                            </BarChart>
+                        </VBox>
+                    </children>
+                </HBox>
+            </VBox>
+        </center>
+
+    </BorderPane>
+</StackPane>
+

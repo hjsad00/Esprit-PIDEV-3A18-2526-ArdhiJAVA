@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1060.0"
+            style="-fx-background-color: linear-gradient(to bottom right, #F5F7F0, #E8EBE0);"
+            xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.Parcelle_Cultures.AdminParcellesController">
+    <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0"
+          AnchorPane.topAnchor="20.0">
+        <children>
+            <!-- Header -->
+            <HBox alignment="CENTER_LEFT" spacing="15.0"
+                  style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15 25;">
+                <effect>
+                    <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                </effect>
+                <children>
+                    <Button mnemonicParsing="false" onAction="#retour"
+                            style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-cursor: hand;"
+                            text="← Retour" textFill="#6B7F3F">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                        <padding>
+                            <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
+                        </padding>
+                    </Button>
+                    <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../img/ardhi_logo22.png"/>
+                        </image>
+                    </ImageView>
+                    <Label text="Gestion des Parcelles" style="-fx-text-fill: #6B7F3F;">
+                        <font>
+                            <Font name="System Bold" size="22.0"/>
+                        </font>
+                    </Label>
+                    <Label text="🌾 Agricole"
+                           style="-fx-text-fill: #6B7F3F; -fx-background-color: #E8F5E9; -fx-background-radius: 5; -fx-padding: 4 10;">
+                        <font>
+                            <Font name="System Bold" size="11.0"/>
+                        </font>
+                    </Label>
+                    <Label text="Administration"
+                           style="-fx-text-fill: #C4A574; -fx-background-color: #FFF8F0; -fx-background-radius: 5; -fx-padding: 4 10;">
+                        <font>
+                            <Font name="System Bold" size="11.0"/>
+                        </font>
+                    </Label>
+                </children>
+            </HBox>
+
+            <!-- Main Content -->
+            <VBox fx:id="mainContainer" spacing="12.0" VBox.vgrow="ALWAYS">
+                <children>
+                    <!-- Search & Filter Bar -->
+                    <HBox alignment="CENTER_LEFT" spacing="10.0"
+                          style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 12 20;">
+                        <effect>
+                            <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="8"/>
+                        </effect>
+                        <children>
+                            <Label text="🔍" style="-fx-font-size: 18;"/>
+                            <TextField fx:id="tfRecherche" promptText="Rechercher par localisation, agriculteur..."
+                                       prefWidth="220.0"
+                                       style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd; -fx-padding: 8;">
+                                <font>
+                                    <Font size="12.0"/>
+                                </font>
+                            </TextField>
+                            <ComboBox fx:id="cbFilterTypeSol" promptText="Type Sol" prefWidth="130.0"
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd;"/>
+                            <ComboBox fx:id="cbFilterIrrigation" promptText="Irrigation" prefWidth="140.0"
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd;"/>
+                            <ComboBox fx:id="cbFilterStatut" promptText="Statut" prefWidth="110.0"
+                                      style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd;"/>
+                            <Button onAction="#rafraichir"
+                                    style="-fx-background-color: #5B99A3; -fx-background-radius: 5; -fx-cursor: hand;"
+                                    text="Réinitialiser" textFill="WHITE">
+                                <font>
+                                    <Font size="11.0"/>
+                                </font>
+                                <padding>
+                                    <Insets bottom="6.0" left="12.0" right="12.0" top="6.0"/>
+                                </padding>
+                            </Button>
+                            <Button onAction="#voirCultures"
+                                    style="-fx-background-color: #8BC34A; -fx-background-radius: 5; -fx-cursor: hand;"
+                                    text="🌱 Voir Cultures" textFill="WHITE">
+                                <font>
+                                    <Font size="11.0"/>
+                                </font>
+                                <padding>
+                                    <Insets bottom="6.0" left="12.0" right="12.0" top="6.0"/>
+                                </padding>
+                                <HBox.margin>
+                                    <Insets left="10.0"/>
+                                </HBox.margin>
+                            </Button>
+                            <Button onAction="#voirStatsAgriculture"
+                                    style="-fx-background-color: #6B7F3F; -fx-background-radius: 5; -fx-cursor: hand;"
+                                    text="📊 Statistiques Agricoles" textFill="WHITE">
+                                <font>
+                                    <Font size="11.0"/>
+                                </font>
+                                <padding>
+                                    <Insets bottom="6.0" left="12.0" right="12.0" top="6.0"/>
+                                </padding>
+                                <HBox.margin>
+                                    <Insets left="10.0"/>
+                                </HBox.margin>
+                            </Button>
+                            <Label fx:id="lblInfo" text="" style="-fx-text-fill: #888888;">
+                                <font>
+                                    <Font size="11.0"/>
+                                </font>
+                                <HBox.margin>
+                                    <Insets left="15.0"/>
+                                </HBox.margin>
+                            </Label>
+                        </children>
+                    </HBox>
+
+                    <!-- Content Area -->
+                    <VBox style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 0;"
+                          VBox.vgrow="ALWAYS">
+                        <effect>
+                            <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="8"/>
+                        </effect>
+                        <children>
+                            <Label text="💡 Relation: Parcelle 1 → N Culture | Mode consultation uniquement."
+                                   style="-fx-text-fill: #888888;">
+                                <font>
+                                    <Font name="System Italic" size="12.0"/>
+                                </font>
+                                <padding>
+                                    <Insets left="15.0" top="10.0" bottom="5.0"/>
+                                </padding>
+                            </Label>
+                            <TableView fx:id="tableParcelles"
+                                       style="-fx-background-radius: 10; -fx-border-color: transparent;"
+                                       VBox.vgrow="ALWAYS">
+                                <columns>
+                                    <TableColumn fx:id="colId" prefWidth="70.0" text="ID"/>
+                                    <TableColumn fx:id="colSurface" prefWidth="110.0" text="Surface (ha)"/>
+                                    <TableColumn fx:id="colLocalisation" prefWidth="170.0" text="Localisation"/>
+                                    <TableColumn fx:id="colTypeSol" prefWidth="140.0" text="Type Sol"/>
+                                    <TableColumn fx:id="colSystemeIrrigation" prefWidth="160.0"
+                                                 text="Irrigation"/>
+                                    <TableColumn fx:id="colStatut" prefWidth="100.0" text="Statut"/>
+                                    <TableColumn fx:id="colAgriculteur" prefWidth="160.0" text="Agriculteur"/>
+                                </columns>
+                            </TableView>
+                        </children>
+                    </VBox>
+                </children>
+            </VBox>
+        </children>
+    </VBox>
+</AnchorPane>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="680.0" prefWidth="950.0" style="-fx-background-color: linear-gradient(to bottom right, #F5F7F0, #E8EBE0);" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.AdminUsersController">
+    <children>
+        <VBox fx:id="mainContainer" spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <!-- Header -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15 25;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                    </effect>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#retour" style="-fx-background-color: #F5F7F0; -fx-background-radius: 8; -fx-cursor: hand;" text="← Retour" textFill="#6B7F3F">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                            <padding>
+                                <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
+                            </padding>
+                        </Button>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../../img/ardhi_logo.png"/>
+                            </image>
+                        </ImageView>
+                        <Label text="Gestion des Utilisateurs" style="-fx-text-fill: #6B7F3F;">
+                            <font>
+                                <Font name="System Bold" size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label text="Administration" style="-fx-text-fill: #C4A574; -fx-background-color: #FFF8F0; -fx-background-radius: 5; -fx-padding: 4 10;">
+                            <font>
+                                <Font name="System Bold" size="11.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- Search Filters -->
+                <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 12 18;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.05)" radius="8"/>
+                    </effect>
+                    <children>
+                        <Label text="ID :" style="-fx-text-fill: #666666;">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                        </Label>
+                        <TextField fx:id="tfFiltreId" promptText="ID" prefWidth="60.0" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ddd; -fx-padding: 8;"/>
+                        
+                        <Label text="Rôle :" style="-fx-text-fill: #666666;">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <ComboBox fx:id="cbFiltreRole" promptText="Tous les rôles" prefWidth="150.0"/>
+                        
+                        <TextField fx:id="tfRecherche" promptText="🔍 Nom, prénom ou email..." prefWidth="200.0" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ddd; -fx-padding: 8;">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </TextField>
+                        
+                        <Button onAction="#resetFiltre" style="-fx-background-color: #999; -fx-background-radius: 6; -fx-cursor: hand;" text="Réinitialiser" textFill="WHITE">
+                            <font>
+                                <Font size="11.0"/>
+                            </font>
+                            <padding>
+                                <Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/>
+                            </padding>
+                        </Button>
+                        <Label fx:id="lblInfo" text="0 utilisateurs" style="-fx-text-fill: #999; -fx-font-style: italic;">
+                            <font><Font size="11.0"/></font>
+                            <HBox.margin><Insets left="10.0"/></HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <Label text="💡 Astuce : Cliquez sur une ligne pour modifier. Cliquez dans le vide pour ajouter." style="-fx-text-fill: #888888;">
+                    <font>
+                        <Font name="System Italic" size="12.0"/>
+                    </font>
+                    <padding>
+                        <Insets left="5.0"/>
+                    </padding>
+                </Label>
+
+                <!-- TableView -->
+                <TableView fx:id="tvUsers" VBox.vgrow="ALWAYS" style="-fx-background-color: white; -fx-background-radius: 10;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.05)" radius="8"/>
+                    </effect>
+                    <columns>
+                        <TableColumn fx:id="colId" prefWidth="50.0" text="ID"/>
+                        <TableColumn fx:id="colNom" prefWidth="90.0" text="Nom"/>
+                        <TableColumn fx:id="colPrenom" prefWidth="90.0" text="Prénom"/>
+                        <TableColumn fx:id="colEmail" prefWidth="180.0" text="Email"/>
+                        <TableColumn fx:id="colRole" prefWidth="110.0" text="Rôle"/>
+                        <TableColumn fx:id="colPhone" prefWidth="120.0" text="Téléphone"/>
+                        <TableColumn fx:id="colLocation" prefWidth="120.0" text="Localisation"/>
+                    </columns>
+
+                </TableView>
+
+                <!-- Form -->
+                <VBox spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 12;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                    </effect>
+                    <padding>
+                        <Insets bottom="18.0" left="18.0" right="18.0" top="18.0"/>
+                    </padding>
+                    <children>
+                        <Label fx:id="lblTitreFormulaire" text="Ajouter un nouvel utilisateur" style="-fx-text-fill: #6B7F3F;">
+                            <font>
+                                <Font name="System Bold" size="14.0"/>
+                            </font>
+                        </Label>
+
+                        <HBox spacing="12.0" alignment="CENTER_LEFT">
+                            <children>
+                                <TextField fx:id="tfNomEdit" promptText="Nom" HBox.hgrow="ALWAYS" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ddd; -fx-padding: 10;"/>
+                                <TextField fx:id="tfPrenomEdit" promptText="Prénom" HBox.hgrow="ALWAYS" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ddd; -fx-padding: 10;"/>
+                                <TextField fx:id="tfEmailEdit" promptText="Email" HBox.hgrow="ALWAYS" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ddd; -fx-padding: 10;"/>
+                                <ComboBox fx:id="cbRoleEdit" promptText="Rôle" HBox.hgrow="ALWAYS"/>
+                                <TextField fx:id="tfPhoneEdit" promptText="Téléphone" prefWidth="130.0" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ddd; -fx-padding: 10;"/>
+                                <TextField fx:id="tfLocationEdit" promptText="Localisation" prefWidth="130.0" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #ddd; -fx-padding: 10;"/>
+                            </children>
+                        </HBox>
+
+                        <HBox alignment="CENTER_LEFT" spacing="12.0">
+                            <children>
+                                <PasswordField fx:id="tfMdpEdit" promptText="Mot de passe" prefWidth="200.0" style="-fx-background-radius: 6; -fx-border-radius: 6; -fx-border-color: #5B99A3; -fx-padding: 10; -fx-background-color: #F8FAFB;"/>
+
+                                <Region HBox.hgrow="ALWAYS"/>
+
+                                <Button onAction="#viderChamps" style="-fx-background-color: #aaa; -fx-background-radius: 6;" text="Abandonner" textFill="WHITE">
+                                    <padding>
+                                        <Insets bottom="8.0" left="15.0" right="15.0" top="8.0"/>
+                                    </padding>
+                                </Button>
+
+                                <Button fx:id="btnAjouter" onAction="#ajouterUser" style="-fx-background-color: #6B7F3F; -fx-background-radius: 6;" text="Ajouter" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="8.0" left="15.0" right="15.0" top="8.0"/>
+                                    </padding>
+                                </Button>
+                                <Button fx:id="btnModifier" onAction="#modifierUser" style="-fx-background-color: #C4A574; -fx-background-radius: 6;" text="Modifier" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="8.0" left="15.0" right="15.0" top="8.0"/>
+                                    </padding>
+                                </Button>
+
+                                <Region prefWidth="15.0"/>
+                                <Button fx:id="btnSupprimer" onAction="#supprimerUser" style="-fx-background-color: #e74c3c; -fx-background-radius: 6;" text="Bannir" textFill="WHITE">
+                                    <font>
+                                        <Font name="System Bold" size="12.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="8.0" left="15.0" right="15.0" top="8.0"/>
+                                    </padding>
+                                </Button>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

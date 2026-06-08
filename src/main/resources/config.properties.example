@@ -1,0 +1,85 @@
+# ═══════════════════════════════════════════════════════════
+# Ardhi — Application Configuration (EXAMPLE)
+# ═══════════════════════════════════════════════════════════
+#
+# 📋 INSTRUCTIONS:
+#   1. Copy this file to: config.properties  (same directory)
+#   2. Replace all YOUR_... placeholders with real values
+#   3. NEVER commit config.properties to Git!
+#
+# ═══════════════════════════════════════════════════════════
+
+# ─── Base de données MySQL ───────────────────────────────
+db.url=jdbc:mysql://localhost:3306/ardhi?createDatabaseIfNotExist=true
+db.user=root
+db.password=
+
+# ─── Groq AI (module User/Diagnostic/Chat) ──────────────
+# Get your key at: https://console.groq.com/keys
+groq.api.key=YOUR_GROQ_API_KEY
+
+# ─── Groq AI (module Marketplace — Vision) ──────────────
+groq.marketplace.api.key=YOUR_GROQ_API_KEY
+
+# ─── Groq AI (module Maintenance) ───────────────────────
+groq.maintenance.api.key=YOUR_GROQ_API_KEY
+
+# ─── Groq AI (module Evenement) ─────────────────────────
+groq.evenement.api.key=YOUR_GROQ_API_KEY
+
+# ─── Stripe (paiement) ──────────────────────────────────
+# Get your key at: https://dashboard.stripe.com/test/apikeys
+stripe.secret.key=YOUR_STRIPE_SECRET_KEY
+
+# ─── Twilio (SMS & WhatsApp — module User) ──────────────
+# Get credentials at: https://console.twilio.com/
+twilio.account.sid=YOUR_TWILIO_ACCOUNT_SID
+twilio.auth.token=YOUR_TWILIO_AUTH_TOKEN
+twilio.from.number=+1XXXXXXXXXX
+twilio.whatsapp.from=whatsapp:+14155238886
+
+# ─── Twilio (module Maintenance) ────────────────────────
+twilio.maintenance.account.sid=YOUR_TWILIO_ACCOUNT_SID
+twilio.maintenance.auth.token=YOUR_TWILIO_AUTH_TOKEN
+
+# ─── Twilio (module Marketplace) ────────────────────────
+twilio.marketplace.account.sid=YOUR_TWILIO_ACCOUNT_SID
+twilio.marketplace.auth.token=YOUR_TWILIO_AUTH_TOKEN
+
+# ─── ImgBB (hébergement d'images) ───────────────────────
+# Get your key at: https://api.imgbb.com/
+imgbb.api.key=YOUR_IMGBB_API_KEY
+
+# ─── Email — module User ────────────────────────────────
+# Use a Gmail App Password (16 chars): https://myaccount.google.com/apppasswords
+email.user.username=your-email@gmail.com
+email.user.password=YOUR_GMAIL_APP_PASSWORD
+
+# ─── Email — module Marketplace ─────────────────────────
+email.marketplace.username=your-email@gmail.com
+email.marketplace.password=YOUR_GMAIL_APP_PASSWORD
+
+# ─── Email — module Maintenance ─────────────────────────
+email.maintenance.username=your-email@gmail.com
+email.maintenance.password=YOUR_GMAIL_APP_PASSWORD
+
+# ─── Email — module Evenement ───────────────────────────
+email.evenement.username=your-email@gmail.com
+email.evenement.password=YOUR_GMAIL_APP_PASSWORD
+
+# ─── Email — module Attestation RH ──────────────────────
+email.attestation.username=your-email@gmail.com
+email.attestation.password=YOUR_GMAIL_APP_PASSWORD
+
+# ─── OpenWeatherMap API (module Gestion Employés) ───────
+openweathermap.api.key=YOUR_OPENWEATHERMAP_API_KEY
+
+# ─── Google Calendar (module Gestion Employés) ──────────
+# Email du calendrier Google partagé avec le Service Account
+google.calendar.id=your-email@gmail.com
+
+# ─── Google API Credentials Paths ───────────────────────
+# Chemins vers les fichiers JSON de clés Google (relatifs ou absolus)
+google.credentials.employe.path=/google/credentials.json
+google.credentials.maintenance.path=credentials.json
+google.credentials.evenement.path=credentials_evenements.json

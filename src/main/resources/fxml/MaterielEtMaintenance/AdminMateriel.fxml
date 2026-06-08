@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<ScrollPane fitToWidth="true" style="-fx-background-color: #f5f7fa;" xmlns="http://javafx.com/javafx/20"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.neuron.ardhi.controllers.MaterielEtMaintenance.AdminMaterielController">
+
+    <VBox spacing="15" style="-fx-background-color: #f5f7fa; -fx-padding: 25;">
+
+        <!-- Header avec titre et bouton retour -->
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-background-color: linear-gradient(to right, #2d5016, #3d6b1f); -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);">
+            <VBox spacing="5" HBox.hgrow="ALWAYS">
+                <Label text="🚜 Gestion des Matériels Agricoles" style="-fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold;">
+                    <font>
+                        <Font name="System Bold" size="28.0"/>
+                    </font>
+                </Label>
+                <Label text="Gérez votre parc de matériels et planifiez les maintenances" style="-fx-text-fill: rgba(255,255,255,0.85); -fx-font-size: 14px;"/>
+            </VBox>
+            <Button text="← Retour au Dashboard" onAction="#retour"
+                    style="-fx-background-color: #ffffff; -fx-text-fill: #2d5016; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 25; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0, 0, 2);">
+                <padding>
+                    <Insets top="12" bottom="12" left="25" right="25"/>
+                </padding>
+            </Button>
+        </HBox>
+
+        <!-- Barre de recherche et filtres -->
+        <HBox spacing="12" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 18; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0, 0, 2);">
+            <Label text="🔍" style="-fx-font-size: 20px;"/>
+            <TextField fx:id="tfRecherche" promptText="Rechercher un matériel..." prefWidth="300"
+                       style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-padding: 10; -fx-border-color: #e0e0e0; -fx-border-radius: 8;"/>
+
+            <Label text="Type:" style="-fx-font-weight: bold; -fx-text-fill: #2d5016; -fx-padding: 0 0 0 15;"/>
+            <ComboBox fx:id="cbFiltreType" promptText="Tous" prefWidth="140"
+                      style="-fx-background-color: #f8f9fa; -fx-background-radius: 8;"/>
+
+            <Label text="État:" style="-fx-font-weight: bold; -fx-text-fill: #2d5016;"/>
+            <ComboBox fx:id="cbFiltreEtat" promptText="Tous" prefWidth="140"
+                      style="-fx-background-color: #f8f9fa; -fx-background-radius: 8;"/>
+
+            <Button text="🔄 Réinitialiser" onAction="#resetFiltres"
+                    style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand;">
+                <padding>
+                    <Insets top="8" bottom="8" left="15" right="15"/>
+                </padding>
+            </Button>
+        </HBox>
+
+        <!-- Tableau des matériels - HAUTEUR FIXE ET VISIBLE -->
+        <VBox style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 3);">
+            <padding>
+                <Insets top="15" bottom="15" left="15" right="15"/>
+            </padding>
+
+            <Label text="📋 Liste des Matériels" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2d5016; -fx-padding: 0 0 12 0;"/>
+
+            <TableView fx:id="tvMateriels" prefHeight="350" minHeight="350"
+                       style="-fx-background-color: transparent; -fx-table-cell-border-color: #e8f5e9; -fx-background-radius: 8;">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="60" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="colNom" text="Nom du Matériel" prefWidth="220"/>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="130" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="colEtat" text="État" prefWidth="120" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="colDateAchat" text="Date d'achat" prefWidth="130" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="colProchaineMaintenance" text="Prochaine Maintenance" prefWidth="180" style="-fx-alignment: CENTER;"/>
+                    <TableColumn fx:id="colProprietaire" text="Propriétaire" prefWidth="200"/>
+                </columns>
+            </TableView>
+        </VBox>
+
+        <!-- Formulaire -->
+        <VBox spacing="18" style="-fx-background-color: linear-gradient(to bottom, #f1f8f4, #e8f5e9); -fx-padding: 25; -fx-background-radius: 10; -fx-border-color: #a5d6a7; -fx-border-width: 2; -fx-border-radius: 10; -fx-effect: dropshadow(gaussian, rgba(45,80,22,0.1), 10, 0, 0, 3);">
+
+            <!-- Message d'état -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label text="📝" style="-fx-font-size: 22px;"/>
+                <Label fx:id="lblMessage" text="Ajout d'un nouveau matériel"
+                       style="-fx-font-weight: bold; -fx-font-size: 18px; -fx-text-fill: #2d5016;"/>
+            </HBox>
+
+            <!-- Ligne 1 : Champs principaux -->
+            <HBox spacing="20">
+                <!-- Nom du matériel -->
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Nom du Matériel *" style="-fx-font-weight: bold; -fx-text-fill: #2d5016; -fx-font-size: 13px;"/>
+                    <TextField fx:id="tfNom" promptText="Ex: Tracteur John Deere 6R"
+                               style="-fx-background-color: white; -fx-background-radius: 8; -fx-padding: 12; -fx-border-color: #c5e1a5; -fx-border-radius: 8; -fx-border-width: 1.5;"/>
+                </VBox>
+
+                <!-- Type -->
+                <VBox spacing="8">
+                    <Label text="Type *" style="-fx-font-weight: bold; -fx-text-fill: #2d5016; -fx-font-size: 13px;"/>
+                    <ComboBox fx:id="cbType" promptText="Sélectionner" prefWidth="170"
+                              style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: #c5e1a5; -fx-border-radius: 8;"/>
+                </VBox>
+
+                <!-- État -->
+                <VBox spacing="8">
+                    <Label text="État *" style="-fx-font-weight: bold; -fx-text-fill: #2d5016; -fx-font-size: 13px;"/>
+                    <ComboBox fx:id="cbEtat" promptText="Sélectionner" prefWidth="150"
+                              style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: #c5e1a5; -fx-border-radius: 8;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Ligne 2 : Date et Propriétaire -->
+            <HBox spacing="20">
+                <!-- Date d'achat -->
+                <VBox spacing="8">
+                    <Label text="Date d'achat" style="-fx-font-weight: bold; -fx-text-fill: #2d5016; -fx-font-size: 13px;"/>
+                    <DatePicker fx:id="dpDateAchat" promptText="Sélectionner" prefWidth="220"
+                                style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: #c5e1a5; -fx-border-radius: 8;"/>
+                    <Label text="📅 Optionnel - pour suivi maintenance" style="-fx-font-size: 11px; -fx-text-fill: #558b2f; -fx-font-style: italic;"/>
+                </VBox>
+
+                <!-- Propriétaire -->
+                <VBox spacing="8" HBox.hgrow="ALWAYS">
+                    <Label text="Propriétaire *" style="-fx-font-weight: bold; -fx-text-fill: #2d5016; -fx-font-size: 13px;"/>
+                    <ComboBox fx:id="cbProprietaire" prefWidth="300"
+                              style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: #c5e1a5; -fx-border-radius: 8;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Boutons d'action -->
+            <HBox spacing="12" style="-fx-padding: 15 0 0 0;" alignment="CENTER_LEFT">
+                <Button fx:id="btnAjouter" text="➕ Ajouter"
+                        style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(76,175,80,0.4), 8, 0, 0, 2);"
+                        onAction="#ajouterMateriel" prefWidth="130">
+                    <padding>
+                        <Insets top="12" bottom="12" left="20" right="20"/>
+                    </padding>
+                </Button>
+
+                <Button fx:id="btnModifier" text="✏️ Modifier"
+                        style="-fx-background-color: #2196f3; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(33,150,243,0.4), 8, 0, 0, 2);"
+                        onAction="#modifierMateriel" prefWidth="130">
+                    <padding>
+                        <Insets top="12" bottom="12" left="20" right="20"/>
+                    </padding>
+                </Button>
+
+                <Button fx:id="btnSupprimer" text="🗑️ Supprimer"
+                        style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(244,67,54,0.4), 8, 0, 0, 2);"
+                        onAction="#supprimerMateriel" prefWidth="130">
+                    <padding>
+                        <Insets top="12" bottom="12" left="20" right="20"/>
+                    </padding>
+                </Button>
+
+                <Button fx:id="btnVoirDetails" text="👁️ Détails"
+                        style="-fx-background-color: #9c27b0; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(156,39,176,0.4), 8, 0, 0, 2);"
+                        onAction="#voirDetails" prefWidth="130">
+                    <padding>
+                        <Insets top="12" bottom="12" left="20" right="20"/>
+                    </padding>
+                </Button>
+
+                <Button fx:id="btnPlanifierMaintenance" text="🔧 Maintenance"
+                        style="-fx-background-color: #ff9800; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(255,152,0,0.4), 8, 0, 0, 2);"
+                        onAction="#planifierMaintenance" prefWidth="150">
+                    <padding>
+                        <Insets top="12" bottom="12" left="20" right="20"/>
+                    </padding>
+                </Button>
+
+                <Button fx:id="btnVider" text="↻ Vider"
+                        style="-fx-background-color: #78909c; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px; -fx-background-radius: 8; -fx-cursor: hand;"
+                        onAction="#viderFormulaire" prefWidth="110">
+                    <padding>
+                        <Insets top="12" bottom="12" left="20" right="20"/>
+                    </padding>
+                </Button>
+            </HBox>
+        </VBox>
+
+        <!-- Instructions -->
+        <VBox spacing="8" style="-fx-background-color: #fff9c4; -fx-border-color: #fbc02d; -fx-border-width: 2; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 18;">
+            <HBox spacing="8" alignment="CENTER_LEFT">
+                <Label text="💡" style="-fx-font-size: 20px;"/>
+                <Label text="Guide d'utilisation" style="-fx-font-weight: bold; -fx-text-fill: #f57f17; -fx-font-size: 15px;"/>
+            </HBox>
+            <Label text="✓ Pour ajouter : Remplissez tous les champs obligatoires (*) et cliquez sur 'Ajouter'" style="-fx-text-fill: #5d4037;"/>
+            <Label text="✓ Pour modifier : Sélectionnez une ligne du tableau, modifiez les champs, puis cliquez sur 'Modifier'" style="-fx-text-fill: #5d4037;"/>
+            <Label text="✓ Pour supprimer : Sélectionnez un matériel et cliquez sur 'Supprimer'" style="-fx-text-fill: #5d4037;"/>
+            <Label text="✓ Pour planifier une maintenance : Sélectionnez un matériel et cliquez sur 'Maintenance'" style="-fx-text-fill: #5d4037;"/>
+            <Label text="🔔 La colonne 'Prochaine Maintenance' est colorée selon l'urgence : Rouge (retard), Orange (urgent), Jaune (bientôt), Vert (OK)"
+                   style="-fx-text-fill: #1b5e20; -fx-font-weight: bold; -fx-padding: 5 0 0 0;"/>
+        </VBox>
+
+    </VBox>
+</ScrollPane>

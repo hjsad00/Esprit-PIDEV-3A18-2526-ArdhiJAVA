@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="520.0" prefWidth="500.0" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.PaiementAbonnementController">
+    <children>
+        <!-- Background -->
+        <AnchorPane styleClass="community-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        
+        <!-- Dark Overlay -->
+        <Rectangle height="650.0" width="550.0" opacity="0.5" fill="BLACK" />
+
+        <!-- Glass Card -->
+        <VBox alignment="CENTER" maxWidth="420.0" spacing="16.0" style="-fx-background-color: rgba(255, 255, 255, 0.97); -fx-background-radius: 20; -fx-padding: 30;">
+            <effect>
+                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="20" offsetY="5"/>
+            </effect>
+            <children>
+                <!-- Logo -->
+                <ImageView fitHeight="55.0" fitWidth="55.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../../img/ardhi_logo.png"/>
+                    </image>
+                </ImageView>
+    
+                <Label text="Paiement Sécurisé" style="-fx-text-fill: #6B7F3F;">
+                    <font>
+                        <Font name="System Bold" size="22.0"/>
+                    </font>
+                </Label>
+    
+                <!-- Pack Info -->
+                <Label fx:id="lblTypePack" text="Pack Premium" style="-fx-text-fill: #555555;">
+                    <font>
+                        <Font name="System Bold" size="16.0"/>
+                    </font>
+                </Label>
+    
+                <!-- Date Selection -->
+                <VBox alignment="CENTER_LEFT" spacing="6.0" maxWidth="340.0">
+                    <children>
+                        <Label text="Date d'expiration de l'abonnement" style="-fx-text-fill: #666666;">
+                            <font>
+                                <Font name="System Bold" size="12.0"/>
+                            </font>
+                        </Label>
+                        <DatePicker fx:id="dpDateExpiration" promptText="Choisir une date" prefWidth="340.0" style="-fx-background-radius: 8; -fx-border-radius: 8;"/>
+                        <Label fx:id="lblPrixMensuel" text="Prix : 29.99 DT / mois" style="-fx-text-fill: #999999;">
+                            <font>
+                                <Font size="11.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+    
+                <!-- Total Price -->
+                <Label fx:id="lblMontant" text="Total à payer : 0.00 DT" style="-fx-text-fill: #6B7F3F; -fx-background-color: #F5F7F0; -fx-background-radius: 10; -fx-padding: 12 25;">
+                    <font>
+                        <Font name="System Bold" size="18.0"/>
+                    </font>
+                </Label>
+
+                <!-- Stripe Pay Button -->
+                <Button fx:id="btnStripe" mnemonicParsing="false" onAction="#payerAvecStripe" prefWidth="340.0" style="-fx-background-color: #635BFF; -fx-background-radius: 12; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(99,91,255,0.4), 10, 0, 0, 3);" text="💳  Payer avec Stripe" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                    <padding>
+                        <Insets bottom="12.0" top="12.0"/>
+                    </padding>
+                </Button>
+
+                <!-- Payment Status -->
+                <HBox fx:id="hboxStatus" alignment="CENTER" spacing="10.0" managed="false" visible="false">
+                    <ProgressIndicator fx:id="piLoading" prefHeight="20.0" prefWidth="20.0" />
+                    <Label fx:id="lblStatus" text="En attente du paiement..." style="-fx-text-fill: #635BFF;">
+                        <font>
+                            <Font name="System Bold" size="12.0"/>
+                        </font>
+                    </Label>
+                </HBox>
+
+                <!-- Stripe Branding -->
+                <Label text="Paiement sécurisé par Stripe 🔒" style="-fx-text-fill: #AAAAAA;">
+                    <font>
+                        <Font size="10.0"/>
+                    </font>
+                </Label>
+    
+                <Button mnemonicParsing="false" onAction="#annuler" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Annuler" textFill="#888888" underline="true">
+                    <font>
+                        <Font size="12.0"/>
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+</StackPane>

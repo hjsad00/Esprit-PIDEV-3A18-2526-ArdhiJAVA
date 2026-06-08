@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="700.0" prefWidth="780.0" style="-fx-background-color: white;" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.InscriptionController">
+
+    <!-- Background Pattern -->
+    <AnchorPane style="-fx-background-color: linear-gradient(to bottom right, #F5F7F0, #E8EBE0);" />
+
+    <!-- Main Content -->
+    <HBox alignment="CENTER" maxWidth="720.0" spacing="0.0" style="-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 0, 8);">
+
+        <!-- Left Side - Branding (Green Theme) -->
+        <AnchorPane prefWidth="300.0">
+            <children>
+                <!-- Green Gradient Background (No Image) -->
+                <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: linear-gradient(to bottom, #6B7F3F, #4A5A2B); -fx-background-radius: 20 0 0 20; -fx-padding: 30;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    
+                    <!-- Logo -->
+                    <StackPane>
+                        <Circle fill="white" radius="45.0" stroke="#E8EBE0" strokeWidth="3.0">
+                            <effect><DropShadow color="rgba(0,0,0,0.2)" radius="8" /></effect>
+                        </Circle>
+                        <ImageView fitHeight="60.0" fitWidth="60.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../../img/ardhi_logo.png" />
+                            </image>
+                        </ImageView>
+                    </StackPane>
+        
+                    <!-- Welcome Text -->
+                    <VBox alignment="CENTER" spacing="10.0">
+                        <Label style="-fx-text-fill: white;" text="Bienvenue sur">
+                            <font><Font size="16.0" /></font>
+                        </Label>
+                        <Label style="-fx-text-fill: white; -fx-font-weight: bold;" text="ARDHI">
+                            <font><Font size="36.0" /></font>
+                            <effect><Glow level="0.6" /></effect>
+                        </Label>
+                        <Label style="-fx-text-fill: #E8EBE0; -fx-font-weight: bold;" text="L'Agriculture du Futur">
+                            <font><Font size="16.0" /></font>
+                        </Label>
+                    </VBox>
+        
+                    <!-- Features -->
+                    <VBox alignment="CENTER_LEFT" spacing="15.0">
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <StackPane>
+                                <Circle fill="rgba(255, 255, 255, 0.2)" radius="15.0" stroke="white" strokeWidth="1.0" />
+                                <Label style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;" text="✓" />
+                            </StackPane>
+                            <Label style="-fx-text-fill: white;" text="Gestion intelligente">
+                                <font><Font size="13.0" /></font>
+                            </Label>
+                        </HBox>
+        
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <StackPane>
+                                <Circle fill="rgba(255, 255, 255, 0.2)" radius="15.0" stroke="white" strokeWidth="1.0" />
+                                <Label style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;" text="✓" />
+                            </StackPane>
+                            <Label style="-fx-text-fill: white;" text="Diagnostic IA">
+                                <font><Font size="13.0" /></font>
+                            </Label>
+                        </HBox>
+        
+                        <HBox alignment="CENTER_LEFT" spacing="10.0">
+                            <StackPane>
+                                <Circle fill="rgba(255, 255, 255, 0.2)" radius="15.0" stroke="white" strokeWidth="1.0" />
+                                <Label style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;" text="✓" />
+                            </StackPane>
+                            <Label style="-fx-text-fill: white;" text="Marketplace">
+                                <font><Font size="13.0" /></font>
+                            </Label>
+                        </HBox>
+                    </VBox>
+                </VBox>
+            </children>
+        </AnchorPane>
+
+        <!-- Right Side - Registration Form (Light/Clean Theme) -->
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: white; -fx-background-radius: 0 20 20 0; -fx-border-color: transparent;">
+            <VBox alignment="CENTER" prefWidth="420.0" spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 0 20 20 0; -fx-padding: 25 35;">
+
+            <!-- Form Header -->
+            <VBox alignment="CENTER" spacing="5.0">
+                <Label style="-fx-text-fill: #6B7F3F; -fx-font-weight: bold;" text="Inscription">
+                    <font><Font size="24.0" /></font>
+                </Label>
+                <Label style="-fx-text-fill: #666666;" text="Créez votre compte gratuitement">
+                    <font><Font size="11.0" /></font>
+                </Label>
+            </VBox>
+
+            <!-- Form Fields -->
+            <VBox maxWidth="320.0" spacing="8.0">
+                
+                <!-- Name Row -->
+                <HBox spacing="10.0">
+                    <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+                         <Label style="-fx-text-fill: #555555; -fx-font-weight: bold;" text="Nom">
+                            <font><Font size="11.0" /></font>
+                        </Label>
+                        <TextField fx:id="tfNom" promptText="Nom" style="-fx-background-color: #F9F9F9; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 7;">
+                            <font><Font size="11.0" /></font>
+                        </TextField>
+                    </VBox>
+                    <VBox spacing="3.0" HBox.hgrow="ALWAYS">
+                         <Label style="-fx-text-fill: #555555; -fx-font-weight: bold;" text="Prénom">
+                            <font><Font size="11.0" /></font>
+                        </Label>
+                        <TextField fx:id="tfPrenom" promptText="Prénom" style="-fx-background-color: #F9F9F9; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 7;">
+                             <font><Font size="11.0" /></font>
+                        </TextField>
+                    </VBox>
+                </HBox>
+
+                <!-- Email Field -->
+                <VBox spacing="3.0">
+                    <Label style="-fx-text-fill: #555555; -fx-font-weight: bold;" text="Adresse Email">
+                        <font><Font size="11.0" /></font>
+                    </Label>
+                    <TextField fx:id="tfEmail" promptText="exemple@ardhi.tn" style="-fx-background-color: #F9F9F9; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 7;">
+                         <font><Font size="11.0" /></font>
+                    </TextField>
+                </VBox>
+
+                <!-- Phone Field with Country Code -->
+                <VBox spacing="3.0">
+                    <Label style="-fx-text-fill: #555555; -fx-font-weight: bold;" text="Numéro de Téléphone">
+                        <font><Font size="11.0" /></font>
+                    </Label>
+                    <HBox spacing="6.0" alignment="CENTER_LEFT">
+                        <ComboBox fx:id="cbCountryCode" promptText="+216" prefWidth="95.0" style="-fx-background-color: #F9F9F9; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-font-size: 11;" />
+                        <TextField fx:id="tfPhone" promptText="12 345 678" HBox.hgrow="ALWAYS" style="-fx-background-color: #F9F9F9; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 7;">
+                            <font><Font size="11.0" /></font>
+                        </TextField>
+                        <Button fx:id="btnVerifyPhone" mnemonicParsing="false" onAction="#verifyPhone" text="Vérifier" minWidth="-Infinity" style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 8; -fx-font-size: 10; -fx-font-weight: bold;">
+                            <padding><Insets bottom="7.0" top="7.0" left="10.0" right="10.0" /></padding>
+                        </Button>
+                    </HBox>
+                    <!-- SMS Verification Code Input (hidden initially) -->
+                    <HBox fx:id="hboxSmsCode" spacing="6.0" alignment="CENTER_LEFT" managed="false" visible="false">
+                        <TextField fx:id="tfSmsCode" promptText="Code SMS" prefWidth="95.0" style="-fx-background-color: #FFF8E1; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #F39C12; -fx-border-radius: 8; -fx-padding: 7;">
+                            <font><Font size="11.0" /></font>
+                        </TextField>
+                        <Button fx:id="btnValidateCode" mnemonicParsing="false" onAction="#validateSmsCode" text="Valider" minWidth="-Infinity" style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 8; -fx-font-size: 10; -fx-font-weight: bold;">
+                            <padding><Insets bottom="7.0" top="7.0" left="10.0" right="10.0" /></padding>
+                        </Button>
+                        <Label fx:id="lblPhoneStatus" style="-fx-text-fill: #888888;" text="" HBox.hgrow="ALWAYS" wrapText="true">
+                            <font><Font size="10.0" /></font>
+                        </Label>
+                    </HBox>
+                </VBox>
+
+                <!-- Password Field with Strength Meter -->
+                <VBox spacing="3.0">
+                    <Label style="-fx-text-fill: #555555; -fx-font-weight: bold;" text="Mot de passe">
+                        <font><Font size="11.0" /></font>
+                    </Label>
+                    <HBox spacing="6.0" alignment="CENTER_LEFT">
+                        <StackPane HBox.hgrow="ALWAYS">
+                            <PasswordField fx:id="pfMdp" promptText="••••••••" style="-fx-background-color: #F9F9F9; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 7;">
+                                 <font><Font size="11.0" /></font>
+                            </PasswordField>
+                            <TextField fx:id="tfPasswordVisible" promptText="••••••••" visible="false" style="-fx-background-color: #F9F9F9; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 7;">
+                                 <font><Font size="11.0" /></font>
+                            </TextField>
+                        </StackPane>
+                        <Button fx:id="btnTogglePassword" mnemonicParsing="false" onAction="#togglePasswordVisibility" text="👁" style="-fx-background-color: #F0F0F0; -fx-cursor: hand; -fx-background-radius: 8; -fx-font-size: 12;">
+                            <padding><Insets bottom="5.0" top="5.0" left="8.0" right="8.0" /></padding>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#generatePassword" text="Générer" style="-fx-background-color: #8e44ad; -fx-text-fill: white; -fx-cursor: hand; -fx-background-radius: 8; -fx-font-size: 10; -fx-font-weight: bold;">
+                            <padding><Insets bottom="7.0" top="7.0" left="10.0" right="10.0" /></padding>
+                        </Button>
+                    </HBox>
+                    <!-- Password Strength Meter -->
+                    <HBox spacing="8.0" alignment="CENTER_LEFT">
+                        <ProgressBar fx:id="pbPasswordStrength" prefWidth="200.0" prefHeight="6.0" progress="0.0" style="-fx-accent: #e74c3c;" />
+                        <Label fx:id="lblPasswordStrength" style="-fx-text-fill: #888888;" text="">
+                            <font><Font size="10.0" /></font>
+                        </Label>
+                    </HBox>
+                </VBox>
+
+                <!-- Confirm Password Field -->
+                <VBox spacing="3.0">
+                    <Label style="-fx-text-fill: #555555; -fx-font-weight: bold;" text="Confirmer le mot de passe">
+                        <font><Font size="11.0" /></font>
+                    </Label>
+                    <PasswordField fx:id="pfConfirmMdp" promptText="••••••••" style="-fx-background-color: #F9F9F9; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 7;">
+                        <font><Font size="11.0" /></font>
+                    </PasswordField>
+                    <Label fx:id="lblConfirmStatus" style="-fx-text-fill: #888888;" text="">
+                        <font><Font size="10.0" /></font>
+                    </Label>
+                </VBox>
+
+                <!-- Location Field with Autocomplete -->
+                <VBox spacing="3.0">
+                    <Label style="-fx-text-fill: #555555; -fx-font-weight: bold;" text="Localisation">
+                        <font><Font size="11.0" /></font>
+                    </Label>
+                    <StackPane>
+                        <TextField fx:id="tfLocation" promptText="Tapez votre ville..." style="-fx-background-color: #F9F9F9; -fx-text-fill: #333; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 7;">
+                            <font><Font size="11.0" /></font>
+                        </TextField>
+                    </StackPane>
+                    <ListView fx:id="lvCitySuggestions" maxHeight="150.0" managed="false" visible="false" style="-fx-background-color: white; -fx-border-color: #C0C0C0; -fx-border-radius: 6; -fx-background-radius: 6; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 6, 0, 0, 2);" />
+                </VBox>
+                
+                 <!-- Role Field -->
+                <VBox spacing="3.0">
+                    <Label style="-fx-text-fill: #555555; -fx-font-weight: bold;" text="Je suis un(e)">
+                        <font><Font size="11.0" /></font>
+                    </Label>
+                     <ComboBox fx:id="cbRole" promptText="Choisir votre rôle" style="-fx-background-color: #F9F9F9; -fx-background-radius: 8; -fx-border-color: #E0E0E0; -fx-border-radius: 8; -fx-padding: 3; -fx-pref-width: 320; -fx-font-size: 11;" />
+                </VBox>
+            </VBox>
+
+            <!-- Face Registration -->
+            <VBox alignment="CENTER" spacing="5.0">
+                <Button fx:id="btnRegisterFace" onAction="#registerFace" mnemonicParsing="false" prefWidth="320.0" styleClass="btn-face" text="Scanner Mon Visage (Optionnel)">
+                    <padding>
+                        <Insets bottom="8.0" top="8.0" />
+                    </padding>
+                </Button>
+                <Label fx:id="lblFaceStatus" style="-fx-text-fill: #888888;" text="Visage non configuré" />
+            </VBox>
+
+            <!-- Camera Preview for Face Registration -->
+            <VBox fx:id="paneCameraRegister" alignment="CENTER" spacing="10" managed="false" visible="false">
+                <ImageView fx:id="cameraViewRegister" fitHeight="150" fitWidth="200" preserveRatio="true"/>
+                <HBox spacing="10" alignment="CENTER">
+                    <Button onAction="#captureFace" text="Capturer" style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-background-radius: 8;" />
+                    <Button onAction="#cancelFaceRegister" text="Annuler" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-background-radius: 8;" />
+                </HBox>
+            </VBox>
+
+
+            <!-- Register Button (Olive Green) -->
+            <Button mnemonicParsing="false" onAction="#inscrire" prefWidth="320.0" styleClass="btn-primary" text="S'INSCRIRE">
+                <padding>
+                    <Insets bottom="8.0" top="8.0" />
+                </padding>
+            </Button>
+            
+             <Label style="-fx-text-fill: #888888;" text="En créant un compte, vous acceptez nos conditions">
+                 <font>
+                     <Font size="9.0" />
+                 </font>
+             </Label>
+
+            <!-- Divider -->
+            <HBox alignment="CENTER" maxWidth="320.0" spacing="10.0">
+                <Line endX="100.0" opacity="0.3" startX="0.0" stroke="#888" strokeWidth="1.0" />
+                <Label style="-fx-text-fill: #888;" text="OU">
+                    <font><Font size="10.0" /></font>
+                </Label>
+                <Line endX="100.0" opacity="0.3" startX="0.0" stroke="#888" strokeWidth="1.0" />
+            </HBox>
+
+            <!-- Back to Login Button (Outlined Green) -->
+            <Button mnemonicParsing="false" onAction="#goToLogin" prefWidth="320.0" styleClass="btn-outline" text="SE CONNECTER">
+                <padding>
+                    <Insets bottom="7.0" top="7.0" />
+                </padding>
+            </Button>
+
+        </VBox>
+        </ScrollPane>
+    </HBox>
+</StackPane>

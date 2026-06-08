@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1060.0" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.ChatbotDiagController">
+    <children>
+        <!-- Background Image -->
+         <AnchorPane styleClass="app-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        
+        <!-- Dark Overlay -->
+        <javafx.scene.shape.Rectangle height="710.0" width="1060.0" opacity="0.4" fill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <!-- Header -->
+                <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 5 20;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="10" offsetY="2"/>
+                    </effect>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-text-fill: white;" text="←">
+                            <font>
+                                <Font size="20.0"/>
+                            </font>
+                        </Button>
+                        <Label text="Assistant IA" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                            <font>
+                                <Font name="System Bold" size="20.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- Chat Area (Centered Container) -->
+                <VBox alignment="TOP_CENTER" VBox.vgrow="ALWAYS" style="-fx-padding: 20;">
+                    <children>
+                        <VBox maxWidth="800.0" spacing="0.0" style="-fx-background-color: rgba(255, 255, 255, 0.85); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 20, 0, 0, 5);" VBox.vgrow="ALWAYS">
+                            <children>
+                                <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;" VBox.vgrow="ALWAYS">
+                                    <content>
+                                        <VBox fx:id="messageContainer" spacing="15.0" style="-fx-background-color: transparent;">
+                                            <padding>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                            </padding>
+                                        </VBox>
+                                    </content>
+                                </ScrollPane>
+                
+                                <!-- Input Area -->
+                                <HBox alignment="CENTER" spacing="10.0" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 0 0 20 20; -fx-border-color: #ddd; -fx-border-width: 1 0 0 0; -fx-border-radius: 0 0 20 20;">
+                                    <children>
+                                        <TextField fx:id="txtInput" onAction="#sendMessage" promptText="Posez une question..." style="-fx-background-color: #f9f9f9; -fx-background-radius: 25; -fx-padding: 10 20; -fx-font-size: 13px; -fx-border-color: #eee; -fx-border-radius: 25;" HBox.hgrow="ALWAYS">
+                                            <font>
+                                                <Font size="13.0"/>
+                                            </font>
+                                        </TextField>
+                                        <Button fx:id="btnMic" mnemonicParsing="false" onAction="#toggleVoiceRecording" style="-fx-background-color: #e67e22; -fx-background-radius: 25; -fx-cursor: hand; -fx-min-width: 45; -fx-min-height: 45;" text="🎤" textFill="WHITE">
+                                            <font>
+                                                <Font size="16.0" />
+                                            </font>
+                                        </Button>
+                                        <Button mnemonicParsing="false" onAction="#sendMessage" style="-fx-background-color: #6B7F3F; -fx-background-radius: 25; -fx-cursor: hand;" text="Envoyer" textFill="WHITE">
+                                            <padding>
+                                                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+                                            </padding>
+                                            <font>
+                                                <Font name="System Bold" size="13.0" />
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane prefHeight="800.0" prefWidth="1400.0" styleClass="main-container" stylesheets="@../../Style/modern-lists.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.gestionemployecontroller.TacheController">
+
+    <!-- ========== HEADER ========== -->
+    <top>
+        <VBox spacing="15" styleClass="page-header">
+            <!-- Barre de navigation avec titre amélioré -->
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Button fx:id="btnRetour" maxWidth="160" onAction="#handleRetour" styleClass="button-secondary" text="%common.back" />
+                <Label styleClass="label-title" text="%tache.title" />
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Indicateur de performance -->
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Label fx:id="lblTempsChargement" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px; -fx-font-style: italic;" text="" />
+                    <ProgressIndicator fx:id="progressIndicator" prefHeight="20" prefWidth="20" visible="false" />
+                </HBox>
+            </HBox>
+
+            <!-- Statistiques rapides -->
+            <HBox alignment="CENTER_LEFT" spacing="25" styleClass="stats-bar">
+                <HBox alignment="CENTER" spacing="10">
+                    <Label style="-fx-font-size: 18px;" text="📊" />
+                    <VBox spacing="2">
+                        <Label styleClass="stats-label" text="%tache.stats.total" />
+                        <Label fx:id="lblTotalTaches" styleClass="stats-value" text="0" />
+                    </VBox>
+                </HBox>
+
+                <Separator orientation="VERTICAL" />
+
+                <HBox alignment="CENTER" spacing="10">
+                    <Label style="-fx-font-size: 18px;" text="🔄" />
+                    <VBox spacing="2">
+                        <Label styleClass="stats-label" text="%tache.stats.in.progress" />
+                        <Label fx:id="lblEnCours" styleClass="stats-value" text="0" />
+                    </VBox>
+                </HBox>
+
+                <Separator orientation="VERTICAL" />
+
+                <HBox alignment="CENTER" spacing="10">
+                    <Label style="-fx-font-size: 18px;" text="✅" />
+                    <VBox spacing="2">
+                        <Label styleClass="stats-label" text="%tache.stats.completed" />
+                        <Label fx:id="lblTerminees" styleClass="stats-value" text="0" />
+                    </VBox>
+                </HBox>
+
+                <Separator orientation="VERTICAL" />
+
+                <HBox alignment="CENTER" spacing="10">
+                    <Label style="-fx-font-size: 18px;" text="⏳" />
+                    <VBox spacing="2">
+                        <Label styleClass="stats-label" text="%tache.stats.pending" />
+                        <Label fx:id="lblEnAttente" styleClass="stats-value" text="0" />
+                    </VBox>
+                </HBox>
+
+                <Region HBox.hgrow="ALWAYS" />
+                <Button onAction="#handleTriDecroissant" prefHeight="37.0" prefWidth="59.0" styleClass="button-sort" text="%common.sort.desc" />
+
+                <Button onAction="#handleTriCroissant" prefHeight="38.0" prefWidth="56.0" styleClass="button-sort" text="%common.sort.asc" />
+
+                <!-- Boutons d'export et stats -->
+                <Button fx:id="btnExporterPDF" onAction="#handleExportPDF" prefWidth="140" styleClass="button-pdf" text="%common.export.pdf" />
+
+                <Button fx:id="btnPlanification" onAction="#handlePlanification" prefWidth="165"
+                        style="-fx-background-color:#27ae60; -fx-text-fill:white; -fx-font-weight:bold; -fx-background-radius:8; -fx-cursor:hand; -fx-font-size:12px;"
+                        text="&#x1F4C5; Planification" />
+
+                <Button fx:id="btnStatistiques" onAction="#handleShowStatistics" prefWidth="180" styleClass="button-info" text="%tache.stats.detailed" />
+            </HBox>
+
+            <!-- Barre de recherche et filtres principaux -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <TextField fx:id="txtRecherche" prefWidth="350" promptText="%tache.search.prompt" styleClass="search-box" HBox.hgrow="ALWAYS" />
+
+                <Label styleClass="label-field" text="%common.status" />
+                <ComboBox fx:id="cmbStatut" prefWidth="140" styleClass="combo-filter" />
+
+                <Label styleClass="label-field" text="%common.sort.by" />
+                <ComboBox fx:id="cmbTri" prefWidth="140" styleClass="combo-filter" />
+
+                <Button onAction="#handleActualiser" prefWidth="120" styleClass="button-neutral" text="%common.refresh" />
+
+                <!-- Toggle pour filtres avancés -->
+                <ToggleButton fx:id="toggleFiltresAvances" prefWidth="140" styleClass="toggle-filter" text="%tache.advanced.filters" />
+            </HBox>
+
+            <!-- Filtres avancés (cachés par défaut) -->
+            <GridPane fx:id="advancedFilters" hgap="15" managed="false" styleClass="advanced-filters-panel" vgap="10" visible="false">
+                <padding>
+                    <Insets bottom="5" left="5" right="5" top="15" />
+                </padding>
+
+                <Label styleClass="label-field" text="%tache.filter.priority" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <ComboBox fx:id="cmbPriorite" prefWidth="140" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+
+                <Label styleClass="label-field" text="%tache.filter.category" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                <ComboBox fx:id="cmbCategorie" prefWidth="140" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+
+                <Label styleClass="label-field" text="%tache.filter.employee" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                <ComboBox fx:id="cmbEmploye" prefWidth="200" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+
+                <Label styleClass="label-field" text="%tache.filter.start.date" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                <DatePicker fx:id="dateDebutFilter" prefWidth="140" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+                <Label styleClass="label-field" text="%tache.filter.end.date" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                <DatePicker fx:id="dateFinFilter" prefWidth="140" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                <columnConstraints>
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                    <ColumnConstraints />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints />
+                    <RowConstraints />
+                    <RowConstraints />
+                </rowConstraints>
+            </GridPane>
+        </VBox>
+    </top>
+
+    <!-- ========== CONTENU PRINCIPAL ========== -->
+    <center>
+        <VBox spacing="15" style="-fx-padding: 20;">
+            <!-- TableView Tâches améliorée -->
+            <TableView fx:id="tableTaches" styleClass="table-view" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="colId" prefWidth="60" sortable="true" text="%tache.col.id" />
+                    <TableColumn fx:id="colTitre" prefWidth="180" sortable="true" text="%tache.col.title" />
+                    <TableColumn fx:id="colDescription" prefWidth="220" sortable="true" text="%tache.col.description" />
+                    <TableColumn fx:id="colStatut" prefWidth="140" sortable="true" text="%tache.col.status" />
+                    <TableColumn fx:id="colPriorite" prefWidth="100" sortable="true" text="%tache.col.priority" />
+                    <TableColumn fx:id="colCategorie" prefWidth="120" sortable="true" text="%tache.col.category" />
+                    <TableColumn fx:id="colDateDebut" prefWidth="110" sortable="true" text="%tache.col.start.date" />
+                    <TableColumn fx:id="colDateFin" prefWidth="110" sortable="true" text="%tache.col.end.date" />
+                    <TableColumn fx:id="colIdEmploye" prefWidth="180" sortable="true" text="%tache.col.employee" />
+                </columns>
+                <placeholder>
+                    <VBox alignment="CENTER" spacing="15">
+                        <Label style="-fx-font-size: 48px; -fx-text-fill: #ccc;" text="📭" />
+                        <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #7f8c8d;" text="%tache.empty" />
+                        <Label style="-fx-font-size: 13px; -fx-text-fill: #95a5a6;" text="%tache.empty.hint" />
+                    </VBox>
+                </placeholder>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+            </TableView>
+
+            <!-- Barre d'actions améliorée -->
+            <HBox alignment="CENTER_LEFT" spacing="15" styleClass="action-bar">
+                <Button fx:id="btnAjouter" onAction="#handleAjouter" prefWidth="200" styleClass="button-primary" text="%tache.add" />
+
+                <Button fx:id="btnModifier" disable="true" onAction="#handleModifier" prefWidth="150" styleClass="button-edit" text="%common.edit" />
+
+                <Button fx:id="btnSupprimer" disable="true" onAction="#handleSupprimer" prefWidth="150" styleClass="button-delete" text="%common.delete" />
+
+                <Button fx:id="btnAnalyseIA"
+                        onAction="#handleAnalyseIA"
+                        prefWidth="170"
+                        disable="true"
+                        text="🔮 Analyse IA"
+                        style="-fx-background-color: #6c3483; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-font-size: 13px; -fx-cursor: hand; -fx-opacity: 0.5;" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <!-- Indicateur de sélection amélioré -->
+                <HBox alignment="CENTER" spacing="10" styleClass="selection-indicator">
+                    <Label fx:id="lblSelection" style="-fx-font-size: 13px; -fx-text-fill: #7f8c8d; -fx-font-style: italic;" text="%tache.no.selection" />
+                </HBox>
+            </HBox>
+
+            <!-- Info sur les raccourcis clavier -->
+            <HBox alignment="CENTER" spacing="20" style="-fx-padding: 8 0 0 0;" />
+        </VBox>
+    </center>
+
+</BorderPane>

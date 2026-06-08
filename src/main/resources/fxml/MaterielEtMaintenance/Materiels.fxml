@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+
+<StackPane xmlns="http://javafx.com/javafx/11"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="tn.neuron.ardhi.controllers.MaterielEtMaintenance.MaterielsController"
+           style="-fx-background-color: linear-gradient(to bottom right, #F5F7F0, #E8EBE0);">
+
+    <VBox spacing="0">
+
+        <!-- HEADER avec bouton toggle IA -->
+        <HBox alignment="CENTER_LEFT" spacing="15"
+              style="-fx-background-color: linear-gradient(to right, #6B7F3F 0%, #4A5A2B 100%);
+                     -fx-padding: 20 25;">
+
+            <VBox spacing="4" HBox.hgrow="ALWAYS">
+                <Label text="Mes Materiels Agricoles"
+                       style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: white;
+                              -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 2);"/>
+                <Label text="Gerez vos equipements et suivez leur etat de maintenance"
+                       style="-fx-font-size: 13px; -fx-text-fill: rgba(255,255,255,0.85);"/>
+            </VBox>
+
+            <VBox alignment="CENTER" fx:id="notificationBox" visible="false" managed="false">
+                <Label fx:id="lblNotifications"
+                       style="-fx-background-color: #ff5722; -fx-text-fill: white;
+                              -fx-padding: 7 14; -fx-background-radius: 20;
+                              -fx-font-weight: bold; -fx-font-size: 12px;"/>
+            </VBox>
+
+            <!-- Bouton toggle panneau IA (NOUVEAU) -->
+            <Button fx:id="btnToggleIA" text="🤖 Masquer IA"
+                    onAction="#handleToggleIA"
+                    style="-fx-background-color: rgba(255,255,255,0.15);
+                           -fx-text-fill: white; -fx-font-size: 11px; -fx-font-weight: bold;
+                           -fx-background-radius: 16; -fx-padding: 7 14;
+                           -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 16;
+                           -fx-border-width: 1; -fx-cursor: hand; -fx-background-insets: 0;
+                           -fx-focus-color: transparent; -fx-faint-focus-color: transparent;">
+                <effect><DropShadow color="rgba(0,0,0,0.15)" radius="4" offsetY="1"/></effect>
+            </Button>
+
+            <StackPane prefWidth="50" prefHeight="50">
+                <Button fx:id="btnCloche" text="🔔"
+                        onAction="#togglePanelNotifications"
+                        style="-fx-background-color: rgba(255,255,255,0.2);
+                               -fx-text-fill: white; -fx-font-size: 20px;
+                               -fx-background-radius: 50; -fx-padding: 8 12; -fx-cursor: hand;
+                               -fx-border-color: rgba(255,255,255,0.3); -fx-border-radius: 50;
+                               -fx-border-width: 1.5; -fx-background-insets: 0;
+                               -fx-focus-color: transparent; -fx-faint-focus-color: transparent;">
+                    <effect><DropShadow color="rgba(0,0,0,0.25)" radius="8" offsetY="2"/></effect>
+                </Button>
+                <Label fx:id="lblBadgeNotif" text="0" visible="false" managed="false"
+                       StackPane.alignment="TOP_RIGHT" translateX="5" translateY="-5"
+                       style="-fx-background-color: #e53e3e; -fx-text-fill: white;
+                              -fx-font-size: 9px; -fx-font-weight: bold; -fx-padding: 2 5;
+                              -fx-background-radius: 10; -fx-min-width: 18; -fx-min-height: 18;
+                              -fx-alignment: center;
+                              -fx-effect: dropshadow(gaussian, rgba(180,0,0,0.5), 4, 0, 0, 1);"/>
+            </StackPane>
+
+            <Button text="Tableau de bord" onAction="#handleRetourDashboard"
+                    style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white;
+                           -fx-background-radius: 20; -fx-padding: 9 18; -fx-font-weight: bold;
+                           -fx-border-color: rgba(255,255,255,0.35); -fx-border-radius: 20;
+                           -fx-border-width: 1.5; -fx-background-insets: 0; -fx-border-insets: 0;
+                           -fx-focus-color: transparent; -fx-faint-focus-color: transparent; -fx-cursor: hand;">
+                <effect><DropShadow color="rgba(0,0,0,0.2)" radius="8" offsetY="2"/></effect>
+            </Button>
+        </HBox>
+
+        <!-- CONTENU PRINCIPAL -->
+        <HBox spacing="0" VBox.vgrow="ALWAYS">
+
+            <!-- COLONNE GAUCHE : table + filtres -->
+            <VBox spacing="20" HBox.hgrow="ALWAYS"
+                  style="-fx-padding: 25 16 30 30;">
+
+                <!-- Filtres -->
+                <HBox spacing="12" alignment="CENTER_LEFT"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15 18;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);">
+                    <TextField fx:id="txtRecherche" promptText="Rechercher un materiel..."
+                               style="-fx-pref-width: 260px; -fx-background-color: #F9F9F9;
+                                      -fx-border-color: #E0E0E0; -fx-border-radius: 8;
+                                      -fx-background-radius: 8; -fx-padding: 9 13; -fx-font-size: 13px;
+                                      -fx-focus-color: transparent; -fx-faint-focus-color: transparent;"/>
+                    <Button text="Rechercher" onAction="#handleRechercher"
+                            style="-fx-background-color: #6B7F3F; -fx-text-fill: white; -fx-background-radius: 8;
+                                   -fx-padding: 9 18; -fx-font-weight: bold; -fx-background-insets: 0;
+                                   -fx-border-width: 0; -fx-cursor: hand;">
+                        <effect><DropShadow color="rgba(107,127,63,0.3)" radius="6" offsetY="2"/></effect>
+                    </Button>
+                    <Separator orientation="VERTICAL" prefHeight="28" style="-fx-opacity: 0.3;"/>
+                    <Label text="Type :" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <ComboBox fx:id="cmbFilterType" prefWidth="140"
+                              style="-fx-background-color: #F9F9F9; -fx-border-color: #E0E0E0;
+                                     -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                    <Label text="Etat :" style="-fx-font-weight: bold; -fx-text-fill: #555;"/>
+                    <ComboBox fx:id="cmbFilterEtat" prefWidth="140"
+                              style="-fx-background-color: #F9F9F9; -fx-border-color: #E0E0E0;
+                                     -fx-border-radius: 8; -fx-background-radius: 8;"/>
+                    <Button text="Reinitialiser" onAction="#handleResetFilters"
+                            style="-fx-background-color: #F0F0F0; -fx-text-fill: #666; -fx-background-radius: 8;
+                                   -fx-padding: 9 14; -fx-background-insets: 0; -fx-border-width: 0; -fx-cursor: hand;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="lblCount" text="0 Materiel"
+                           style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #6B7F3F;
+                                  -fx-background-color: rgba(107,127,63,0.1); -fx-padding: 7 13;
+                                  -fx-background-radius: 8;"/>
+                </HBox>
+
+                <!-- Table -->
+                <TableView fx:id="tableMateriels" VBox.vgrow="ALWAYS"
+                           style="-fx-background-color: white; -fx-background-radius: 12;
+                                  -fx-border-color: #E0E0E0; -fx-border-radius: 12; -fx-border-width: 1;
+                                  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 12, 0, 0, 3);">
+                    <columns>
+                        <TableColumn fx:id="colId" text="ID" prefWidth="65" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colNom" text="Nom du Materiel" prefWidth="210"/>
+                        <TableColumn fx:id="colType" text="Type" prefWidth="130"/>
+                        <TableColumn fx:id="colEtat" text="Etat" prefWidth="110" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colDateAchat" text="Date achat" prefWidth="120" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colMaintenance" text="Maintenance" prefWidth="170" style="-fx-alignment: CENTER;"/>
+                        <TableColumn fx:id="colActions" text="Actions" prefWidth="110" style="-fx-alignment: CENTER;"/>
+                    </columns>
+                    <placeholder>
+                        <VBox alignment="CENTER" spacing="12" style="-fx-padding: 40;">
+                            <Label text="Aucun materiel trouve"
+                                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #999;"/>
+                        </VBox>
+                    </placeholder>
+                </TableView>
+
+                <!-- Boutons action -->
+                <HBox spacing="10" alignment="CENTER_LEFT"
+                      style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 16 20;
+                             -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 10, 0, 0, 2);">
+                    <Button text="+ Ajouter" onAction="#handleAjouterMateriel"
+                            style="-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 11 20; -fx-background-radius: 9; -fx-background-insets: 0; -fx-border-width: 0; -fx-cursor: hand;">
+                        <effect><DropShadow color="rgba(76,175,80,0.4)" radius="7" offsetY="3"/></effect></Button>
+                    <Button text="Modifier" onAction="#handleModifierMateriel"
+                            style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 11 20; -fx-background-radius: 9; -fx-background-insets: 0; -fx-border-width: 0; -fx-cursor: hand;">
+                        <effect><DropShadow color="rgba(33,150,243,0.4)" radius="7" offsetY="3"/></effect></Button>
+                    <Button text="Supprimer" onAction="#handleSupprimerMateriel"
+                            style="-fx-background-color: #f44336; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 11 20; -fx-background-radius: 9; -fx-background-insets: 0; -fx-border-width: 0; -fx-cursor: hand;">
+                        <effect><DropShadow color="rgba(244,67,54,0.4)" radius="7" offsetY="3"/></effect></Button>
+                    <Separator orientation="VERTICAL" prefHeight="28" style="-fx-opacity: 0.2;"/>
+                    <Button text="Details" onAction="#handleVoirDetails"
+                            style="-fx-background-color: #607D8B; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 11 20; -fx-background-radius: 9; -fx-background-insets: 0; -fx-border-width: 0; -fx-cursor: hand;">
+                        <effect><DropShadow color="rgba(96,125,139,0.4)" radius="7" offsetY="3"/></effect></Button>
+                    <Button text="Planifier Maintenance" onAction="#handlePlanifierMaintenance"
+                            style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 11 20; -fx-background-radius: 9; -fx-background-insets: 0; -fx-border-width: 0; -fx-cursor: hand;">
+                        <effect><DropShadow color="rgba(255,152,0,0.4)" radius="7" offsetY="3"/></effect></Button>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Button text="Rafraichir" onAction="#handleRafraichir"
+                            style="-fx-background-color: #9C27B0; -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 11 20; -fx-background-radius: 9; -fx-background-insets: 0; -fx-border-width: 0; -fx-cursor: hand;">
+                        <effect><DropShadow color="rgba(156,39,176,0.4)" radius="7" offsetY="3"/></effect></Button>
+                </HBox>
+
+            </VBox>
+
+            <!-- COLONNE DROITE : PANNEAU IA (avec fx:id pour le toggle) -->
+            <VBox fx:id="colonneIA" prefWidth="265" minWidth="240"
+                  style="-fx-background-color: #f7fafc;
+                         -fx-border-color: #e2e8f0;
+                         -fx-border-width: 0 0 0 1;">
+
+                <!-- En-tête vert -->
+                <HBox alignment="CENTER_LEFT" spacing="8"
+                      style="-fx-padding: 13 12 9 12;
+                             -fx-background-color: linear-gradient(to right, #4A5A2B, #6B7F3F);">
+                    <Label text="Predictions IA"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="lblStatutIA" text="..."
+                           style="-fx-font-size: 9px; -fx-text-fill: rgba(255,255,255,0.75);"/>
+                </HBox>
+
+                <!-- Zone scrollable peuplée par PanelIAController -->
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                            style="-fx-background-color: transparent;
+                                   -fx-background: transparent;
+                                   -fx-border-width: 0;">
+                    <VBox fx:id="vboxIAPredictions" spacing="4"
+                          style="-fx-padding: 8;">
+                        <Label text="Chargement..."
+                               style="-fx-text-fill: #a0aec0; -fx-font-size: 11px; -fx-padding: 10 0 0 0;"/>
+                    </VBox>
+                </ScrollPane>
+
+                <!-- Boutons IA -->
+                <VBox spacing="5"
+                      style="-fx-padding: 8 10 10 10;
+                             -fx-background-color: white;
+                             -fx-border-color: #e2e8f0;
+                             -fx-border-width: 1 0 0 0;">
+                    <Button text="Actualiser predictions"
+                            onAction="#handleActualiserIA"
+                            maxWidth="Infinity"
+                            style="-fx-background-color: #6B7F3F; -fx-text-fill: white;
+                                   -fx-font-size: 11px; -fx-padding: 7 10;
+                                   -fx-background-radius: 7; -fx-background-insets: 0;
+                                   -fx-border-width: 0; -fx-cursor: hand;"/>
+                    <!-- FIX : affiche uniquement les matériels en retard -->
+                    <Button text="Materiels en retard / urgents"
+                            onAction="#handleTopRisque"
+                            maxWidth="Infinity"
+                            style="-fx-background-color: #FFF5F5; -fx-text-fill: #c53030;
+                                   -fx-font-size: 11px; -fx-padding: 7 10;
+                                   -fx-background-radius: 7; -fx-border-color: #FC8181;
+                                   -fx-border-radius: 7; -fx-border-width: 1; -fx-cursor: hand;"/>
+                </VBox>
+            </VBox>
+
+        </HBox>
+    </VBox>
+
+    <!-- PANEL NOTIFICATIONS FLOTTANT -->
+    <VBox fx:id="panelNotifications" visible="false" managed="false" maxWidth="400"
+          StackPane.alignment="TOP_RIGHT"
+          style="-fx-background-color: white;
+                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 20, 0, 4, 8);
+                 -fx-background-radius: 12;">
+        <StackPane.margin><Insets top="80" right="20"/></StackPane.margin>
+        <HBox alignment="CENTER_LEFT" spacing="10"
+              style="-fx-padding: 13 16; -fx-background-color: #f7fafc;
+                     -fx-border-color: #e2e8f0; -fx-border-width: 0 0 1 0;
+                     -fx-background-radius: 12 12 0 0;">
+            <Label text="Notifications"
+                   style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #2d3748;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="Tout lire" onAction="#toutMarquerLu"
+                    style="-fx-background-color: transparent; -fx-text-fill: #3182ce;
+                           -fx-font-size: 12px; -fx-cursor: hand; -fx-border-width: 0; -fx-background-insets: 0;"/>
+            <Button text="X" onAction="#fermerPanelNotifications"
+                    style="-fx-background-color: transparent; -fx-text-fill: #718096;
+                           -fx-font-size: 14px; -fx-cursor: hand; -fx-border-width: 0; -fx-background-insets: 0;"/>
+        </HBox>
+        <VBox fx:id="vboxAucune" alignment="CENTER" spacing="8"
+              style="-fx-padding: 35;" visible="true" managed="true">
+            <Label text="Aucune notification"
+                   style="-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: #4a5568;"/>
+            <Label text="Vous etes a jour !" style="-fx-font-size: 12px; -fx-text-fill: #a0aec0;"/>
+        </VBox>
+        <ScrollPane fitToWidth="true" maxHeight="460"
+                    style="-fx-background-color: transparent; -fx-background: transparent; -fx-border-width: 0;">
+            <VBox fx:id="listeNotifications" spacing="0"/>
+        </ScrollPane>
+    </VBox>
+
+</StackPane>

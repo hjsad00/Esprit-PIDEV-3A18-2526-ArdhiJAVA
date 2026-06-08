@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<StackPane prefHeight="710.0" prefWidth="1060.0" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.HealthScanReportController">
+    <children>
+        <!-- LAYER 1: BACKGROUND -->
+        <AnchorPane>
+            <children>
+                <AnchorPane styleClass="app-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                <Rectangle fill="BLACK" height="710.0" opacity="0.4" width="1060.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+        </AnchorPane>
+
+        <!-- LAYER 2: SCROLLABLE CONTENT -->
+        <ScrollPane styleClass="dashboard-scroll-pane" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" style="-fx-background: transparent; -fx-background-color: transparent;">
+            <content>
+                <VBox spacing="20.0" style="-fx-padding: 80 30 30 30;">
+                    <children>
+                        <!-- Health Score Card -->
+                        <HBox spacing="25.0">
+                            <children>
+                                <!-- Score Gauges -->
+                                <VBox alignment="CENTER" spacing="10.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);" prefWidth="280.0">
+                                    <padding>
+                                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                    </padding>
+                                    <children>
+                                        <Label text="Score de Santé" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 13;"/>
+                                        <Label fx:id="lblHealthScore" text="--" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font>
+                                                <Font name="System Bold" size="48.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="lblScoreLabel" text="" style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                                        <ProgressBar fx:id="barHealthScore" prefWidth="200.0" progress="0.0" style="-fx-accent: #27ae60;"/>
+
+                                        <Separator style="-fx-opacity: 0.3;"/>
+
+                                        <Label text="Biodiversité" style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 13;"/>
+                                        <Label fx:id="lblBioScore" text="--" style="-fx-text-fill: #87CEEB; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font>
+                                                <Font name="System Bold" size="28.0"/>
+                                            </font>
+                                        </Label>
+                                        <ProgressBar fx:id="barBioScore" prefWidth="200.0" progress="0.0" style="-fx-accent: #3498db;"/>
+                                    </children>
+                                </VBox>
+
+                                <!-- Scan Info -->
+                                <VBox alignment="TOP_LEFT" spacing="12.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);" HBox.hgrow="ALWAYS">
+                                    <padding>
+                                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                                    </padding>
+                                    <children>
+                                        <Label text="📊 Résumé du Rapport" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                        </Label>
+
+                                        <Label fx:id="lblCropInfo" text="" wrapText="true" style="-fx-text-fill: white; -fx-font-size: 13;"/>
+                                        <Label fx:id="lblVulnCount" text="" wrapText="true" style="-fx-text-fill: #f1c40f; -fx-font-size: 13; -fx-font-weight: bold;"/>
+                                        <Label fx:id="lblPlanCount" text="" wrapText="true" style="-fx-text-fill: #87CEEB; -fx-font-size: 13;"/>
+                                        <Label fx:id="lblScanDate" text="" wrapText="true" style="-fx-text-fill: rgba(255,255,255,0.7); -fx-font-size: 12;"/>
+
+                                        <Separator style="-fx-opacity: 0.3;"/>
+
+                                        <Button onAction="#rescan" maxWidth="1.7976931348623157E308" prefHeight="40.0" style="-fx-background-color: rgba(107, 127, 63, 0.85); -fx-background-radius: 8; -fx-border-color: rgba(255,255,255,0.4); -fx-border-radius: 8; -fx-cursor: hand; -fx-text-fill: white;" text="🔄 Rescanner le Champ">
+                                            <font>
+                                                <Font name="System Bold" size="13.0"/>
+                                            </font>
+                                        </Button>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <!-- Vulnerabilities Section -->
+                        <VBox spacing="12.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);">
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                            </padding>
+                            <children>
+                                <Label text="⚠️ Vulnérabilités Détectées" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                    <font>
+                                        <Font name="System Bold" size="16.0"/>
+                                    </font>
+                                </Label>
+
+                                <!-- Vulnerability cards will be dynamically added here -->
+                                <VBox fx:id="vulnContainer" spacing="10.0"/>
+
+                                <Label fx:id="lblNoVulns" text="✅ Aucune vulnérabilité détectée — votre champ est en bonne santé !" visible="false" managed="false" wrapText="true" style="-fx-text-fill: #27ae60; -fx-font-size: 14;"/>
+                            </children>
+                        </VBox>
+
+                        <!-- Prevention Plans Section -->
+                        <VBox spacing="12.0" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 20, 0, 0, 5);">
+                            <padding>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                            </padding>
+                            <children>
+                                <Label text="🛡 Plans de Prévention" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                                    <font>
+                                        <Font name="System Bold" size="16.0"/>
+                                    </font>
+                                </Label>
+
+                                <!-- Prevention plan cards will be dynamically added here -->
+                                <VBox fx:id="planContainer" spacing="10.0"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
+            </content>
+        </ScrollPane>
+
+        <!-- LAYER 3: HEADER (Overlay) -->
+        <AnchorPane pickOnBounds="false" StackPane.alignment="TOP_CENTER">
+            <children>
+                <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 15 20;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" offsetY="2" radius="10"/>
+                    </effect>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-text-fill: white;" text="←">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Button>
+
+                        <Label text="📊 Rapport de Santé" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                            <font>
+                                <Font name="System Bold" size="20.0"/>
+                            </font>
+                        </Label>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+                    </children>
+                </HBox>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>

@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.image.ImageView?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.EvenementFormController"
+           prefWidth="750" prefHeight="900"
+           stylesheets="@/Style/evenement-style.css">
+
+    <!-- BACKGROUND LAYER -->
+    <AnchorPane>
+        <Rectangle width="750" height="900"
+                   style="-fx-fill: linear-gradient(to bottom right, #27AE60 0%, #2ECC71 50%, #58D68D 100%);"
+                   AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                   AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+    </AnchorPane>
+
+    <!-- MAIN CONTENT -->
+    <ScrollPane fitToWidth="true" fitToHeight="true"
+                style="-fx-background: transparent;
+                       -fx-background-color: transparent;"
+                hbarPolicy="NEVER">
+        <VBox spacing="35" alignment="TOP_CENTER" style="-fx-padding: 40;">
+
+            <!-- Main Form Card -->
+            <VBox spacing="30"
+                  style="-fx-background-color: rgba(255,255,255,0.98);
+                         -fx-background-radius: 30;
+                         -fx-padding: 45;
+                         -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 30, 0, 0, 8);"
+                  maxWidth="670">
+
+                <!-- Header -->
+                <VBox alignment="CENTER" spacing="15">
+                    <Label text="📝"
+                           style="-fx-font-size: 56px;"/>
+                    <Label fx:id="formTitleLabel"
+                           text="Créer un Événement"
+                           style="-fx-font-size: 34px;
+                                  -fx-font-weight: bold;
+                                  -fx-text-fill: #2C3E50;"/>
+                    <Label text="Complétez les informations ci-dessous"
+                           style="-fx-font-size: 14px;
+                                  -fx-text-fill: #7F8C8D;"/>
+                </VBox>
+
+                <Separator style="-fx-background-color: rgba(0,0,0,0.1);"/>
+
+                <!-- Form Fields -->
+                <VBox spacing="22">
+                    <!-- Titre -->
+                    <VBox spacing="10">
+                        <Label text="Titre de l'événement *"
+                               style="-fx-font-size: 15px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #555;"/>
+                        <TextField fx:id="titreField"
+                                   promptText="Ex: Foire Agricole de Printemps 2026"
+                                   prefHeight="50"
+                                   style="-fx-background-color: #F8F9FA;
+                                          -fx-background-radius: 15;
+                                          -fx-padding: 0 20;
+                                          -fx-font-size: 15px;
+                                          -fx-border-color: rgba(0,0,0,0.1);
+                                          -fx-border-radius: 15;"/>
+                    </VBox>
+
+                    <!-- Description AGRANDIE -->
+                    <VBox spacing="10">
+                        <Label text="Description *"
+                               style="-fx-font-size: 15px;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #555;"/>
+                        <TextArea fx:id="descriptionArea"
+                                  promptText="Décrivez votre événement de manière détaillée..."
+                                  wrapText="true"
+                                  prefRowCount="8"
+                                  prefHeight="180"
+                                  minHeight="180"
+                                  style="-fx-background-color: #F8F9FA;
+                     -fx-background-radius: 15;
+                     -fx-padding: 15;
+                     -fx-font-size: 14px;
+                     -fx-border-color: rgba(0,0,0,0.1);
+                     -fx-border-radius: 15;"/>
+                    </VBox>
+
+
+
+
+                    <VBox spacing="10">
+                        <Label text="Lieu de l'événement *" style="-fx-font-weight: bold;"/>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <TextField fx:id="lieuField"
+                                       promptText="ex: 15 Avenue Habib Bourguiba, Tunis"
+                                       HBox.hgrow="ALWAYS"
+                                       style="-fx-font-size: 15px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #555;"/>
+
+                            <Button text="📍 Carte"
+                                    onAction="#handleChooseLocation"
+                                    prefWidth="100"
+                                    prefHeight="40"
+                                    style="-fx-background-color: #3498DB;
+                       -fx-text-fill: white;
+                       -fx-font-weight: bold;
+                       -fx-cursor: hand;"/>
+                        </HBox>
+
+                        <Label text="💡 Cliquez sur 'Carte' pour choisir l'emplacement exact"
+                               style="-fx-text-fill: #666; -fx-font-size: 11px;"/>
+                    </VBox>
+
+                    <!-- Dates -->
+                    <HBox spacing="20">
+                        <VBox spacing="10" HBox.hgrow="ALWAYS">
+                            <Label text="Date de début *"
+                                   style="-fx-font-size: 15px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #555;"/>
+                            <DatePicker fx:id="dateDebutPicker"
+                                        prefWidth="295"
+                                        prefHeight="50"
+                                        style="-fx-background-radius: 15;
+                                              -fx-background-color: #F8F9FA;"/>
+                        </VBox>
+
+                        <VBox spacing="10" HBox.hgrow="ALWAYS">
+                            <Label text="Date de fin *"
+                                   style="-fx-font-size: 15px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #555;"/>
+                            <DatePicker fx:id="dateFinPicker"
+                                        prefWidth="295"
+                                        prefHeight="50"
+                                        style="-fx-background-radius: 15;
+                                              -fx-background-color: #F8F9FA;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Type et Places -->
+                    <HBox spacing="20">
+                        <VBox spacing="10" HBox.hgrow="ALWAYS">
+                            <Label text="Type d'événement *"
+                                   style="-fx-font-size: 15px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #555;"/>
+                            <ComboBox fx:id="typeCombo"
+                                      prefWidth="295"
+                                      prefHeight="50"
+                                      style="-fx-background-radius: 15;
+                                            -fx-background-color: #F8F9FA;"/>
+                        </VBox>
+
+                        <VBox spacing="10" HBox.hgrow="ALWAYS">
+                            <Label text="Nombre de places max *"
+                                   style="-fx-font-size: 15px;
+                                          -fx-font-weight: bold;
+                                          -fx-text-fill: #555;"/>
+                            <Spinner fx:id="placesSpinner"
+                                     prefWidth="295"
+                                     prefHeight="50"
+                                     style="-fx-background-radius: 15;"/>
+                        </VBox>
+                    </HBox>
+
+                    <!-- Organisateur -->
+                    <VBox spacing="10">
+                        <Label text="Organisateur *"
+                               style="-fx-font-size: 15px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #555;"/>
+                        <TextField fx:id="organisateurField"
+                                   promptText="Ex: Ministère de l'Agriculture de Tunisie"
+                                   prefHeight="50"
+                                   style="-fx-background-color: #F8F9FA;
+                                          -fx-background-radius: 15;
+                                          -fx-padding: 0 20;
+                                          -fx-font-size: 15px;
+                                          -fx-border-color: rgba(0,0,0,0.1);
+                                          -fx-border-radius: 15;"/>
+                    </VBox>
+                    <!-- Séparateur -->
+                    <javafx.scene.control.Separator style="-fx-padding: 15 0;">
+                        <GridPane.margin>
+                            <Insets top="10.0" bottom="10.0"/>
+                        </GridPane.margin>
+                    </javafx.scene.control.Separator>
+
+                    <!-- Section IA -->
+                    <Label text="🤖 Assistants Intelligents" style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;" GridPane.columnIndex="0" GridPane.rowIndex="9" GridPane.columnSpan="2">
+                        <GridPane.margin>
+                            <Insets top="10.0" bottom="5.0"/>
+                        </GridPane.margin>
+                    </Label>
+
+                    <!-- Bouton Génération IA -->
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="10" GridPane.columnSpan="2">
+                        <Button fx:id="btnGenerateAI" text="🤖 Générer avec IA" onAction="#handleGenerateAI" style="-fx-background-color: linear-gradient(to right, #667eea, #764ba2); -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;">
+                            <tooltip>
+                                <Tooltip text="Génère automatiquement une description professionnelle et une image via OpenAI (GPT-4 + DALL-E 3)"/>
+                            </tooltip>
+                        </Button>
+
+                        <Label text="Génère description + image automatiquement" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px; -fx-font-style: italic;"/>
+                    </HBox>
+
+                    <!-- Bouton Prédiction IA -->
+                    <HBox spacing="10" alignment="CENTER_LEFT" GridPane.columnIndex="0" GridPane.rowIndex="11" GridPane.columnSpan="2">
+                        <GridPane.margin>
+                            <Insets top="10.0"/>
+                        </GridPane.margin>
+
+                        <Button fx:id="btnPredictParticipation" text="🧠 Prédire Participation" onAction="#handlePredictParticipation" style="-fx-background-color: linear-gradient(to right, #f093fb, #f5576c); -fx-text-fill: white; -fx-font-size: 13px; -fx-font-weight: bold; -fx-padding: 12 25; -fx-background-radius: 8; -fx-cursor: hand;">
+                            <tooltip>
+                                <Tooltip text="Prédit le nombre de participants avec Machine Learning basé sur l'historique"/>
+                            </tooltip>
+                        </Button>
+
+                        <Label text="Estime le nombre de participants + recommandations matériel" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11px; -fx-font-style: italic;"/>
+                    </HBox>
+
+                    <!-- Zone d'affichage de la prédiction -->
+                    <VBox spacing="10" GridPane.columnIndex="0" GridPane.rowIndex="12" GridPane.columnSpan="2">
+                        <GridPane.margin>
+                            <Insets top="15.0"/>
+                        </GridPane.margin>
+
+                        <Label fx:id="predictionLabel"
+                               text=""
+                               style="-fx-font-size: 16px;
+                  -fx-font-weight: bold;
+                  -fx-text-fill: #27AE60;
+                  -fx-padding: 10;"
+                               visible="false"/>
+
+                        <TextArea fx:id="predictionDetailsArea"
+                                  editable="false"
+                                  wrapText="true"
+                                  prefRowCount="18"
+                                  prefHeight="450"
+                                  minHeight="450"
+                                  visible="false"
+                                  style="-fx-background-color: #f8f9fa;
+                     -fx-border-color: #27AE60;
+                     -fx-border-width: 2;
+                     -fx-border-radius: 8;
+                     -fx-padding: 20;
+                     -fx-font-family: 'Courier New', 'Consolas', monospace;
+                     -fx-font-size: 13px;
+                     -fx-line-spacing: 1.5;"/>
+                    </VBox>
+
+
+                    <!-- Note importante -->
+                    <Label text="💡 Conseil: Utilisez l'IA après avoir saisi le titre, le lieu et les dates" style="-fx-text-fill: #95a5a6; -fx-font-size: 10px; -fx-font-style: italic;" GridPane.columnIndex="0" GridPane.rowIndex="13" GridPane.columnSpan="2">
+                        <GridPane.margin>
+                            <Insets top="5.0" bottom="15.0"/>
+                        </GridPane.margin>
+                    </Label>
+
+                    <!-- Image Upload -->
+                    <VBox spacing="10">
+                        <Label text="Image de l'événement"
+                               style="-fx-font-size: 15px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #555;"/>
+                        <HBox spacing="15" alignment="CENTER_LEFT">
+                            <Button fx:id="uploadImageButton"
+                                    text="📁 Choisir une image"
+                                    onAction="#handleUploadImage"
+                                    prefHeight="50"
+                                    style="-fx-background-color: linear-gradient(to right, #3498DB, #2980B9);
+                                           -fx-text-fill: white;
+                                           -fx-background-radius: 15;
+                                           -fx-font-weight: bold;
+                                           -fx-font-size: 14px;
+                                           -fx-cursor: hand;
+                                           -fx-padding: 0 25;">
+                                <effect>
+                                    <DropShadow color="rgba(52,152,219,0.3)" radius="10" offsetY="3"/>
+                                </effect>
+                            </Button>
+                            <Label fx:id="imageFileLabel"
+                                   text="Aucune image sélectionnée"
+                                   style="-fx-text-fill: #95A5A6;
+                                          -fx-font-size: 13px;"/>
+                        </HBox>
+
+                        <!-- Image Preview -->
+                        <ImageView fx:id="imagePreview"
+                                   fitWidth="200"
+                                   fitHeight="150"
+                                   preserveRatio="true"
+                                   visible="false"
+                                   style="-fx-background-color: #F8F9FA;
+                                          -fx-background-radius: 15;
+                                          -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 2);"/>
+                    </VBox>
+
+                    <!-- Statut -->
+                    <VBox spacing="10">
+                        <Label text="Statut"
+                               style="-fx-font-size: 15px;
+                                      -fx-font-weight: bold;
+                                      -fx-text-fill: #555;"/>
+                        <ComboBox fx:id="statutCombo"
+                                  prefWidth="300"
+                                  prefHeight="50"
+                                  style="-fx-background-radius: 15;
+                                        -fx-background-color: #F8F9FA;"/>
+                    </VBox>
+
+                    <!-- Error Label -->
+                    <Label fx:id="errorLabel"
+                           wrapText="true"
+                           visible="false"
+                           style="-fx-text-fill: #E74C3C;
+                                  -fx-font-weight: bold;
+                                  -fx-font-size: 14px;
+                                  -fx-background-color: #FADBD8;
+                                  -fx-background-radius: 12;
+                                  -fx-padding: 15;"/>
+                </VBox>
+
+                <Separator style="-fx-background-color: rgba(0,0,0,0.1);"/>
+
+                <!-- Action Buttons -->
+                <HBox spacing="20" alignment="CENTER">
+                    <Button fx:id="cancelButton"
+                            text="Annuler"
+                            onAction="#handleCancel"
+                            prefWidth="170"
+                            prefHeight="55"
+                            style="-fx-background-color: #ECF0F1;
+                                   -fx-text-fill: #7F8C8D;
+                                   -fx-background-radius: 27;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 16px;
+                                   -fx-cursor: hand;"/>
+
+                    <Button fx:id="saveButton"
+                            text="💾 Enregistrer"
+                            onAction="#handleSave"
+                            prefWidth="200"
+                            prefHeight="55"
+                            style="-fx-background-color: linear-gradient(to right, #27AE60, #229954);
+                                   -fx-text-fill: white;
+                                   -fx-background-radius: 27;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 16px;
+                                   -fx-cursor: hand;">
+                        <effect>
+                            <DropShadow color="rgba(39,174,96,0.4)" radius="15" offsetY="5"/>
+                        </effect>
+                    </Button>
+                </HBox>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</StackPane>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1060.0" style="-fx-background-color: #f8faf7;" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.Parcelle_Cultures.AgriculteurParcellesController">
+    <children>
+        <VBox spacing="15.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+            <children>
+                <!-- Header -->
+                <HBox alignment="CENTER_LEFT" spacing="15.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-padding: 15 25;">
+                    <effect>
+                        <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="10"/>
+                    </effect>
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#retour"
+                                style="-fx-background-color: white; -fx-background-radius: 8; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 8; -fx-cursor: hand;"
+                                text="← Retour" textFill="#116530">
+                            <font><Font name="System Bold" size="12.0"/></font>
+                            <padding><Insets bottom="8.0" left="12.0" right="12.0" top="8.0"/></padding>
+                        </Button>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../img/ardhi_logo.png"/>
+                            </image>
+                        </ImageView>
+                        <Label text="Mes Parcelles" style="-fx-text-fill: #116530;">
+                            <font>
+                                <Font name="System Bold" size="22.0"/>
+                            </font>
+                        </Label>
+                        <Label text="🌾 Terrains" style="-fx-text-fill: #8D6E63; -fx-background-color: #EFEBE9; -fx-background-radius: 5; -fx-padding: 4 10;">
+                            <font>
+                                <Font name="System Bold" size="11.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="lblSurfaceTotale" text="Surface totale: 0 ha" style="-fx-text-fill: #116530; -fx-background-color: #f8faf7; -fx-background-radius: 5; -fx-padding: 4 10;">
+                            <font>
+                                <Font name="System Bold" size="11.0"/>
+                            </font>
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+
+                <!-- Main Content -->
+                <VBox fx:id="mainContainer" spacing="12.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <!-- Search & Filter Bar -->
+                        <HBox alignment="CENTER_LEFT" spacing="10.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 12 20;">
+                            <effect>
+                                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.08)" radius="8"/>
+                            </effect>
+                            <children>
+                                <Label text="🔍" style="-fx-font-size: 18;"/>
+                                <TextField fx:id="tfRecherche" promptText="Rechercher par localisation..." prefWidth="220.0" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd; -fx-padding: 8;">
+                                    <font>
+                                        <Font size="12.0"/>
+                                    </font>
+                                </TextField>
+                                <ComboBox fx:id="cbFilterTypeSol" promptText="Type Sol" prefWidth="130.0"
+                                          style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd;"/>
+                                <ComboBox fx:id="cbFilterIrrigation" promptText="Irrigation" prefWidth="140.0"
+                                          style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd;"/>
+                                <ComboBox fx:id="cbFilterStatut" promptText="Statut" prefWidth="110.0"
+                                          style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd;"/>
+                                <Button onAction="#rafraichir" style="-fx-background-color: #116530; -fx-background-radius: 5; -fx-cursor: hand;" text="Actualiser" textFill="WHITE">
+                                    <font>
+                                        <Font size="11.0"/>
+                                    </font>
+                                    <padding>
+                                        <Insets bottom="6.0" left="12.0" right="12.0" top="6.0"/>
+                                    </padding>
+                                </Button>
+
+                                <Label fx:id="lblInfo" text="" style="-fx-text-fill: #888888;">
+                                    <font>
+                                        <Font size="11.0"/>
+                                    </font>
+                                    <HBox.margin>
+                                        <Insets left="15.0"/>
+                                    </HBox.margin>
+                                </Label>
+                            </children>
+                        </HBox>
+
+                        <!-- Content Area -->
+                        <HBox spacing="15.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <!-- Table -->
+                                <VBox style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 0; -fx-border-color: rgba(0,0,0,0.05); -fx-border-radius: 10;" HBox.hgrow="ALWAYS">
+                                    <effect>
+                                        <DropShadow blurType="GAUSSIAN" color="#00000014" radius="8"/>
+                                    </effect>
+                                    <children>
+                                        <Label text="💡 Cliquez sur une parcelle pour la modifier ou la supprimer" style="-fx-text-fill: #888888;">
+                                            <font>
+                                                <Font name="System Italic" size="12.0"/>
+                                            </font>
+                                            <padding>
+                                                <Insets left="15.0" top="10.0" bottom="5.0"/>
+                                            </padding>
+                                        </Label>
+                                        <TableView fx:id="tableParcelles" style="-fx-background-radius: 10; -fx-border-color: transparent;" VBox.vgrow="ALWAYS">
+                                            <columns>
+                                                <TableColumn fx:id="colId" prefWidth="50.0" text="ID"/>
+                                                <TableColumn fx:id="colSurface" prefWidth="80.0" text="Surface (ha)"/>
+                                                <TableColumn fx:id="colLocalisation" prefWidth="120.0" text="Localisation"/>
+                                                <TableColumn fx:id="colTypeSol" prefWidth="100.0" text="Type Sol"/>
+                                                <TableColumn fx:id="colSystemeIrrigation" prefWidth="120.0" text="Irrigation"/>
+                                                <TableColumn fx:id="colStatut" prefWidth="80.0" text="Statut"/>
+                                            </columns>
+                                        </TableView>
+                                    </children>
+                                </VBox>
+
+                                <!-- Form / Details Panel -->
+                                <VBox spacing="12.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 20; -fx-effect: dropshadow(gaussian, #00000014, 8, 0, 0, 0);" prefWidth="300.0">
+                                    <children>
+                                        <Label fx:id="lblTitreFormulaire" text="Ajouter une parcelle" style="-fx-text-fill: #116530;">
+                                            <font>
+                                                <Font name="System Bold" size="16.0"/>
+                                            </font>
+                                            <VBox.margin>
+                                                <Insets bottom="10.0"/>
+                                            </VBox.margin>
+                                        </Label>
+
+                                        <javafx.scene.control.ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+                                            <content>
+                                                <VBox spacing="12.0" style="-fx-background-color: transparent;">
+                                                    <children>
+                                                        <!-- ═══ SECTION 1 : LOCALISATION ═══ -->
+                                                        <Label text="📍 Localisation" style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 12;">
+                                                            <VBox.margin><Insets bottom="2.0"/></VBox.margin>
+                                                        </Label>
+
+                                                        <Button onAction="#ouvrirSelecteurCarte" text="📍 Choisir sur la carte"
+                                                                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand; -fx-font-size: 12; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10;"
+                                                                maxWidth="Infinity"/>
+                                                        <Label text="💡 Cliquez pour sélectionner l'emplacement — les champs ci-dessous se rempliront automatiquement"
+                                                               wrapText="true"
+                                                               style="-fx-text-fill: #2E7D32; -fx-font-size: 9; -fx-font-style: italic;"/>
+
+                                                        <Label text="Localisation" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                                                        <TextField fx:id="tfLocalisation" promptText="Ex: Tunis, Route de Bizerte..." style="-fx-background-radius: 5;"/>
+
+                                                        <Label text="Coordonnées GPS (Optionnel)" style="-fx-text-fill: #b2bec3; -fx-font-weight: bold; -fx-font-size: 11;">
+                                                            <VBox.margin><Insets top="2.0"/></VBox.margin>
+                                                        </Label>
+                                                        <HBox spacing="10">
+                                                            <VBox HBox.hgrow="ALWAYS">
+                                                                <Label text="Latitude" style="-fx-text-fill: #95a5a6; -fx-font-size: 10;"/>
+                                                                <TextField fx:id="tfLatitude" promptText="36.80" style="-fx-background-radius: 5;"/>
+                                                            </VBox>
+                                                            <VBox HBox.hgrow="ALWAYS">
+                                                                <Label text="Longitude" style="-fx-text-fill: #95a5a6; -fx-font-size: 10;"/>
+                                                                <TextField fx:id="tfLongitude" promptText="10.18" style="-fx-background-radius: 5;"/>
+                                                            </VBox>
+                                                        </HBox>
+
+                                                        <VBox style="-fx-background-color: #FFF8E1; -fx-background-radius: 8; -fx-padding: 10;">
+                                                            <Label text="Info Géolocalisation" style="-fx-text-fill: #F57C00; -fx-font-weight: bold; -fx-font-size: 11;"/>
+                                                            <Label text="Laissez vide pour utiliser le géocodage automatique basé sur la localisation." wrapText="true" style="-fx-text-fill: #F57C00; -fx-font-size: 10;"/>
+                                                        </VBox>
+
+                                                        <!-- ═══ RECOMMANDATION IA GROQ ═══ -->
+                                                        <VBox fx:id="boxGeminiReco" spacing="6" visible="false" managed="false"
+                                                              style="-fx-background-color: linear-gradient(to bottom right, #E8F5E9, #C8E6C9); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #66BB6A; -fx-border-radius: 10; -fx-border-width: 1;">
+                                                            <HBox spacing="8" alignment="CENTER_LEFT">
+                                                                <Label text="🤖 Recommandations IA (Groq)" style="-fx-text-fill: #2E7D32; -fx-font-weight: bold; -fx-font-size: 12;"/>
+                                                                <ProgressIndicator fx:id="piGemini" prefWidth="16" prefHeight="16" visible="false"/>
+                                                            </HBox>
+                                                            <Label fx:id="lblGeminiExplication" wrapText="true"
+                                                                   style="-fx-text-fill: #33691E; -fx-font-size: 10; -fx-font-style: italic;"/>
+                                                            <HBox spacing="6">
+                                                                <Button fx:id="btnAppliquerReco" onAction="#appliquerRecommandationGemini"
+                                                                        text="✅ Appliquer" style="-fx-background-color: #43A047; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 11; -fx-background-radius: 6; -fx-cursor: hand; -fx-padding: 6 14;"/>
+                                                                <Button fx:id="btnReessayerReco" onAction="#reessayerRecommandationGemini" visible="false"
+                                                                        text="🔄 Réessayer" style="-fx-background-color: #1565C0; -fx-text-fill: white; -fx-font-size: 11; -fx-background-radius: 6; -fx-cursor: hand; -fx-padding: 6 14;"/>
+                                                                <Button onAction="#ignorerRecommandationGemini"
+                                                                        text="✖ Ignorer" style="-fx-background-color: transparent; -fx-text-fill: #888; -fx-font-size: 10; -fx-cursor: hand; -fx-underline: true;"/>
+                                                            </HBox>
+                                                        </VBox>
+
+                                                        <!-- ═══ SECTION 2 : DÉTAILS AGRICOLES ═══ -->
+                                                        <Separator style="-fx-padding: 5 0;">
+                                                            <VBox.margin><Insets top="5.0" bottom="2.0"/></VBox.margin>
+                                                        </Separator>
+                                                        <Label text="🌾 Détails de la parcelle" style="-fx-text-fill: #116530; -fx-font-weight: bold; -fx-font-size: 12;">
+                                                            <VBox.margin><Insets bottom="2.0"/></VBox.margin>
+                                                        </Label>
+
+                                                        <Label text="Surface (hectares) *" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                                                        <TextField fx:id="tfSurface" promptText="Ex: 2.5" style="-fx-background-radius: 5;"/>
+
+                                                        <Label text="Type de Sol" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                                                        <TextField fx:id="tfTypeSol" promptText="Ex: Argileux, Sableux..." style="-fx-background-radius: 5;"/>
+
+                                                        <Label text="Système d'Irrigation" style="-fx-text-fill: #b2bec3; -fx-font-size: 11;"/>
+                                                        <TextField fx:id="tfSystemeIrrigation" promptText="Ex: Goutte-à-goutte..." style="-fx-background-radius: 5;"/>
+
+                                                        <CheckBox fx:id="chkStatutActive" text="Parcelle active" selected="true"
+                                                                  style="-fx-text-fill: #116530; -fx-font-size: 12; -fx-cursor: hand;"/>
+                                                        <Label text="💡 Coché = parcelle exploitée | Décoché = en repos (jachère)"
+                                                               style="-fx-text-fill: #aab0b5; -fx-font-size: 9; -fx-font-style: italic;"/>
+                                                    </children>
+                                                </VBox>
+                                            </content>
+                                        </javafx.scene.control.ScrollPane>
+
+                                        <!-- Buttons -->
+                                        <HBox spacing="10.0" alignment="CENTER" VBox.vgrow="ALWAYS">
+                                            <padding>
+                                                <Insets top="15.0"/>
+                                            </padding>
+                                            <children>
+                                                <Button fx:id="btnAjouter" onAction="#ajouterParcelle" text="Ajouter" style="-fx-background-color: #116530; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5;" prefWidth="90.0"/>
+                                                <Button fx:id="btnModifier" onAction="#modifierParcelle" text="Modifier" style="-fx-background-color: #4a8c3f; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5;" prefWidth="90.0" visible="false"/>
+                                                <Button fx:id="btnSupprimer" onAction="#supprimerParcelle" text="Supprimer" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-radius: 5;" prefWidth="90.0" visible="false"/>
+                                            </children>
+                                        </HBox>
+                                        <Button onAction="#viderChamps" text="Annuler" style="-fx-background-color: transparent; -fx-text-fill: #95a5a6; -fx-underline: true; -fx-cursor: hand;" maxWidth="Infinity"/>
+
+                                        <!-- Smart Agriculture IA Section -->
+                                        <VBox spacing="6" style="-fx-background-color: linear-gradient(to bottom right, #0A1628, #0D3D2E); -fx-background-radius: 10; -fx-padding: 12; -fx-border-color: #6ec6a04d; -fx-border-radius: 10; -fx-border-width: 1;" fx:id="boxSmartIA" visible="false" managed="false">
+                                            <Label text="🧠 Intelligence Agricole" style="-fx-text-fill: #6EC6A0; -fx-font-weight: bold; -fx-font-size: 12;"/>
+                                            <Label text="Analyse IA: géolocalisation + météo temps réel + recommandation de 2 cultures optimisées" wrapText="true" style="-fx-text-fill: #7EC8A0; -fx-font-size: 10;"/>
+                                             <Button fx:id="btnSmartIA" onAction="#ouvrirSmartParcelle"
+                                                    text="🧠 Recommandation IA"
+                                                    style="-fx-background-color: linear-gradient(to right, #6EC6A0, #4CAF50); -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 10; -fx-cursor: hand; -fx-padding: 10 20; -fx-font-size: 13; -fx-effect: dropshadow(gaussian, #6ec6a066, 12, 0, 0, 0);"/>
+                                         </VBox>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

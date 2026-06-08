@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns="http://javafx.com/javafx/11"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.neuron.ardhi.controllers.MaterielEtMaintenance.DetailMaterielController"
+      spacing="20"
+      style="-fx-background-color: #f8f9fa;">
+
+    <padding>
+        <Insets top="30" right="30" bottom="30" left="30"/>
+    </padding>
+
+    <!-- En-tête avec titre -->
+    <VBox spacing="10" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label fx:id="labelNomMateriel"
+               text="Nom du Matériel"
+               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c6b2c;"/>
+
+        <Label fx:id="labelReference"
+               text="Référence"
+               style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
+    </VBox>
+
+    <!-- État -->
+    <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: white; -fx-padding: 15; -fx-background-radius: 10;">
+        <Label text="État actuel :" style="-fx-font-weight: bold; -fx-font-size: 14px;"/>
+        <Label fx:id="labelEtat" text="État" style="-fx-font-size: 14px; -fx-text-fill: #4CAF50;"/>
+    </HBox>
+
+    <!-- Informations détaillées -->
+    <VBox spacing="15" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label text="📋 Informations du Matériel"
+               style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #2c6b2c;"/>
+
+        <GridPane hgap="15" vgap="12">
+            <Label text="Type :" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                   style="-fx-font-weight: bold;"/>
+            <Label fx:id="labelType" text="Type" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+            <Label text="Propriétaire :" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                   style="-fx-font-weight: bold;"/>
+            <Label fx:id="labelProprietaire" text="Propriétaire" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        </GridPane>
+    </VBox>
+
+    <!-- Section Maintenance -->
+    <VBox spacing="10" style="-fx-background-color: #FFF3E0; -fx-padding: 20; -fx-background-radius: 10;">
+        <Label text="🔧 Maintenance"
+               style="-fx-font-weight: bold; -fx-font-size: 16px; -fx-text-fill: #E65100;"/>
+        <Label text="Historique des maintenances à implémenter"
+               style="-fx-text-fill: #666;"/>
+        <Label text="* Fonctionnalité à venir"
+               style="-fx-font-style: italic; -fx-text-fill: #999;"/>
+    </VBox>
+
+    <!-- Boutons d'action -->
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="📅 Planifier Maintenance"
+                onAction="#handlePlanifierMaintenance"
+                style="-fx-background-color: #FF9800; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;"/>
+
+        <Button text="📄 Générer Rapport"
+                onAction="#handleGenererRapport"
+                style="-fx-background-color: #2196F3; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;"/>
+
+        <Button text="← Retour"
+                onAction="#handleRetour"
+                style="-fx-background-color: #757575; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 5;"/>
+    </HBox>
+
+</VBox>

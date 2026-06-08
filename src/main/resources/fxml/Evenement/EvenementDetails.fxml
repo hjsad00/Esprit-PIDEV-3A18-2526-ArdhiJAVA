@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.EvenementDetailsController"
+           prefWidth="900" prefHeight="750"
+           stylesheets="@/Style/evenement-style.css">
+
+    <!-- LAYER 1: BACKGROUND -->
+    <AnchorPane>
+        <Rectangle height="750.0" width="900.0"
+                   style="-fx-fill: linear-gradient(to bottom right, #16A085 0%, #1ABC9C 50%, #48C9B0 100%);" />
+        <Rectangle height="750.0" width="900.0"
+                   style="-fx-fill: linear-gradient(to top, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0) 50%);" />
+    </AnchorPane>
+
+    <!-- LAYER 2: CONTENT -->
+    <ScrollPane fitToWidth="true" fitToHeight="true"
+                style="-fx-background: transparent; -fx-background-color: transparent;">
+        <VBox spacing="25" alignment="TOP_CENTER" style="-fx-padding: 40;">
+
+            <!-- Main Card -->
+            <VBox spacing="25"
+                  style="-fx-background-color: rgba(255,255,255,0.98); -fx-background-radius: 25; -fx-padding: 40; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 30, 0, 0, 5);"
+                  maxWidth="820">
+
+                <!-- Header Section -->
+                <VBox spacing="15">
+                    <Label fx:id="titreLabel" text="Titre de l'événement"
+                           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #2C3E50; -fx-wrap-text: true;"/>
+
+                    <HBox spacing="15">
+                        <Label fx:id="typeLabel" text="TYPE"
+                               style="-fx-background-color: linear-gradient(135deg, #3498DB, #2980B9); -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                        <Label fx:id="statutLabel" text="STATUT"
+                               style="-fx-background-color: linear-gradient(135deg, #50C878, #229954); -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 8 20; -fx-font-weight: bold; -fx-font-size: 13px;"/>
+                    </HBox>
+                </VBox>
+
+                <Separator style="-fx-background-color: #E0E0E0;"/>
+
+                <!-- Information Grid -->
+                <GridPane hgap="25" vgap="20"
+                          style="-fx-background-color: #F8F8F0; -fx-background-radius: 15; -fx-padding: 25;">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="30"/>
+                        <ColumnConstraints percentWidth="70"/>
+                    </columnConstraints>
+
+                    <Label text="📅 Date:"
+                           style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #666;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                    <Label fx:id="dateLabel" text="Date"
+                           style="-fx-font-size: 15px; -fx-text-fill: #2C3E50;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                    <Label text="📍 Lieu:"
+                           style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #666;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                    <Label fx:id="lieuLabel" text="Lieu"
+                           style="-fx-font-size: 15px; -fx-text-fill: #2C3E50;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                    <Label text="👤 Organisateur:"
+                           style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #666;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                    <Label fx:id="organisateurLabel" text="Organisateur"
+                           style="-fx-font-size: 15px; -fx-text-fill: #2C3E50;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+                    <Label text="⭐ Note moyenne:"
+                           style="-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #666;"
+                           GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+                    <Label fx:id="noteMoyenneLabel" text="N/A"
+                           style="-fx-font-size: 15px; -fx-text-fill: #F39C12; -fx-font-weight: bold;"
+                           GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+                </GridPane>
+
+                <!-- Description Section -->
+                <VBox spacing="12">
+                    <Label text="📝 Description"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                    <TextArea fx:id="descriptionArea"
+                              wrapText="true"
+                              prefRowCount="4"
+                              editable="false"
+                              style="-fx-background-color: #F8F8F0; -fx-background-radius: 12; -fx-border-color: #E0E0E0; -fx-border-radius: 12; -fx-font-size: 14px;"/>
+                </VBox>
+
+                <!-- Participants Section -->
+                <VBox spacing="12"
+                      style="-fx-background-color: #FFF8F0; -fx-background-radius: 15; -fx-padding: 20;">
+                    <Label text="👥 Participations"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2C3E50;"/>
+                    <HBox spacing="20" alignment="CENTER_LEFT">
+                        <Label fx:id="placesLabel" text="0 / 0 participants"
+                               style="-fx-font-size: 16px; -fx-text-fill: #666; -fx-font-weight: bold;"/>
+                        <ProgressBar fx:id="placesProgressBar" prefWidth="400" prefHeight="20"
+                                     progress="0"
+                                     style="-fx-accent: #50C878;"/>
+                    </HBox>
+                </VBox>
+
+                <!-- ACTION BUTTONS - LIGNE 1: Inscription + Avis -->
+                <HBox spacing="15" alignment="CENTER" style="-fx-padding: 10 0;">
+                    <Button fx:id="inscrireButton"
+                            text="✓ S'inscrire"
+                            onAction="#handleInscrire"
+                            prefWidth="180" prefHeight="50"
+                            style="-fx-background-color: linear-gradient(to bottom right, #50C878, #229954); -fx-text-fill: white; -fx-background-radius: 25; -fx-font-weight: bold; -fx-font-size: 16px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0, 0, 3);"/>
+
+                    <Button fx:id="annulerInscriptionButton"
+                            text="✗ Annuler"
+                            onAction="#handleAnnulerInscription"
+                            prefWidth="180" prefHeight="50"
+                            visible="false"
+                            managed="false"
+                            style="-fx-background-color: linear-gradient(to bottom right, #E74C3C, #C0392B); -fx-text-fill: white; -fx-background-radius: 25; -fx-font-weight: bold; -fx-font-size: 16px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0, 0, 3);"/>
+
+                    <Button fx:id="ajouterAvisButton"
+                            text="⭐ Donner mon avis"
+                            onAction="#handleAjouterAvis"
+                            prefWidth="200" prefHeight="50"
+                            visible="false"
+                            managed="false"
+                            style="-fx-background-color: linear-gradient(to bottom right, #F39C12, #E67E22); -fx-text-fill: white; -fx-background-radius: 25; -fx-font-weight: bold; -fx-font-size: 16px; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0, 0, 3);"/>
+                </HBox>
+
+                <!-- ACTION BUTTONS - LIGNE 2: Calendrier + Localisation -->
+                <HBox spacing="15" alignment="CENTER" style="-fx-padding: 0 0 10 0;">
+                    <!-- Bouton Ajouter au Calendrier -->
+                    <Button text="📅 Ajouter au calendrier"
+                            onAction="#handleAjouterCalendrier"
+                            prefWidth="240" prefHeight="50"
+                            style="-fx-background-color: linear-gradient(to bottom right, #3498DB, #2980B9);
+                                   -fx-text-fill: white;
+                                   -fx-background-radius: 25;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 14px;
+                                   -fx-cursor: hand;
+                                   -fx-effect: dropshadow(gaussian, rgba(52,152,219,0.4), 12, 0, 0, 3);"/>
+
+                    <!-- Bouton Voir Localisation -->
+                    <Button text="📍 Voir localisation"
+                            onAction="#handleVoirLocalisation"
+                            prefWidth="240" prefHeight="50"
+                            style="-fx-background-color: linear-gradient(to bottom right, #9B59B6, #8E44AD);
+                                   -fx-text-fill: white;
+                                   -fx-background-radius: 25;
+                                   -fx-font-weight: bold;
+                                   -fx-font-size: 14px;
+                                   -fx-cursor: hand;
+                                   -fx-effect: dropshadow(gaussian, rgba(155,89,182,0.4), 12, 0, 0, 3);"/>
+                </HBox>
+
+                <Separator style="-fx-background-color: #E0E0E0;"/>
+
+                <!-- Tabs Section -->
+                <TabPane fx:id="tabPane" VBox.vgrow="ALWAYS"
+                         style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                    <Tab text="👥 Participants" closable="false">
+                        <ScrollPane fitToWidth="true" fitToHeight="true"
+                                    style="-fx-background-color: transparent;">
+                            <VBox fx:id="participantsContainer" spacing="15" style="-fx-padding: 20;"/>
+                        </ScrollPane>
+                    </Tab>
+
+                    <Tab text="💬 Avis" closable="false">
+                        <ScrollPane fitToWidth="true" fitToHeight="true"
+                                    style="-fx-background-color: transparent;">
+                            <VBox fx:id="avisContainer" spacing="20" style="-fx-padding: 20;"/>
+                        </ScrollPane>
+                    </Tab>
+                </TabPane>
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</StackPane>

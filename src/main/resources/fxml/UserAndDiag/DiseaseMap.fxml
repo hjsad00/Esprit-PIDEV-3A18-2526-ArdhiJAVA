@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane prefHeight="710.0" prefWidth="1060.0" stylesheets="@../../Style/UserAndDiagStyles.css" xmlns="http://javafx.com/javafx/20" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.neuron.ardhi.controllers.UserAndDiag.DiseaseMapController">
+    <children>
+         <AnchorPane styleClass="app-background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        
+        <!-- Dark Overlay -->
+        <Rectangle height="710.0" width="1060.0" opacity="0.4" fill="BLACK" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+
+        <VBox spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+             <!-- Header removed and moved to root -->
+
+            <!-- Map Container (Glass Wrapper around WebView) -->
+            <StackPane VBox.vgrow="ALWAYS" style="-fx-background-color: rgba(255, 255, 255, 0.35); -fx-background-radius: 20; -fx-border-color: rgba(255, 255, 255, 0.2); -fx-border-radius: 20; -fx-padding: 10;">
+                <effect>
+                     <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.2)" radius="15"/>
+                </effect>
+                <children>
+                    <!-- Clip the WebView to have rounded corners -->
+                    <StackPane style="-fx-background-radius: 12; -fx-border-radius: 12; -fx-background-color: white;"> <!-- Inner container for webview -->
+                         <WebView fx:id="webView" prefHeight="-1.0" prefWidth="-1.0" />
+                    </StackPane>
+                    
+                    <!-- Regional Summary Overlay (Right Sidebar) -->
+                    <VBox maxWidth="250.0" maxHeight="350.0" spacing="10.0" style="-fx-background-color: rgba(255, 255, 255, 0.85); -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 2); -fx-padding: 15;" StackPane.alignment="TOP_RIGHT">
+                        <StackPane.margin>
+                            <Insets right="20.0" top="20.0"/>
+                        </StackPane.margin>
+                        <children>
+                            <Label text="🌍 État Sanitaire Régional" style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size: 14;"/>
+                            <Label text="Maladies actives (rayon 50km)" style="-fx-text-fill: #7f8c8d; -fx-font-size: 11;"/>
+                            
+                            <javafx.scene.control.ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;" VBox.vgrow="ALWAYS">
+                                <content>
+                                    <VBox fx:id="regionalSummaryContainer" spacing="8.0">
+                                        <children>
+                                            <Label text="Chargement..." style="-fx-text-fill: #95a5a6; -fx-font-style: italic;"/>
+                                        </children>
+                                    </VBox>
+                                </content>
+                            </javafx.scene.control.ScrollPane>
+                        </children>
+                    </VBox>
+                </children>
+            </StackPane>
+        </VBox>
+
+         <!-- Header -->
+        <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: rgba(0,0,0,0.2); -fx-padding: 5 20;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+             <effect>
+                <DropShadow blurType="GAUSSIAN" color="rgba(0,0,0,0.3)" radius="10" offsetY="2"/>
+            </effect>
+            <children>
+                <Button mnemonicParsing="false" onAction="#goBack" style="-fx-background-color: transparent; -fx-cursor: hand; -fx-text-fill: white;" text="←">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Button>
+                <Label text="Cartographie des Maladies" style="-fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 2, 0, 0, 1);">
+                    <font>
+                        <Font name="System Bold" size="20.0"/>
+                    </font>
+                </Label>
+                 <HBox alignment="CENTER" HBox.hgrow="ALWAYS">
+                    <Label fx:id="lblStatus" text="" style="-fx-text-fill: white; -fx-font-weight: bold;">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                 </HBox>
+                 <Button fx:id="btnNDVI" mnemonicParsing="false" onAction="#toggleNDVI"
+                        style="-fx-background-color: linear-gradient(to right, #2980b9, #1a5276); -fx-background-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 1); -fx-padding: 8 20;"
+                        text="🛰️ NDVI Satellite" textFill="white">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+                 <Button mnemonicParsing="false" onAction="#refreshMap" 
+                        style="-fx-background-color: linear-gradient(to right, #6B7F3F, #4A5A2B); -fx-background-radius: 20; -fx-cursor: hand; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 5, 0, 0, 1); -fx-padding: 8 20;" 
+                        text="🔄 Actualiser" textFill="white">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

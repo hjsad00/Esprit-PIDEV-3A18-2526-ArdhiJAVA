@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.shape.Rectangle?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="tn.neuron.ardhi.controllers.Evenement.AjouterAvisController"
+           prefWidth="650" prefHeight="700"
+           stylesheets="@/Style/evenement-style.css">
+
+    <!-- BACKGROUND LAYER -->
+    <AnchorPane>
+        <Rectangle width="650" height="700"
+                   style="-fx-fill: linear-gradient(to bottom right, #F1C40F 0%, #F39C12 50%, #E67E22 100%);"
+                   AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+                   AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0"/>
+    </AnchorPane>
+
+    <!-- MAIN CONTENT -->
+    <VBox alignment="CENTER" spacing="0" style="-fx-padding: 40;">
+
+        <!-- Main Card -->
+        <VBox alignment="CENTER" spacing="30"
+              style="-fx-background-color: rgba(255,255,255,0.98);
+                     -fx-background-radius: 30;
+                     -fx-padding: 45;
+                     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 30, 0, 0, 8);"
+              maxWidth="570">
+
+            <!-- Header Section -->
+            <VBox alignment="CENTER" spacing="15">
+                <Label text="⭐"
+                       style="-fx-font-size: 72px;
+                              -fx-effect: dropshadow(three-pass-box, rgba(243,156,18,0.3), 10, 0, 0, 3);"/>
+
+                <Label text="Votre Avis Compte !"
+                       style="-fx-font-size: 32px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #2C3E50;"/>
+
+                <Label fx:id="eventTitleLabel"
+                       text="Nom de l'événement"
+                       style="-fx-font-size: 16px;
+                              -fx-text-fill: #7F8C8D;
+                              -fx-text-alignment: center;
+                              -fx-wrap-text: true;"
+                       wrapText="true"
+                       maxWidth="480"/>
+            </VBox>
+
+            <Separator prefWidth="500"
+                       style="-fx-background-color: rgba(0,0,0,0.1);"/>
+
+            <!-- Star Rating Section -->
+            <VBox alignment="CENTER" spacing="20"
+                  style="-fx-background-color: #FFF8F0;
+                         -fx-background-radius: 20;
+                         -fx-padding: 30;
+                         -fx-border-color: rgba(243,156,18,0.2);
+                         -fx-border-radius: 20;">
+
+                <Label text="Sélectionnez votre note"
+                       style="-fx-font-size: 16px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #666;"/>
+
+                <HBox fx:id="starsBox"
+                      alignment="CENTER"
+                      spacing="18">
+                    <!-- Stars will be added dynamically -->
+                </HBox>
+
+                <Label fx:id="selectedNoteLabel"
+                       text="0 / 5"
+                       style="-fx-font-size: 42px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #F39C12;
+                              -fx-effect: dropshadow(three-pass-box, rgba(243,156,18,0.2), 8, 0, 0, 2);"/>
+            </VBox>
+
+            <!-- Comment Section -->
+            <VBox spacing="15">
+                <Label text="Votre commentaire (optionnel)"
+                       style="-fx-font-size: 15px;
+                              -fx-font-weight: bold;
+                              -fx-text-fill: #666;"/>
+
+                <TextArea fx:id="avisTextArea"
+                          promptText="Partagez votre expérience et vos impressions sur cet événement..."
+                          wrapText="true"
+                          prefRowCount="5"
+                          prefWidth="500"
+                          style="-fx-background-color: #F8F9FA;
+                                 -fx-background-radius: 15;
+                                 -fx-padding: 15;
+                                 -fx-font-size: 14px;
+                                 -fx-border-color: rgba(0,0,0,0.1);
+                                 -fx-border-radius: 15;"/>
+
+                <Label text="💡 Votre avis aidera les autres participants et les organisateurs à améliorer leurs événements"
+                       style="-fx-font-size: 12px;
+                              -fx-text-fill: #999;
+                              -fx-font-style: italic;
+                              -fx-wrap-text: true;"
+                       wrapText="true"
+                       maxWidth="500"/>
+            </VBox>
+
+            <!-- Action Buttons -->
+            <HBox spacing="20" alignment="CENTER" style="-fx-padding: 15 0 0 0;">
+                <Button fx:id="cancelButton"
+                        text="Annuler"
+                        onAction="#handleCancel"
+                        prefWidth="150"
+                        prefHeight="50"
+                        style="-fx-background-color: #ECF0F1;
+                               -fx-text-fill: #7F8C8D;
+                               -fx-background-radius: 25;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 15px;
+                               -fx-cursor: hand;"/>
+
+                <Button fx:id="submitButton"
+                        text="✓ Soumettre mon avis"
+                        onAction="#handleSubmit"
+                        prefWidth="220"
+                        prefHeight="50"
+                        disable="true"
+                        style="-fx-background-color: linear-gradient(to right, #50C878, #229954);
+                               -fx-text-fill: white;
+                               -fx-background-radius: 25;
+                               -fx-font-weight: bold;
+                               -fx-font-size: 15px;
+                               -fx-cursor: hand;">
+                    <effect>
+                        <DropShadow color="rgba(80,200,120,0.4)" radius="12" offsetY="4"/>
+                    </effect>
+                </Button>
+            </HBox>
+        </VBox>
+    </VBox>
+</StackPane>
