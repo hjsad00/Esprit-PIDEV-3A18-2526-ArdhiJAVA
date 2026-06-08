@@ -1,7 +1,7 @@
 # ArdhiJAVA
 
 ## Description
-ArdhiJAVA est une application Desktop (JavaFX) développée en Java. Elle propose diverses fonctionnalités liées à la gestion de l'agriculture, des parcelles, la marketplace, et l'intégration de services IA et de communication.
+Ardhi est une application Desktop (JavaFX) développée en Java. Elle propose diverses fonctionnalités liées à la gestion de l'agriculture, des parcelles, la marketplace, et l'intégration de services IA et de communication.
 
 ## Technologies utilisées
 - **Frontend** : JavaFX
@@ -55,4 +55,4 @@ Vidéo : https://www.youtube.com/watch?v=EUZm2hC9VuE
 ## Auteurs, Classe, Tuteur
 **Auteurs** : Souibgui Saifeddine, Affi Rim, Ben Attia Yasmine, Rahmouni Yasmine, Delhoumi Elyes, Haj Salem Adel  
 **Classe** : 3A18  
-**Tuteur** : El Hakim Imen, Gaudria Khaled
+**Tuteur** : Mr Gaudria Khaled
