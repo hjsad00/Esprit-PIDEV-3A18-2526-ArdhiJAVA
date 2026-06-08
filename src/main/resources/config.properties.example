@@ -83,3 +83,7 @@ google.calendar.id=your-email@gmail.com
 google.credentials.employe.path=/google/credentials.json
 google.credentials.maintenance.path=credentials.json
 google.credentials.evenement.path=credentials_evenements.json
+
+# ─── Gemini API (module Smart Agriculture) ──────────────
+# Get your key at: https://aistudio.google.com/app/apikey
+gemini.api.key=VOTRE_CLE_ICI

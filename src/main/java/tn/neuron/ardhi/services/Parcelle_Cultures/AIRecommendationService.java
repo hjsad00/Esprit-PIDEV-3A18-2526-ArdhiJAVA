@@ -11,13 +11,14 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Logger;
+import tn.neuron.ardhi.utils.UserAndDiag.AppConfig;
 
 /**
  * Service IA utilisant l'API Google Gemini pour les recommandations de cultures.
  *
  * Clé API non requise en mode démo — peut être configurée via
- * la propriété système "ardhi.gemini.api.key" ou le fichier
- * src/main/resources/ardhi.properties (clé: gemini.api.key)
+ * la variable d'environnement GEMINI_API_KEY ou le fichier
+ * config.properties (clé: gemini.api.key) via AppConfig.
  *
  * Documentation: https://ai.google.dev/gemini-api/docs
  */
@@ -408,24 +409,13 @@ public class AIRecommendationService {
     }
 
     private String chargerApiKey() {
-        // 1. Propriété système
-        String key = System.getProperty("ardhi.gemini.api.key");
+        // 1. Variable d'environnement
+        String key = System.getenv("GEMINI_API_KEY");
         if (key != null && !key.isBlank()) return key;
 
-        // 2. Variable d'environnement
-        key = System.getenv("GEMINI_API_KEY");
-        if (key != null && !key.isBlank()) return key;
-
-        // 3. Fichier de configuration dans les ressources
-        try (InputStream is = AIRecommendationService.class
-                .getResourceAsStream("/ardhi.properties")) {
-            if (is != null) {
-                Properties props = new Properties();
-                props.load(new InputStreamReader(is, StandardCharsets.UTF_8));
-                key = props.getProperty("gemini.api.key", "").trim();
-                if (!key.isBlank() && !key.equals("VOTRE_CLE_ICI")) return key;
-            }
-        } catch (Exception ignored) {}
+        // 2. Fichier de configuration centralisé (config.properties) via AppConfig
+        key = AppConfig.get("gemini.api.key", "").trim();
+        if (!key.isBlank() && !key.equals("VOTRE_CLE_ICI")) return key;
 
         return null;
     }
